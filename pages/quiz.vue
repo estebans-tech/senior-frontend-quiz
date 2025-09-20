@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch, nextTick } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { useQuizStore } from '~/stores/quiz'
 
 import QuestionCard from '~/components/QuestionCard.vue'
@@ -14,6 +15,7 @@ const app = useAppConfig()
 const router = useRouter()
 const route = useRoute()
 const store = useQuizStore()
+const { t } = useI18n()
 
 // ----- load / reload session from query -----
 async function loadFromQuery() {
@@ -121,22 +123,21 @@ function finishAndGoResults() {
     <header class="bg-white border-b">
       <div class="mx-auto max-w-5xl px-4 py-4 flex items-center justify-between">
         <div>
-          <h1 class="text-lg font-semibold">Scrum PSMI - Quiz</h1>
+          <h1 class="text-lg font-semibold">
+            <a href="/">{{ t('quiz.header.title') }}</a>
+          </h1>
           <p v-if="store.lastConfig" class="text-xs text-gray-500 mt-1">
-            <!-- Mode: <span class="font-medium">{{ store.lastConfig.mode || 'study' }}</span> · -->
-            Using: <span class="font-medium">{{ store.lastConfig.filter }}</span>
-            <!-- max <span class="font-medium">{{ store.lastConfig.max }}</span> -->
-            <!-- <span v-if="store.lastConfig.seed"> · seed {{ store.lastConfig.seed }}</span> -->
+            {{ t('quiz.header.legend') }} <span class="font-medium">{{ store.lastConfig.filter }}</span>
           </p>
           <!-- 🔊 SR-annons när sista frågan nås -->
           <p v-if="srStatus" class="sr-only" role="status" aria-live="polite">{{ srStatus }}</p>
         </div>
         <div class="flex items-center gap-3">
           <button class="text-sm underline hover:no-underline" @click="requestRestart">
-            Restart
+            {{ t('quiz.header.nav.repeat') }}
           </button>
           <button class="text-sm underline hover:no-underline" @click="requestBackToStart">
-            Back to start
+            {{ t('quiz.header.nav.backToStart') }}
           </button>
         </div>
       </div>
@@ -144,18 +145,18 @@ function finishAndGoResults() {
 
     <!-- BODY -->
     <section class="mx-auto w-full max-w-5xl px-4 py-6 flex-1">
-      <div v-if="store.loading" class="text-sm text-gray-600">Loading questions…</div>
+      <div v-if="store.loading" class="text-sm text-gray-600">{{ t('quiz.header.loadingQuestion') }}</div>
 
       <div v-else-if="store.error"
            class="rounded-xl border border-red-300 bg-red-50 p-4 text-red-900" role="alert">
         <div class="font-semibold mb-1">Failed to load</div>
         <p class="text-sm">{{ store.error }}</p>
-        <button class="mt-3 underline" @click="requestBackToStart">Back to start</button>
+        <button class="mt-3 underline" @click="requestBackToStart"> {{ t('quiz.header.nav.backToStart') }}</button>
       </div>
 
       <div v-else-if="!hasSession" class="text-sm text-gray-600">
         No questions available for this selection.
-        <button class="underline ml-1" @click="requestBackToStart">Back to start</button>
+        <button class="underline ml-1" @click="requestBackToStart"> {{ t('quiz.header.nav.backToStart') }}</button>
       </div>
 
       <div v-else class="space-y-6">

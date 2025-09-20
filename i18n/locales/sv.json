@@ -1,5 +1,34 @@
 {
-  "welcome": "PSPO I - MCQ Tränare",
+  "home": {
+    "title": "Senior Frontend Quiz Trainer",
+    "description": "Öva på flervalsfrågor. Visa svar och förklaringar, sedan granska resultat.",
+    "categorySelection": {
+      "title": "Välj kategori",
+      "questionAmount": "Antal frågor (max)",
+      "wellFetch": "Vi väljer",
+      "upTo": "up till",
+      "thisAmount": "den mängd",
+      "button": {
+        "start": "Starta quiz"
+      }
+    }
+  },
+  "quiz": {
+    "header": {
+      "title": "Senior Frontend Quiz Trainer",
+      "legend": "Använder:",
+      "nav": {
+        "repeat": "Upprepa",
+        "backToStart": "Till start"
+      },
+      "loadingQuestion": "",
+      "failedToLoad": "",
+      "noQuestionsAvailable": "",
+      "questions": "frågor",
+      "loaded": "laddade"
+    }
+  },
+  "welcome": "Senior Frontend Quiz Trainer",
   "description": "Öva på flervalsfrågor. Visa svar och förklaringar, sedan granska resultat.",
   "chooseCategory": "Välj kategori",
   "questionAmount": "Antal frågor (max)",
@@ -14,7 +43,7 @@
     "backToStart": "Tillbaka"
   },
   "result": {
-    "title": "PSPO I - Resultat",
+    "title": "Senior Frontend Quiz - Resultat",
     "repeat": "Igen",
     "backToStart": "Tillbaka",
     "noSession": "Ingen session laddad.",

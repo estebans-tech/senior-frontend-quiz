@@ -58,12 +58,12 @@ function start() {
 <template>
   <main class="min-h-screen grid place-items-center bg-gray-50">
     <div class="bg-white shadow rounded-2xl p-6 w-full max-w-md space-y-5">
-      <h1 class="text-xl font-semibold">{{ t('welcome') }}</h1>
-      <p class="text-sm text-gray-600">{{ t('description') }}</p>
+      <h1 class="text-xl font-semibold">{{ t('home.title') }}</h1>
+      <p class="text-sm text-gray-600">{{ t('home.description') }}</p>
 
       <!-- Kategorier -->
       <fieldset class="rounded-xl border p-4">
-        <legend class="font-semibold">{{ t('chooseCategory') }}</legend>
+        <legend class="font-semibold">{{ t('home.categorySelection.title') }}</legend>
         <div class="mt-3 space-y-2">
           <!-- All -->
           <label
@@ -101,8 +101,8 @@ function start() {
       </fieldset>
 
       <!-- Antal (max) -->
-      <fieldset class="rounded-xl border p-4" role="radiogroup" aria-label="Number of questions (max)">
-        <legend class="font-semibold">{{ t('questionAmount') }}</legend>
+      <fieldset class="rounded-xl border p-4" role="radiogroup" :aria-label="`t('home.categorySelection.questionAmount')`">
+        <legend class="font-semibold">{{ t('home.categorySelection.questionAmount') }}</legend>
         <div class="mt-3 flex flex-wrap gap-2">
           <label
             v-for="n in maxOptions"
@@ -127,16 +127,11 @@ function start() {
       <!-- Live status (icke-blockerande) -->
       <!-- <LanguageSwitcher  /> -->
 
-      <!-- <p class="text-xs text-gray-600" role="status" aria-live="polite">
-        Selected: <span class="font-medium capitalize">{{ isAll ? 'All' : effectiveCats.join(', ') || 'None' }}</span>,
-        Max: <span class="font-medium">{{ selectedMax }}</span>
-      </p> -->
-
       <button
         class="w-full px-4 py-2 rounded-xl bg-black text-white hover:bg-gray-800"
         @click="start"
       >
-      {{ t('startQuiz') }}
+      {{ t('home.categorySelection.button.start') }}
       </button>
     </div>
   </main>

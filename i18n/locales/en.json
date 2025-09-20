@@ -1,5 +1,34 @@
 {
-  "welcome": "PSPO I - MCQ Trainer",
+  "home": {
+    "title": "Senior Frontend Quiz Trainer",
+    "description": "Practice multiple-choice questions. Reveal answers and explanations, then review results.",
+    "categorySelection": {
+      "title": "Choose a category",
+      "questionAmount": "Number of questions (max)",
+      "wellFetch": "we will fetch",
+      "upTo": "up to",
+      "thisAmount": "this amount",
+      "button": {
+        "start": "Start quiz"
+      }
+    }
+  },
+  "quiz": {
+    "header": {
+      "title": "Senior Frontend Quiz Trainer",
+      "legend": "Using:",
+      "nav": {
+        "repeat": "Repeat",
+        "backToStart": "Back to start"
+      },
+      "loadingQuestion": "Loading questions…",
+      "failedToLoad": "Failed to load",
+      "noQuestionsAvailable": "No questions available for this selection.",
+      "questions": "question",
+      "loaded": "loaded"
+    }
+  },
+  "welcome": "Senior Frontend Quiz Trainer",
   "description": "Practice multiple-choice questions. Reveal answers and explanations, then review results.",
   "chooseCategory": "Choose a category",
   "questionAmount": "Number of questions (max)",
@@ -14,7 +43,7 @@
     "backToStart": "Back to start"
   },
   "result": {
-    "title": "PSPO I - Result",
+    "title": "Senior Frontend Quiz - Result",
     "repeat": "Repeat",
     "backToStart": "Back to start",
     "noSession": "No session loaded.",
