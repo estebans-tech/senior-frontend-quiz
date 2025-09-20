@@ -6624,35 +6624,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nuxt-app@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "nuxt-app@workspace:."
-  dependencies:
-    "@nuxt/test-utils": "npm:^3.19.2"
-    "@nuxtjs/tailwindcss": "npm:6.14.0"
-    "@pinia/nuxt": "npm:0.11.2"
-    "@playwright/test": "npm:^1.55.0"
-    "@types/node": "npm:^24.3.0"
-    "@typescript-eslint/eslint-plugin": "npm:^8"
-    "@typescript-eslint/parser": "npm:^8"
-    "@vue/test-utils": "npm:^2.4.6"
-    eslint: "npm:^9"
-    eslint-config-prettier: "npm:^10.1.8"
-    eslint-plugin-vue: "npm:^9"
-    jsdom: "npm:^26.1.0"
-    nuxt: "npm:^4.0.3"
-    pinia: "npm:^3.0.3"
-    prettier: "npm:^3.6.2"
-    typescript: "npm:^5.9"
-    typescript-eslint: "npm:^8"
-    vitest: "npm:^3.2.4"
-    vue: "npm:^3.5.18"
-    vue-i18n: "npm:^11.1.12"
-    vue-router: "npm:^4.5.1"
-    vue-tsc: "npm:^3.0.6"
-  languageName: unknown
-  linkType: soft
-
 "nuxt@npm:^4.0.3":
   version: 4.1.0
   resolution: "nuxt@npm:4.1.0"
@@ -8278,6 +8249,35 @@ __metadata:
   checksum: 10c0/531bcfb5616948d3468d95a1fd0adaeb0c20818ba4a500f439b800ca2117971489e02074ce32796fd64a6772ea3e7235fe0583d8241dbd37a053dc3378eff9a5
   languageName: node
   linkType: hard
+
+"senior-frontend-quiz-nuxt-app@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "senior-frontend-quiz-nuxt-app@workspace:."
+  dependencies:
+    "@nuxt/test-utils": "npm:^3.19.2"
+    "@nuxtjs/tailwindcss": "npm:6.14.0"
+    "@pinia/nuxt": "npm:0.11.2"
+    "@playwright/test": "npm:^1.55.0"
+    "@types/node": "npm:^24.3.0"
+    "@typescript-eslint/eslint-plugin": "npm:^8"
+    "@typescript-eslint/parser": "npm:^8"
+    "@vue/test-utils": "npm:^2.4.6"
+    eslint: "npm:^9"
+    eslint-config-prettier: "npm:^10.1.8"
+    eslint-plugin-vue: "npm:^9"
+    jsdom: "npm:^26.1.0"
+    nuxt: "npm:^4.0.3"
+    pinia: "npm:^3.0.3"
+    prettier: "npm:^3.6.2"
+    typescript: "npm:^5.9"
+    typescript-eslint: "npm:^8"
+    vitest: "npm:^3.2.4"
+    vue: "npm:^3.5.18"
+    vue-i18n: "npm:^11.1.12"
+    vue-router: "npm:^4.5.1"
+    vue-tsc: "npm:^3.0.6"
+  languageName: unknown
+  linkType: soft
 
 "serialize-javascript@npm:^6.0.1":
   version: 6.0.2
