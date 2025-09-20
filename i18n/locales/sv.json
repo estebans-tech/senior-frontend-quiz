@@ -1,0 +1,25 @@
+{
+  "welcome": "PSPO I - MCQ Tränare",
+  "description": "Öva på flervalsfrågor. Visa svar och förklaringar, sedan granska resultat.",
+  "chooseCategory": "Välj kategori",
+  "questionAmount": "Antal frågor (max)",
+  "wellFetch": "Vi väljer",
+  "upTo": "up till",
+  "thisAmount": "den mängd",
+  "shuffleQuestions": "Blanda frågor",
+  "startQuiz": "Starta quiz",
+  "language": "Svenska",
+  "nav": {
+    "repeat": "Igen",
+    "backToStart": "Tillbaka"
+  },
+  "result": {
+    "title": "PSPO I - Resultat",
+    "repeat": "Igen",
+    "backToStart": "Tillbaka",
+    "noSession": "Ingen session laddad.",
+    "correct": "Korrekt",
+    "incorrect": "Fel",
+    "total": "Total"
+   }
+}

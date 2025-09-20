@@ -1,0 +1,44 @@
+# Nuxt dev/build outputs
+.output/
+.dist/
+.data
+.nuxt/
+.nitro
+.cache
+dist
+
+# Node dependencies
+node_modules/
+.yarn/
+
+# Logs
+logs
+*.log
+
+# Misc
+.DS_Store
+.fleet
+.idea
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# Local executables files
+*.sh
+
+# Local Netlify folder
+.netlify
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+*.zip # t.ex. trace.zip om du exporterar manuellt
+
+# OS/IDE
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json

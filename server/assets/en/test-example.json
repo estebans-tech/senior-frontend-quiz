@@ -1,0 +1,1100 @@
+[
+  {
+    "id": "test-example-001",
+    "type": "single",
+    "prompt": "What variables should a Product Owner consider when ordering the Product Backlog? Choose the best answer.",
+    "options": [
+      { "id": "A", "text": "Effort first, then value" },
+      { "id": "B", "text": "The availability of resources and skills for implementation" },
+      { "id": "C", "text": "Development cohesion as indicated by the Developers." },
+      { "id": "D", "text": "Lowest development cost in order to maximize ROI" },
+      { "id": "E", "text": "Whatever is most appropriate for the Product Owner to achieve the Product Goal and to optimize the value received." }
+    ],
+    "correct": ["E"],
+    "version": 1
+  },
+  {
+    "id": "test-example-002",
+    "type": "multi",
+    "prompt": "A multi-national company is using the Scrum Framework for development of five of their best-selling products. What are two good alternatives for how many Product Owners this company should use for these products? Choose the best two answers.",
+    "options": [
+      { "id": "A", "text": "There are as many Product Owners as are needed. Additional Product Owners may be added as development of the five products evolves." },
+      { "id": "B", "text": "There is one Product Owner for all five products. This person may not delegate work to others for specific value, capabilities, and functionality, given these are all the Product Owner's individual responsibilities." },
+      { "id": "C", "text": "There is one Product Owner for each single product, so there are five in total. Each Product Owner may delegate to others for specific value, capabilities, and functionality within their product." },
+      { "id": "D", "text": "There is one Product Owner responsible for the five products. This Product Owner may delegate work to others for specific value, capabilities, and functionality within each product in order to scale his role." }
+    ],
+    "correct": ["C", "D"],
+    "version": 1
+  },
+  {
+    "id": "test-example-003",
+    "type": "single",
+    "prompt": "Who determines whether the Developers have been assigned enough work in a Sprint?",
+    "options": [
+      { "id": "A", "text": "Product Owner and Scrum" },
+      { "id": "B", "text": "Stakeholders" },
+      { "id": "C", "text": "The most senior people in the organization." },
+      { "id": "D", "text": "Product Owner" },
+      { "id": "E", "text": "Scrum Master" },
+      { "id": "F", "text": "Developers" }
+    ],
+    "correct": ["F"],
+    "version": 1
+  },
+  {
+    "id": "test-example-004",
+    "type": "single",
+    "prompt": "The Scrum Team just finished working on a Product Backlog item. When can this item be released? Choose the best answer.",
+    "options": [
+      { "id": "A", "text": "After the Sprint Retrospective and prior to the subsequent Sprint Planning." },
+      { "id": "B", "text": "When the Product Owner decides to accept it." },
+      { "id": "C", "text": "When the stakeholders consider that the marketplace is favorable." },
+      { "id": "D", "text": "When the item meets the Definition of Done it can be released immediately." }
+    ],
+    "correct": ["D"],
+    "version": 1
+  },
+  {
+    "id": "test-example-005",
+    "type": "multi",
+    "prompt": "Which of the following is NOT a Product Owner's accountability? Choose the two best answers.",
+    "options": [
+      { "id": "A", "text": "Prioritizing the Product Backlog." },
+      { "id": "B", "text": "Keeping the Product Backlog up to date." },
+      { "id": "C", "text": "Inspecting work at Sprint Review." },
+      { "id": "D", "text": "Formulating the Sprint Goal for the Scrum Team." },
+      { "id": "E", "text": "Assigning tasks to team members during the Sprint." }
+    ],
+    "correct": ["D", "E"],
+    "version": 1
+  },
+  {
+    "id": "test-example-006",
+    "type": "single",
+    "prompt": "After several Sprints one of the key stakeholders started using the product. This stakeholder is unhappy with the performance and you as the Product Owner agree. What do you do? Choose the best answer.",
+    "options": [
+      { "id": "A", "text": "Bring the concern to the testers in the Scrum Team and ask them to improve how the system is tested." },
+      { "id": "B", "text": "Wait to bring this up in the next Sprint Retrospective. This is the appropriate time for the Scrum Team to adapt the Definition of Done." },
+      { "id": "C", "text": "You do nothing. It's up to the Developers to decide on acceptable performance standards as they own the Definition of Done." },
+      { "id": "D", "text": "Bring the performance concerns to the Developers and work with them on how to improve performance and to ultimately have a more robust Definition of Done." }
+    ],
+    "correct": ["D"],
+    "version": 1
+  },
+  {
+    "id": "test-example-007",
+    "type": "single",
+    "prompt": "True or False: Every Scrum Team must have a Product Owner.",
+    "options": [
+      { "id": "A", "text": "False. A Product Owner can be replaced by a Business Analyst in the Scrum Team." },
+      { "id": "B", "text": "True. He/she must be 100% dedicated to the Scrum Team." },
+      { "id": "C", "text": "False. A Product Owner is only needed when asked by the Developers." },
+      { "id": "D", "text": "True. Outcomes are affected by his/her participation and availability." }
+    ],
+    "correct": ["D"],
+    "version": 1
+  },
+  {
+    "id": "test-example-008",
+    "type": "single",
+    "prompt": "In Scrum who is responsible for stakeholder collaboration? Choose the best answer.",
+    "options": [
+      { "id": "A", "text": "The CEO of the organization." },
+      { "id": "B", "text": "The Product Owner and the Scrum Master" },
+      { "id": "C", "text": "The Scrum Master" },
+      { "id": "D", "text": "The Developers" },
+      { "id": "E", "text": "The Product Owner" },
+      { "id": "F", "text": "The Scrum Team" }
+    ],
+    "correct": ["F"],
+    "version": 1
+  },
+  {
+    "id": "test-example-009",
+    "type": "single",
+    "prompt": "It is mandatory that the product increment be released to production at the end of each Sprint.",
+    "options": [
+      { "id": "A", "text": "True" },
+      { "id": "B", "text": "False" }
+    ],
+    "correct": ["B"],
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "test-example-010",
+    "type": "single",
+    "prompt": "What is the Product Management Vacuum? Choose the best answer.",
+    "options": [
+      { "id": "A", "text": "The gap between the Product Vision and the Product Strategy." },
+      { "id": "B", "text": "The gap between the Product Strategy and the Business Strategy." },
+      { "id": "C", "text": "The gap between Company Vision and Business Strategy." },
+      { "id": "D", "text": "A gap between the larger organizational goals and the work that Scrum Teams do day-to-day." }
+    ],
+    "correct": ["D"],
+    "version": 1
+  },
+  {
+    "id": "test-example-011",
+    "type": "multi",
+    "prompt": "Why should a Product Owner ensure he/she communicates a Product Goal and everyone gains a good understanding of it? Choose the best three answers.",
+    "options": [
+      { "id": "A", "text": "Using the Product Goal, the Scrum Team can better provide estimates so the Product Owner knows when the complete Product Backlog will be delivered." },
+      { "id": "B", "text": "Stakeholders will better understand the direction in which the product is going and thus will lower their expectations and they will be in line with the Product Owner's plan to deliver value." },
+      { "id": "C", "text": "The Scrum Team can better maintain focus and validate their decision-making against the Product Goal." },
+      { "id": "D", "text": "It makes it easier to inspect the Increment at the end of the Sprint." },
+      { "id": "E", "text": "It helps the Scrum Team to ensure that they are on track and their work during the Sprint is in line with the direction that Product Owner envisioned." }
+    ],
+    "correct": ["C", "D", "E"],
+    "version": 1
+  },
+  {
+    "id": "test-example-012",
+    "type": "single",
+    "prompt": "The Product Owner in Scrum…",
+    "options": [
+      { "id": "A", "text": "…collaborates with the Developers over prioritization of features, but the Developers make the final call." },
+      { "id": "B", "text": "…has no control over the prioritization of delivered features." },
+      { "id": "C", "text": "...collaborates with the Developers over prioritization of features, but the stakeholders have the final decision." },
+      { "id": "D", "text": "…has total authority over the prioritization of items in the Product Backlog." }
+    ],
+    "correct": ["D"],
+    "version": 1
+  },
+  {
+    "id": "test-example-013",
+    "type": "multi",
+    "prompt": "What is a Product. Choose all the apply.",
+    "options": [
+      { "id": "A", "text": "Product in Scrum only refers to software." },
+      { "id": "B", "text": "Verification processes documented in the Definition of Done." },
+      { "id": "C", "text": "A Product has known stakeholders." },
+      { "id": "D", "text": "A Product has well-defined users and customers." },
+      { "id": "E", "text": "A Product has clear boundaries." }
+    ],
+    "correct": ["C", "D", "E"],
+    "version": 1
+  },
+  {
+    "id": "test-example-014",
+    "type": "single",
+    "prompt": "In which meetings the key stakeholders are allowed to participate? Choose the best answer.",
+    "options": [
+      { "id": "A", "text": "Daily Scrum" },
+      { "id": "B", "text": "Sprint Retrospective" },
+      { "id": "C", "text": "Sprint Planning" },
+      { "id": "D", "text": "Sprint Review" }
+    ],
+    "correct": ["D"],
+    "version": 1
+  },
+  {
+    "id": "test-example-015",
+    "type": "multi",
+    "prompt": "Which activities will a Product Owner likely engage in during a Sprint? Choose the best three anwers.",
+    "options": [
+      { "id": "A", "text": "Participate in Daily Scrums." },
+      { "id": "B", "text": "Update the Sprint burn-down chart." },
+      { "id": "C", "text": "Create new items in the Product Backlog." },
+      { "id": "D", "text": "Answer Developers’ questions about the Sprint Backlog items." },
+      { "id": "E", "text": "Reorder the Product Backlog items." }
+    ],
+    "correct": ["C", "D", "E"],
+    "version": 1
+  },
+  {
+    "id": "test-example-016",
+    "type": "single",
+    "prompt": "How does the Product Owner participate in the crafting of the Sprint Goal during Sprint Planning? Choose the best answer.",
+    "options": [
+      { "id": "A", "text": "The Product Owner is not allowed to come to the Sprint Planning without having a well defined Sprint Goal." },
+      { "id": "B", "text": "The Product Owner defines the scope for the current Sprint and therefore also the Sprint Goal." },
+      { "id": "C", "text": "The Product Owner does not have anything to do with crafting the Sprint Goal. This is done by the Developers." },
+      { "id": "D", "text": "The Product Owner should come to the Sprint Planning with a business objective in mind and work with the Scrum Team to craft the Sprint Goal." }
+    ],
+    "correct": ["D"],
+    "version": 1
+  },
+  {
+    "id": "test-example-017",
+    "type": "single",
+    "prompt": "Which statement best describes a Product Owner's accountability? Choose the best answer. Please select the correct answer below",
+    "options": [
+      { "id": "A", "text": "Directing the Developers of the Scrum Team" },
+      { "id": "B", "text": "Keeping stakeholders at bay" },
+      { "id": "C", "text": "Managing the project and ensuring that the work meets the commitments to the stakeholders" },
+      { "id": "D", "text": "Optimizing the value of the work the Scrum Team does." }
+    ],
+    "correct": ["D"],
+    "version": 1
+  },
+  {
+    "id": "test-example-018",
+    "type": "single",
+    "prompt": "The Product Owner's authority to change and update the Product Backlog is unlimited, except for:",
+    "options": [
+      { "id": "A", "text": "Technical and architectural work that needs to be done first, as indicated by the chief enterprise architect." },
+      { "id": "B", "text": "Work for which impediments exist that the Scrum Master still needs to resolve." },
+      { "id": "C", "text": "High impact changes that have not been approved by the change request board." },
+      { "id": "D", "text": "Nothing. The entire organization must respect a Product Owner's decisions." }
+    ],
+    "correct": ["D"],
+    "version": 1
+  },
+  {
+    "id": "test-example-019",
+    "type": "single",
+    "prompt": "The Product Owner ensures that the right stakeholders are invited to the Sprint Retrospective. They probably have important instructions for team improvements.",
+    "options": [
+      { "id": "A", "text": "True" },
+      { "id": "B", "text": "False" }
+    ],
+    "correct": ["B"],
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "test-example-020",
+    "type": "single",
+    "prompt": "Which statement is true regarding the Product Goal? Choose the best answer. Please select the correct answer below",
+    "options": [
+      { "id": "A", "text": "All answers are true." },
+      { "id": "B", "text": "It should not generate discussions about strategic technology choices." },
+      { "id": "C", "text": "It is the long-term objective for the Scrum Team." },
+      { "id": "D", "text": "The Scrum Team must make sure to communicate the Product Goal to all stakeholders." },
+      { "id": "E", "text": "All answers are false." }
+    ],
+    "correct": ["C"],
+    "version": 1
+  },
+  {
+    "id": "test-exempel-021",
+    "type": "single",
+    "prompt": "The Scrum Master observes the Product Owner struggling with ordering the Product Backlog. What would you consider an appropriate action for Scrum Master to take?",
+    "options": [
+      { "id": "A", "text": "Suggest that the Developers do the ordering of work." },
+      { "id": "B", "text": "Encourage the Product Owner to work with the Developers to see which items technically are the fastest to implement." },
+      { "id": "C", "text": "Suggest the Product Owner extend the Sprint, so he/she can have more time to order the Product Backlog." },
+      { "id": "D", "text": "Present the Product Owner an ordered Product Backlog to use." },
+      { "id": "E", "text": "Offer the Product Owner help in ordering the Product Backlog from an understanding that the goal is to maximize value." }
+    ],
+    "correct": ["E"],
+    "explanation": "The Product Owner is accountable for ordering the Product Backlog. The Scrum Master serves the PO by coaching and helping with techniques for effective backlog management and value maximization—not by taking over the ordering, outsourcing it to Developers, or changing Sprint length",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-022",
+    "type": "single",
+    "prompt": "The Product Owner should make sure to optimize the value of the work the Scrum Team performs.",
+    "options": [
+      { "id": "A", "text": "False" },
+      { "id": "B", "text": "True" }
+    ],
+    "correct": ["B"],
+    "explanation": "Per the Scrum Guide, the Product Owner is accountable for maximizing the value of the product resulting from the Scrum Team’s work. (Nuance: they don’t micromanage how work is done; they maximize value primarily through Product Backlog ownership and ordering.)",
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "test-exempel-023",
+    "type": "single",
+    "prompt": "Who should define the business value of a feature within a Scrum product development effort?",
+    "options": [
+      { "id": "A", "text": "Sponsors (the people who fund the development effort)" },
+      { "id": "B", "text": "Business Analysts" },
+      { "id": "C", "text": "Individual end users" },
+      { "id": "D", "text": "Product Owner" }
+    ],
+    "correct": ["D"],
+    "explanation": "Why (and quick stress-test of the alternatives):\n- The Product Owner is accountable for maximizing value and for Product Backlog management, including expressing and ordering items by value.\n- Sponsors and end users provide crucial input, but they don’t own the call.\n- Business Analysts may contribute analysis, but BA isn’t a Scrum role and doesn’t hold value accountability.\nNuance: The PO should base value on stakeholder input, data/experiments, and strategy—but the decision and accountability rest with the PO",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-024",
+    "type": "single",
+    "prompt": "How does an organization know that a product built through Scrum is successful?",
+    "options": [
+      { "id": "A", "text": "By measuring the actual time spent on development versus the time estimated for development." },
+      { "id": "B", "text": "By the Product Owner and stakeholders accepting the Increment at the Sprint Review." },
+      { "id": "C", "text": "By measuring that velocity has increased since the last release." },
+      { "id": "D", "text": "By releasing often, and updating key performance indicators (KPIs) on value after every release and feeding this information back into work on the Product Backlog." }
+    ],
+    "correct": ["D"],
+    "explanation": "Why the others fall short:\n- A: Time vs. estimate gauges predictability, not product success.\n- B: Acceptance at Sprint Review doesn’t equal market/user value.\n- C: Velocity measures output, not outcomes.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-025",
+    "type": "single",
+    "prompt": "The value delivered by a product can only be determined by revenue.",
+    "options": [
+      { "id": "A", "text": "True" },
+      { "id": "B", "text": "False" }
+    ],
+    "correct": ["B"],
+    "explanation": "Revenue is one signal, but value can also be measured by outcomes like customer satisfaction/retention, adoption/usage, cost or risk reduction, time-to-market, compliance, strategic fit, and learning—especially for internal or early-stage products.",
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "test-exempel-026",
+    "type": "single",
+    "prompt": "How does Scrum ensure early value delivery?",
+    "options": [
+      { "id": "A", "text": "By using the Definition of Done." },
+      { "id": "B", "text": "By effective release planning" },
+      { "id": "C", "text": "It is an agile approach and the agile principles support early delivery of value." },
+      { "id": "D", "text": "By encouraging releases after each iteration or after every few iterations." }
+    ],
+    "correct": ["D"],
+    "explanation": "Why (and what the skeptic would say):\n* Scrum produces a Done, usable Increment every Sprint, enabling frequent releases and thus earlier value. It enables early value; it doesn’t guarantee it—the Product Owner still decides when to release.\n* A (DoD) improves quality and transparency but doesn’t, by itself, cause early delivery.\n* B (release planning) isn’t a Scrum event; planning alone doesn’t deliver value.\n* C is vague and not specifically how Scrum achieves early value.\nNuance: Early value also depends on slicing work into valuable increments and product strategy—Scrum just makes releasing early and often feasible.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-027",
+    "type": "single",
+    "prompt": "True or False: Defining value provides you with something to inspect.",
+    "options": [
+      { "id": "A", "text": "False" },
+      { "id": "B", "text": "True" }
+    ],
+    "correct": ["B"],
+    "explanation": "In Scrum’s empiricism, you inspect what is transparent. A clear definition of value (e.g., hypotheses/KPIs) makes value observable and inspectable at Sprint Review and after releases.\nNuance: merely defining value isn’t enough—you must also measure outcomes against it—but the statement as written is correct.",
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "test-exempel-028",
+    "type": "single",
+    "prompt": "How important is it for a Product Owner to order Product Backlog items by value points?",
+    "options": [
+      { "id": "A", "text": "Using value points is the ultimate way for a Product Owner to predict the value that the product will provide." },
+      { "id": "B", "text": "Calculating value points is an upfront approach that conflicts with empiricism and is therefore not acceptable." },
+      { "id": "C", "text": "It is good practice, keeping in mind that market reception is the best measure of value." }
+    ],
+    "correct": ["C"],
+    "version": 1
+  },
+  {
+    "id": "test-exempel-029",
+    "type": "single",
+    "prompt": "True or False: Metrics can help validate business hypotheses and the impact of releases.",
+    "options": [
+      { "id": "A", "text": "False" },
+      { "id": "B", "text": "True" }
+    ],
+    "correct": ["B"],
+    "explanation": "Why (and caveats):\n- Metrics turn value hypotheses into testable signals (e.g., activation rate, retention, NPS, revenue per user).\n- But they don’t prove causality by themselves—use proper experiment design (A/B tests, control groups), pick leading + lagging indicators, and watch for confounders and vanity metrics.",
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "test-exempel-030",
+    "type": "single",
+    "prompt": "The CFO (Chief Financial Officer) of your organization wants to compare the velocity of several Scrum Teams to determine which one delivers the highest value. What do you do?",
+    "options": [
+      { "id": "A", "text": "You invite the CFO to attend the Sprint Retrospectives of the teams." },
+      { "id": "B", "text": "You provide the CFO with the Burndown Charts of the teams." },
+      { "id": "C", "text": "You explain to the CFO that velocity is not a measure for value delivered." }
+    ],
+    "correct": ["C"],
+    "explanation": "Why the others fail:\nA: Retrospectives are team-internal and not about comparing teams or value.\nB: Burndown shows remaining work, not customer/business outcomes.\nBetter direction: discuss outcome metrics (e.g., adoption, retention, revenue, cost/risk reduction) and invite the CFO to Sprint Reviews to see usable increments and value evidence; use frameworks like EBM (Current Value, Time-to-Market, Ability to Innovate).",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-031",
+    "type": "single",
+    "prompt": "One desired outcome of being agile using Scrum is increased business value.",
+    "options": [
+      { "id": "A", "text": "False" },
+      { "id": "B", "text": "True" }
+    ],
+    "correct": ["B"],
+    "explanation": "Why (and nuance): Scrum aims to maximize product value; increased business value is a desired outcome—alongside others like faster time-to-market, better quality, reduced risk, and improved ability to innovate. It’s not guaranteed; value still depends on product strategy and evidence from the market.",
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "test-exempel-032",
+    "type": "single",
+    "prompt": "True or False: Incentives attached to value delivered improves team morale and performance.",
+    "options": [
+      { "id": "A", "text": "True" },
+      { "id": "B", "text": "False" }
+    ],
+    "correct": ["B"],
+    "explanation": "Why: The claim is absolute. Tying incentives to “value” can backfire—value is hard to measure, creates gaming and local optima, shifts focus from learning/collaboration, and extrinsic rewards can reduce intrinsic motivation. Team-level, thoughtfully designed incentives might help in some contexts, but they don’t reliably improve morale or performance.",
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "test-exempel-033",
+    "type": "single",
+    "prompt": "The smallest Increment that a Product Owner decides to release in order to deliver value is one that…",
+    "options": [
+      { "id": "A", "text": "…contains at least one bug fix." },
+      { "id": "B", "text": "…delivers all the Product Backlog items that were deemed as mandatory for the release." },
+      { "id": "C", "text": "…contains the implementation for a new feature." },
+      { "id": "D", "text": "…delivers a single new outcome." }
+    ],
+    "correct": ["D"],
+    "explanation": "Why (challenge the distractors):\n- A: a bug fix might deliver value, but “at least one bug fix” isn’t a principled definition of minimal value.\n- B: contradicts “smallest”; bundles work.\n- D: “feature implementation” is output; value is about outcomes (measurable change for users/business).",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-034",
+    "type": "single",
+    "prompt": "Which phrase best describes a Product Owner?",
+    "options": [
+      { "id": "A", "text": "Requirements engineer" },
+      { "id": "B", "text": "Go-between for the Developers and customer." },
+      { "id": "C", "text": "Team Manager" },
+      { "id": "D", "text": "Value optimizer" }
+    ],
+    "correct": ["D"],
+    "explanation": "Why the others miss: PO isn’t a requirements writer, not a messenger between developers and customers, and not a people manager; their accountability is maximizing product value via backlog ownership and ordering.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-035",
+    "type": "multi",
+    "prompt": "What things best help the Product Owner manage the value of a product? Choose two answers.",
+    "options": [
+      { "id": "A", "text": "Devising a formula for a neutral calculation of value." },
+      { "id": "B", "text": "Setting value on individual Product Backlog items using Value Poker." },
+      { "id": "C", "text": "The order of the Product Backlog." },
+      { "id": "D", "text": "Validating assumptions of value through frequent releases." }
+    ],
+    "correct": ["C", "D"],
+    "explanation": "Why not the others: C assumes value can be “neutrally” calculated up front (overconfident, anti-empirical). D can be a heuristic, but item-level scoring is less effective than empirical learning + ordering by expected impact.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-036",
+    "type": "multi",
+    "prompt": "To what extent does technical debt limit the value a Product Owner can get from a product? Choose two answers.",
+    "options": [
+      { "id": "A", "text": "Technical debt is not a Product Owner concern, because technical debt is only an issue for the Developers." },
+      { "id": "B", "text": "Technical debt does not influence the delivery of value." },
+      { "id": "C", "text": "The velocity at which new functionality can be created is reduced when you have technical debt." },
+      { "id": "D", "text": "Technical debt causes a greater percentage of the product's budget to be spent on maintenance of the product." }
+    ],
+    "correct": ["C", "D"],
+    "version": 1
+  },
+  {
+    "id": "test-exempel-037",
+    "type": "single",
+    "prompt": "If multiple Stakeholders have varied interests in the product and different viewpoints what is the best strategy for the Product Owner?",
+    "options": [
+      { "id": "A", "text": "Calculate ROI (Return of Investment) for every viewpoint and select the maximal one." },
+      { "id": "B", "text": "Stick to the viewpoint promising the fastest time-to-market." },
+      { "id": "C", "text": "Listen to the people that fund the product’s development because they always have the last word." },
+      { "id": "D", "text": "Do an intelligent balancing of interests and try to maximize the value of the Product as a whole." }
+    ],
+    "correct": ["D"],
+    "explanation": "Why the others fall short:\n- A: Reduces strategy to a single (often speculative) metric; ignores non-financial value and portfolio effects.\n- C: Fastest ≠ most valuable; can create local optima and technical debt.\n- D: Funders are key stakeholders, not the only arbiters of value; PO is accountable for overall product value.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-038",
+    "type": "single",
+    "prompt": "True or False: There is no value until a product increment is released.",
+    "options": [
+      { "id": "A", "text": "False" },
+      { "id": "B", "text": "True" }
+    ],
+    "correct": ["B"],
+    "explanation": "Reasoning: In Scrum, value is only realized when a usable Increment is released to users/customers. Until then, you may have potential value or learning, but no actual business/user value is delivered.",
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "test-exempel-039",
+    "type": "multi",
+    "prompt": "Which are Key Value Areas (KVAs) a Product Owner should consider? Choose three answers.",
+    "options": [
+      { "id": "A", "text": "Cycle Time" },
+      { "id": "B", "text": "Customer Satisfaction" },
+      { "id": "C", "text": "Technical Debt" },
+      { "id": "D", "text": "Time to Market" },
+      { "id": "E", "text": "Ability to Innovate" },
+      { "id": "F", "text": "Current Value" }
+    ],
+    "correct": ["D", "E", "F"],
+    "explanation": "Why (quick skepticism pass):\nThese are 3 of the 4 EBM KVAs (the missing one is Unrealized Value).\n- Cycle Time is a metric under Time to Market.\n- Customer Satisfaction is a metric under Current Value.\n- Technical Debt is a constraint that impacts Ability to Innovate, not a KVA itself.",
+    "source": "Scrum.org — Evidence-Based Management (EBM)",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-040",
+    "type": "single",
+    "prompt": "The Scrum framework is used to optimize value and control risk in complex product development. A component of value optimization is…",
+    "options": [
+      { "id": "A", "text": "Ensuring that the Developers are not having idle time by constantly monitoring their productivity." },
+      { "id": "B", "text": "Deciding to continue a Sprint only after verifying if it has enough value worth the effort." },
+      { "id": "C", "text": "Averaging out the values delivered over Sprints and use it to take decisions." }
+    ],
+    "correct": ["C"],
+    "explanation": "Quick sparring notes:\n- Assumptions: Measuring outcomes over time helps guide decisions—reasonable; but don’t over-rely on simple averages (look at trends and context).\n- Counterpoints: B focuses on productivity (output), not value; C conflicts with Scrum (Sprints are fixed time-boxes; cancellation is rare and done by the PO when the Sprint Goal is obsolete).\n- Alternative framing: Use EBM/inspection of KPIs across Sprints to adapt the Product Backlog and strategy.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-041",
+    "type": "multi",
+    "prompt": "What happens when a Sprint is cancelled? Select two answers.",
+    "options": [
+      { "id": "A", "text": "Several top Product Backlog Items are taken into the Sprint Backlog to replace the obsolete items." },
+      { "id": "B", "text": "At the Sprint Retrospective the Scrum Master determines who of the Developers is responsible for cancelling the Sprint." },
+      { "id": "C", "text": "Any completed and Done Product Backlog items are reviewed." },
+      { "id": "D", "text": "All incomplete Product Backlog Items are re-estimated and put back on the Product Backlog." }
+    ],
+    "correct": ["C", "D"],
+    "version": 1
+  },
+  {
+    "id": "test-exempel-042",
+    "type": "single",
+    "prompt": "What variables should a Product Owner consider when ordering the Product Backlog?",
+    "options": [
+      { "id": "A", "text": "The availability of resources and skills for implementation." },
+      { "id": "B", "text": "Effort first, then value." },
+      { "id": "C", "text": "Developers cohesion as indicated in the Scrum Team." },
+      { "id": "D", "text": "Lowest Development costs in order to maximize ROI." },
+      { "id": "E", "text": "Whatever is most appropriate for the Product Owner to achieve the product's goal and to optimize the value received." }
+    ],
+    "correct": ["E"],
+    "explanation": "PO orders for value; any factor is fair game if it best serves the Product Goal (value, risk, dependency, cost, learning). The other options are single-factor heuristics.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-043",
+    "type": "single",
+    "prompt": "True or False: A Product Owner establishes a Goal for a product.",
+    "options": [
+      { "id": "A", "text": "False" },
+      { "id": "B", "text": "True" }
+    ],
+    "correct": ["B"],
+    "explanation": "The PO is accountable for developing and explicitly communicating the Product Goal.",
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "test-exempel-044",
+    "type": "single",
+    "prompt": "Why would a Product Owner ensure that he/she is ordering the Product Backlog?",
+    "options": [
+      { "id": "A", "text": "By ordering…Developers know what items to choose during refinement." },
+      { "id": "B", "text": "Order per stakeholder requests so stakeholders won’t change votes." },
+      { "id": "C", "text": "Reflect Change Control Board requests." },
+      { "id": "D", "text": "Ordering the Product Backlog is the best way to achieve goals and missions." }
+    ],
+    "correct": ["D"],
+    "explanation": "Ordering is how the PO steers toward the Product Goal and maximizes value—not to please a board or lock stakeholder votes.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-045",
+    "type": "single",
+    "prompt": "When is a Product Backlog item considered complete? (Choose the best answer)",
+    "options": [
+      { "id": "A", "text": "When all Sprint Backlog work related to it is finished." },
+      { "id": "B", "text": "At the end of the Sprint." },
+      { "id": "C", "text": "When QA reports it passes acceptance criteria." },
+      { "id": "D", "text": "When the item has no work remaining in order to be released." }
+    ],
+    "correct": ["D"],
+    "explanation": "That’s the essence of Definition of Done. QA sign-off or Sprint end are neither necessary nor sufficient.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-046",
+    "type": "single",
+    "prompt": "True or False: Product Backlog Management activities include more than what the Scrum Guide describes as Product Owner activities.",
+    "options": [
+      { "id": "A", "text": "True" },
+      { "id": "B", "text": "False" }
+    ],
+    "correct": ["B"],
+    "explanation": "In Scrum, Product Backlog management is PO accountability. Others may help, but it doesn’t “include more” in the sense of separate accountabilities.",
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "test-exempel-047",
+    "type": "multi",
+    "prompt": "What are Product Backlog features? (Select three)",
+    "options": [
+      { "id": "A", "text": "A Product Backlog could be closed when it has no items for the next Sprint." },
+      { "id": "B", "text": "When the final version is rolled out, the Product Backlog is dismissed." },
+      { "id": "C", "text": "As long as the product exists, its Product Backlog exists." },
+      { "id": "D", "text": "It is never complete." },
+      { "id": "E", "text": "It is dynamic." }
+    ],
+    "correct": ["C", "D", "E"],
+    "explanation": "The backlog evolves with learning; it persists for the life of the product.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-048",
+    "type": "multi",
+    "prompt": "What does the Product Owner consider when ordering the Product Backlog? (Select all that apply)",
+    "options": [
+      { "id": "A", "text": "What technical decisions Developers will have to make" },
+      { "id": "B", "text": "Value provided to customers" },
+      { "id": "C", "text": "Goals and organizational strategy" },
+      { "id": "D", "text": "Dependencies with other Product Backlog items" },
+      { "id": "E", "text": "Risks" }
+    ],
+    "correct": ["B", "C", "D", "E"],
+    "explanation": "All of these affect value and sequencing. Technical design choices are for Developers; the PO orders the outcomes.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-049",
+    "type": "multi",
+    "prompt": "When should the Product Backlog be refined? (Select all that apply)",
+    "options": [
+      { "id": "A", "text": "In between Sprints." },
+      { "id": "B", "text": "This essential work is done during Sprint 0." },
+      { "id": "C", "text": "Business analysts must do this work 1–2 Sprints ahead." },
+      { "id": "D", "text": "The Product Owner and the Developers do it in the 1–2 preceding Sprints." },
+      { "id": "E", "text": "The Product Owner and Developers do it in the actual Sprint if they haven’t been able to in preceding Sprints." }
+    ],
+    "correct": ["D", "E"],
+    "explanation": "Refinement is ongoing and happens within Sprints, often keeping items 1–2 Sprints ahead ready. No “Sprint 0”; no gap “between Sprints”; no mandated BAs.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-050",
+    "type": "single",
+    "prompt": "What technique should be used for representing Product Backlog Items?",
+    "options": [
+      { "id": "A", "text": "Acceptance Tests" },
+      { "id": "B", "text": "Use Cases" },
+      { "id": "C", "text": "Scenarios" },
+      { "id": "D", "text": "User Stories" },
+      { "id": "E", "text": "Any technique, even a mix of several techniques." }
+    ],
+    "correct": ["E"],
+    "explanation": "Scrum is method-agnostic about PBI format; choose whatever best communicates intent (stories, spikes, tests, use cases, etc.).",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-051",
+    "type": "single",
+    "prompt": "Product Backlog Refinement focuses on items for the upcoming Sprints, not the current Sprint in progress.",
+    "options": [
+      { "id": "A", "text": "False" },
+      { "id": "B", "text": "True" }
+    ],
+    "correct": ["B"],
+    "explanation": "Refinement is about Product Backlog items (typically for future Sprints). Current Sprint work lives in the Sprint Backlog.",
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "test-exempel-052",
+    "type": "multi",
+    "prompt": "What are the characteristics of a Product Backlog Item that is ready for selection in a Sprint Planning? (Select three)",
+    "options": [
+      { "id": "A", "text": "Can be implemented within one Sprint and tested in the next Sprint." },
+      { "id": "B", "text": "Somewhere at the bottom of the Product Backlog." },
+      { "id": "C", "text": "Somewhere at the top of the Product Backlog." },
+      { "id": "D", "text": "Well refined." },
+      { "id": "E", "text": "Can reasonably be done in one Sprint." }
+    ],
+    "correct": ["C", "D", "E"],
+    "explanation": "“Ready” implies small enough, clear enough, and prioritized. Testing “next Sprint” violates Done = releasable now.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-053",
+    "type": "single",
+    "prompt": "True or False: The Product Backlog must be complete before the first Sprint can start.",
+    "options": [
+      { "id": "A", "text": "True" },
+      { "id": "B", "text": "False" }
+    ],
+    "correct": ["B"],
+    "explanation": "The Product Backlog is emergent; it’s never “complete.” Start with enough to plan the first Sprint.",
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "test-exempel-054",
+    "type": "single",
+    "prompt": "True or False: During the Sprint Review the stakeholders must re-order the Product Backlog.",
+    "options": [
+      { "id": "A", "text": "True" },
+      { "id": "B", "text": "False" }
+    ],
+    "correct": ["B"],
+    "explanation": "Stakeholders give feedback; Product Owner orders the Product Backlog.",
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "test-exempel-055",
+    "type": "single",
+    "prompt": "What happens if the Product Backlog is not sufficiently clear at Sprint Planning?",
+    "options": [
+      { "id": "A", "text": "You are not doing Scrum. Stop development and look for a new Scrum Team." },
+      { "id": "B", "text": "The meeting is cancelled. Refinement must be done first." },
+      { "id": "C", "text": "Nothing." },
+      { "id": "D", "text": "This is compensated if the Product Owner gives the Scrum Team a clear Sprint Goal instead." },
+      { "id": "E", "text": "The Developers find it difficult to create a forecast of work for the current Sprint." }
+    ],
+    "correct": ["E"],
+    "explanation": "Poorly understood PBIs → weak forecast. A Sprint Goal doesn’t replace clarity of work.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-056",
+    "type": "single",
+    "prompt": "The Product Backlog is ordered by…",
+    "options": [
+      { "id": "A", "text": "Items are randomly arranged." },
+      { "id": "B", "text": "Safer items at the top to riskier items at the bottom." },
+      { "id": "C", "text": "Least valuable items at the top to most valuable items at the bottom." },
+      { "id": "D", "text": "Small items at the top to large items at the bottom." },
+      { "id": "E", "text": "Whatever is deemed most appropriate by the Product Owner." }
+    ],
+    "correct": ["E"],
+    "explanation": "The PO orders to maximize value and hit the Product Goal; many factors (value, risk, dependencies, learning) can drive that order. Heuristics like “smallest first” or “safest first” are tools—not rules.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-057",
+    "type": "single",
+    "prompt": "You are a Product Owner with a proven track record in your company and your management has asked you to take the lead in the development of a new, highly anticipated product. Six Teams will build this product. You have gathered a number of requirements and ideas into an early form of a Product Backlog. How would you minimize dependencies between the Scrum Teams?",
+    "options": [
+      { "id": "A", "text": "You identify the dependencies and re-order the Product Backlogs for the Teams." },
+      { "id": "B", "text": "You create an independent Product Backlog for each of the Scrum Teams." },
+      { "id": "C", "text": "You divide Product Backlog items among the six Product Owners." },
+      { "id": "D", "text": "You raise this as an impediment to the Scrum Master." },
+      { "id": "E", "text": "You work with the Developers on the Teams on how to best analyze and break apart the work." }
+    ],
+    "correct": ["E"],
+    "explanation": "One product → one Product Backlog and one PO. The cleanest way to reduce cross-team dependencies is vertical slicing and collaborative backlog refinement with the Developers. Multiple Product Backlogs or multiple POs for one product increases coupling and local optimization. “Raise to the SM” helps facilitation, not product slicing.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-058",
+    "type": "single",
+    "prompt": "Relationship of Sprint Backlog and Product Backlog",
+    "options": [
+      { "id": "A", "text": "The Product Backlog is a subset of the Sprint Backlog." },
+      { "id": "B", "text": "The Product Backlog is equal to the Sprint Backlog." },
+      { "id": "C", "text": "The Sprint Backlog is owned by the Product Owner." },
+      { "id": "D", "text": "The Sprint Backlog is a subset of the Product Backlog." }
+    ],
+    "correct": ["D"],
+    "explanation": "Sprint Backlog is the Developers’ plan for meeting the Sprint Goal, drawn from the Product Backlog.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-059",
+    "type": "single",
+    "prompt": "Which activities should he/she be engaged in, in order to fulfil this duty?",
+    "options": [
+      { "id": "A", "text": "Adding order to the Product Backlog." },
+      { "id": "B", "text": "Meeting with stakeholders and reviewing the Product Backlog with them." },
+      { "id": "C", "text": "Making sure dependencies are eliminated or reduced." },
+      { "id": "D", "text": "Splitting large PBIs into smaller ones that fit a Sprint." },
+      { "id": "E", "text": "All answers apply." }
+    ],
+    "correct": ["E"],
+    "explanation": "All listed actions are part of backlog management (ordering, stakeholder collaboration, slicing, risk/dependency reduction). Others can help; the PO remains accountable.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-060",
+    "type": "single",
+    "prompt": "What could be the source for any changes to be made to the product?",
+    "options": [
+      { "id": "A", "text": "CEO of the organization" },
+      { "id": "B", "text": "Key Stakeholders" },
+      { "id": "C", "text": "Developers" },
+      { "id": "D", "text": "Product Backlog" }
+    ],
+    "correct": ["D"],
+    "explanation": "Anyone may suggest changes, but they become legitimate work only once captured/ordered in the Product Backlog.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-061",
+    "type": "single",
+    "prompt": "What is the major difference between Product Backlog and Sprint Backlog?",
+    "options": [
+      { "id": "A", "text": "The Product Backlog is a subset of the Sprint Backlog." },
+      { "id": "B", "text": "The Sprint Backlog is owned by the Product Owner." },
+      { "id": "C", "text": "The Product Backlog is equal to the Sprint Backlog." },
+      { "id": "D", "text": "The Sprint Backlog is a subset of the Product Backlog." }
+    ],
+    "correct": ["D"],
+    "explanation": "1. Assumptions: You might assume ownership/equality—both are “backlogs,” so maybe they’re the same or PO owns both.\n2. Counterpoints: In Scrum, Developers own the Sprint Backlog; it’s their plan to meet the Sprint Goal. The Product Backlog is the single ordered list for the product.\n3. Reasoning test: If they were equal, Sprint Backlog would include every idea for the product—nonsense.\n4. Alternative framing: Product Backlog = what might be built (product scope, evolving). Sprint Backlog = what we will build now and how (selected PBIs + plan).\n5. Truth over agreement: Any option saying PB ⊂ SB or “equal” is simply wrong per Scrum; “SB owned by PO” is also wrong—ownership sits with Developers.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-062",
+    "type": "multi",
+    "prompt": "What are the three most important KVAs a Product Owner should be aware of (Select three answers)?",
+    "options": [
+      { "id": "A", "text": "Complexity" },
+      { "id": "B", "text": "Utilization of the Developers." },
+      { "id": "C", "text": "Revenue" },
+      { "id": "D", "text": "Ability to Innovate" },
+      { "id": "E", "text": "Current Value" },
+      { "id": "F", "text": "Time to Market" }
+    ],
+    "correct": ["D", "E", "F"],
+    "version": 1
+  },
+  {
+    "id": "test-exempel-063",
+    "type": "single",
+    "prompt": "What might indicate to a Product Owner that he/she needs to work more with the Scrum Team?",
+    "options": [
+      { "id": "A", "text": "He/she isn't working full time with the Scrum Team." },
+      { "id": "B", "text": "Developers leave the team." },
+      { "id": "C", "text": "The acceptance tests don't appear to be complete." },
+      { "id": "D", "text": "The increment presented at the Sprint Review does not reflect what he/she thought he/she had asked for." }
+    ],
+    "correct": ["D"],
+    "version": 1
+  },
+  {
+    "id": "test-exempel-064",
+    "type": "single",
+    "prompt": "What is the most important stakeholder Product Owners must satisfy?",
+    "options": [
+      { "id": "A", "text": "Executive staff." },
+      { "id": "B", "text": "The company owner or shareholders." },
+      { "id": "C", "text": "The Chief Product Owner" },
+      { "id": "D", "text": "The product's users" }
+    ],
+    "correct": ["D"],
+    "version": 1
+  },
+  {
+    "id": "test-exempel-065",
+    "type": "single",
+    "prompt": "Dependencies could influence how the Product Owner orders Product Backlog Items.",
+    "options": [
+      { "id": "A", "text": "False" },
+      { "id": "B", "text": "True" }
+    ],
+    "correct": ["B"],
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "test-exempel-066",
+    "type": "multi",
+    "prompt": "As a shareholder, which of the following measures might give you insight about whether a product is delivering value (Choose all that apply)?",
+    "options": [
+      { "id": "A", "text": "The velocity of the Scrum Team." },
+      { "id": "B", "text": "Revenue per Employee." },
+      { "id": "C", "text": "Market Share." },
+      { "id": "D", "text": "Profitability of the product." },
+      { "id": "E", "text": "Average selling price compared to competitors." }
+    ],
+    "correct": ["C", "D", "E"],
+    "explanation": "Velocity is a team activity metric; Revenue per Employee is a company-level efficiency metric and less product-specific.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-067",
+    "type": "single",
+    "prompt": "What traditionally “good” behavior can impede the adoption of an agile culture and mindset within the development organization?",
+    "options": [
+      { "id": "A", "text": "Organization-level technology standards are enforced." },
+      { "id": "B", "text": "None of the answers apply." },
+      { "id": "C", "text": "Specialization is encouraged." },
+      { "id": "D", "text": "Outstanding individual performance is rewarded." },
+      { "id": "E", "text": "High utilization of teams is rewarded." },
+      { "id": "F", "text": "Management according to fixed scope, schedule and budget." },
+      { "id": "G", "text": "All answers apply." }
+    ],
+    "correct": ["G"],
+    "explanation": "Each of these, when over-emphasized, can work against agile values and team autonomy.",
+    "version": 1
+  },
+  {
+    "id": "test-exempel-068",
+    "type": "single",
+    "prompt": "You as a Product Owner are stretched too thin to do all things you need to do. What strategy can help you to be more effective?",
+    "options": [
+      { "id": "A", "text": "None of the answers apply." },
+      { "id": "B", "text": "Split your role of a Product Owner into a Business Product Owner and a Technical Product Owner to evenly spread the work." },
+      { "id": "C", "text": "Break the product into components with a Product Owner assigned to each component and create a Chief Product Owner responsible for the integrated product." },
+      { "id": "D", "text": "Delegate the responsibility for tasks like adding details to Product Backlog items, speaking to users, and analyzing data to others." }
+    ],
+    "correct": ["D"],
+    "version": 1
+  },
+  {
+    "id": "test-exempel-069",
+    "type": "multi",
+    "prompt": "What three things might a Product Owner focus on to ensure his/her product delivers value? (Choose three answers)",
+    "options": [
+      { "id": "A", "text": "Minimizing changes to project scope." },
+      { "id": "B", "text": "Size of his/her product in “lines of code”." },
+      { "id": "C", "text": "How much of the functionality of the product is being used." },
+      { "id": "D", "text": "Direct customer feedback." },
+      { "id": "E", "text": "How readily the product can be absorbed and used by the customers." }
+    ],
+    "correct": ["C", "D", "E"],
+    "version": 1
+  },
+  {
+    "id": "test-exempel-070",
+    "type": "single",
+    "prompt": "Scrum requires the Product Owner must use which of the following:",
+    "options": [
+      { "id": "A", "text": "Project Gantt chart." },
+      { "id": "B", "text": "Release burndown chart." },
+      { "id": "C", "text": "Critical Path Analysis." },
+      { "id": "D", "text": "Burndown diagram." },
+      { "id": "E", "text": "Refactoring." },
+      { "id": "F", "text": "Feature burnup." },
+      { "id": "G", "text": "None of these." }
+    ],
+    "correct": ["G"],
+    "version": 1
+  },
+  {
+    "id": "test-exempel-071",
+    "type": "single",
+    "prompt": "What does a user satisfaction gap describe? Choose the best answer.",
+    "options": [
+      { "id": "A", "text": "The gap between the total market for a product and the market share of the product." },
+      { "id": "B", "text": "The gap between the time spent by the Developers working on the product and the time spent for maintaining the product." },
+      { "id": "C", "text": "The gap between the user's desired outcome and the actual user's experience." }
+    ],
+    "correct": ["C"],
+    "version": 1
+  },
+  {
+    "id": "test-exempel-072",
+    "type": "single",
+    "prompt": "How often should customer satisfaction be measured?",
+    "options": [
+      { "id": "A", "text": "Daily." },
+      { "id": "B", "text": "Quarterly." },
+      { "id": "C", "text": "Annually." },
+      { "id": "D", "text": "Frequently." }
+    ],
+    "correct": ["D"],
+    "version": 1
+  },
+  {
+    "id": "test-exempel-073",
+    "type": "single",
+    "prompt": "The value of a product is only determined by revenue.",
+    "options": [
+      { "id": "A", "text": "True." },
+      { "id": "B", "text": "False." }
+    ],
+    "correct": ["B"],
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "test-exempel-074",
+    "type": "single",
+    "prompt": "The ‘Cone of Uncertainty’ can be used to do what?",
+    "options": [
+      { "id": "A", "text": "Determine the cost of a project before it is begun." },
+      { "id": "B", "text": "Determine whether to cut quality, similar to the ‘Iron Triangle’ of software development." },
+      { "id": "C", "text": "Project what will be completed by a given Sprint." },
+      { "id": "D", "text": "Illustrate that, as forecast lengthens, it is increasingly less certain." }
+    ],
+    "correct": ["D"],
+    "version": 1
+  },
+  {
+    "id": "test-exempel-075",
+    "type": "single",
+    "prompt": "As a Product Owner you notice that team members are being pulled away from your Scrum Team to handle work for other teams. What measure will help you to gather insight into this problem?",
+    "options": [
+      { "id": "A", "text": "Lead Time" },
+      { "id": "B", "text": "Cycle Time" },
+      { "id": "C", "text": "Employee Satisfaction" },
+      { "id": "D", "text": "Usage Index" },
+      { "id": "E", "text": "Time spent context switching" }
+    ],
+    "correct": ["E"],
+    "version": 1
+  },
+  {
+    "id": "test-exempel-076",
+    "type": "single",
+    "prompt": "You as a Product Owner want to increase the price of a product. What should your primary objective be?",
+    "options": [
+      { "id": "A", "text": "Reduce the number of features in the product to make it easier to use." },
+      { "id": "B", "text": "Reduce the pricing for a certain before increasing it above the original price." },
+      { "id": "C", "text": "Add more features to the product to make it more attractive." },
+      { "id": "D", "text": "Improve the value as experienced by the customers and end users." }
+    ],
+    "correct": ["D"],
+    "version": 1
+  },
+  {
+    "id": "test-exempel-077",
+    "type": "single",
+    "prompt": "How does Technical Debt as a consequence of deferred work for the product impact your Ability to Innovate?",
+    "options": [
+      { "id": "A", "text": "There is no impact." },
+      { "id": "B", "text": "Immediately raise this as an impediment to the Scrum Master." },
+      { "id": "C", "text": "Your Ability to Innovate decreases as you need to spend more time for repaying Technical Debt." }
+    ],
+    "correct": ["C"],
+    "version": 1
+  },
+  {
+    "id": "test-exempel-078",
+    "type": "multi",
+    "prompt": "Which metrics will help a Product Owner establish that value is being delivered? (Choose two answers.)",
+    "options": [
+      { "id": "A", "text": "Hours worked by the Developers." },
+      { "id": "B", "text": "Productivity." },
+      { "id": "C", "text": "Velocity." },
+      { "id": "D", "text": "Scope implemented." },
+      { "id": "E", "text": "Time to Market" },
+      { "id": "F", "text": "Customer satisfaction." }
+    ],
+    "correct": ["E", "F"],
+    "version": 1
+  },
+  {
+    "id": "test-exempel-079",
+    "type": "single",
+    "prompt": "What is the primary benefit of an Agile approach?",
+    "options": [
+      { "id": "A", "text": "Planning and executing in short increments increases the projects predictability." },
+      { "id": "B", "text": "Using an Agile approach makes it easier to meet Time-to-Market goals." },
+      { "id": "C", "text": "Using an Agile approach makes it easier to deliver on-time and within-budget." },
+      { "id": "D", "text": "Using an Agile approach enables a team to inspect and adapt their results by frequently delivering a working product." }
+    ],
+    "correct": ["D"],
+    "version": 1
+  },
+  {
+    "id": "test-exempel-080",
+    "type": "single",
+    "prompt": "Who is responsible for tracking the remaining work of the release.",
+    "options": [
+      { "id": "A", "text": "The Developers together with the Product Owner." },
+      { "id": "B", "text": "The Developers, alone." },
+      { "id": "C", "text": "The Scrum Master" },
+      { "id": "D", "text": "The Project Manager" },
+      { "id": "E", "text": "The Product Owner" }
+    ],
+    "correct": ["E"],
+    "explanation": "The PO is accountable for product value and managing the Product Backlog—including tracking progress toward release goals and communicating it (e.g., via burn-up/down or other forecasts). Developers track the Sprint’s remaining work; release-level tracking is the PO’s responsibility.\nSparring notes:\n* Assumption to challenge: “Only the PO can track it.” → Anyone may help, but accountability sits with the PO.\n* Alternative framing: The Scrum Team ensures transparency; the PO uses that transparency to forecast and decide on releases.",
+    "version": 1
+  }
+]

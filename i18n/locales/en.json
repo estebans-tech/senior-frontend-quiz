@@ -1,0 +1,25 @@
+{
+  "welcome": "PSPO I - MCQ Trainer",
+  "description": "Practice multiple-choice questions. Reveal answers and explanations, then review results.",
+  "chooseCategory": "Choose a category",
+  "questionAmount": "Number of questions (max)",
+  "wellFetch": "we will fetch",
+  "upTo": "up to",
+  "thisAmount": "this amount",
+  "shuffleQuestions": "Shuffle questions",
+  "startQuiz": "Start quiz",
+  "language": "English",
+  "nav": {
+    "repeat": "Repeat",
+    "backToStart": "Back to start"
+  },
+  "result": {
+    "title": "PSPO I - Result",
+    "repeat": "Repeat",
+    "backToStart": "Back to start",
+    "noSession": "No session loaded.",
+    "correct": "Correct",
+    "incorrect": "Incorrect",
+    "total": "Total"
+   }
+}

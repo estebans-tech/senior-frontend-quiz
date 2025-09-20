@@ -1,0 +1,156 @@
+[
+  {
+    "id": "assessment-prep-001",
+    "type": "single",
+    "prompt": "True or false: To get started in terms of what to build, Scrum requires no more than a Product Owner with enough ideas for a Sprint, Developers to implement those ideas, and a Scrum Master to help guide the process.",
+    "options": [
+      { "id": "A", "text": "False" },
+      { "id": "B", "text": "True" }
+    ],
+    "correct": ["B"],
+    "explanation": "Scrum is simple. Try it as is and determine if its philosophy, theory, and structure help to achieve goals and create value. The Scrum framework is purposefully incomplete, only defining the parts required to implement Scrum theory.",
+    "source": "Scrum Guide, p. 3",
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "assessment-prep-002",
+    "type": "single",
+    "prompt": "True or false: A Product Backlog can be made up of tests.",
+    "options": [
+      { "id": "A", "text": "False" },
+      { "id": "B", "text": "True" }
+    ],
+    "correct": ["B"],
+    "explanation": "At the start of a product-discovery journey, it can make sense to validate functions through tests and only then begin development (e.g., surveying customers before building a new feature).",
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "assessment-prep-003",
+    "type": "multi",
+    "prompt": "You started measuring product feature usage in your last release. You are surprised to learn that a sizeable percentage of the features you thought were very important are never or rarely used. Which of the following actions could you take to further evaluate this unexpected result? (Choose all that apply)",
+    "options": [
+      { "id": "A", "text": "Disable the features that have never been used and listen for feedback." },
+      { "id": "B", "text": "Examine whether the rarely used features solve the intended problem." },
+      { "id": "C", "text": "Run experiments to increase your understanding of what customers find valuable." },
+      { "id": "D", "text": "Spend more time talking to Users identifying the impact they seek." }
+    ],
+    "correct": ["B", "C", "D"],
+    "explanation": "Lean toward learning: collaborate with customers, run experiments, and reassess problem–solution fit.",
+    "source": "Agile Manifesto — Customer Collaboration over Contract Negotiation",
+    "version": 1
+  },
+  {
+    "id": "assessment-prep-004",
+    "type": "multi",
+    "prompt": "Several Sprints into a project, the Product Owner tells the Scrum Master that a key stakeholder just started using the product. The stakeholder is unhappy with the slow performance. What are two good options for the Scrum Master? (choose the best two answers)",
+    "options": [
+      { "id": "A", "text": "Encourage the Product Owner to put performance on the Product Backlog and express the stakeholder’s concern to the Developers." },
+      { "id": "B", "text": "Wait to bring this up until the Sprint Retrospective." },
+      { "id": "C", "text": "Bring the concern to the testers to improve how the system is tested." },
+      { "id": "D", "text": "Coach the Product Owner on how to talk with the Developers about this concern." },
+      { "id": "E", "text": "Explain to the Product Owner that it’s up to the Developers to decide on acceptable performance standards." }
+    ],
+    "correct": ["A", "D"],
+    "explanation": "Performance is a non-functional requirement that should be made transparent on the Product Backlog and refined. The Scrum Master serves by coaching the PO to collaborate with Developers. Defining acceptable quality (e.g., performance in the Definition of Done) is a Scrum Team responsibility or guided by organizational standards.",
+    "source": "Scrum Guide, p. 3",
+    "version": 1
+  },
+  {
+    "id": "assessment-prep-005",
+    "type": "single",
+    "prompt": "How does Scrum ensure early value delivery? (choose the best answer)",
+    "options": [
+      { "id": "A", "text": "By effective release planning." },
+      { "id": "B", "text": "By using a Definition of Done." },
+      { "id": "C", "text": "It is an agile approach, and the agile principles encourage early delivery of value." },
+      { "id": "D", "text": "By encouraging release after each iteration or after every few iterations." }
+    ],
+    "correct": ["D"],
+    "explanation": "Scrum encourages frequent releases—even multiple times per day. When a Product Backlog item meets the Definition of Done, an Increment is born and can be released.",
+    "version": 1
+  },
+  {
+    "id": "assessment-prep-006",
+    "type": "single",
+    "prompt": "If multiple Stakeholders have varied interests in the product and different viewpoints, what is the best strategy for the Product Owner? (choose the best answer)",
+    "options": [
+      { "id": "A", "text": "Stick to the viewpoint promising the fastest time-to-market." },
+      { "id": "B", "text": "Calculate ROI for every viewpoint and select the maximal one." },
+      { "id": "C", "text": "Listen to the people that fund the product’s development because they always have the last word." },
+      { "id": "D", "text": "Do an intelligent balancing of interests and try to maximize the value of the Product as a whole." }
+    ],
+    "correct": ["D"],
+    "explanation": "Maximizing value is the Product Owner’s accountability; balancing stakeholder interests is part of that work.",
+    "version": 1
+  },
+  {
+    "id": "assessment-prep-007",
+    "type": "single",
+    "prompt": "True or false: The Scrum Team should not allow any Product Backlog items into the Sprint unless they meet a definition of “Ready.”",
+    "options": [
+      { "id": "A", "text": "True" },
+      { "id": "B", "text": "False" }
+    ],
+    "correct": ["B"],
+    "explanation": "A “Definition of Ready” can be a helpful practice, but it is not required by Scrum.",
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "assessment-prep-008",
+    "type": "single",
+    "prompt": "True or false: User story is synonymous with Product Backlog item.",
+    "options": [
+      { "id": "A", "text": "True" },
+      { "id": "B", "text": "False" }
+    ],
+    "correct": ["B"],
+    "explanation": "User stories are a complementary practice. PBIs may include non-functional requirements, fixes, documentation, etc.",
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "assessment-prep-009",
+    "type": "single",
+    "prompt": "True or false: Product Owners must specify complete acceptance criteria for a Product Backlog Item before the Developers can select the item in Sprint Planning.",
+    "options": [
+      { "id": "A", "text": "True" },
+      { "id": "B", "text": "False" }
+    ],
+    "correct": ["B"],
+    "explanation": "Acceptance criteria are not prescribed by the Scrum Guide. They can be useful but are optional.",
+    "version": 1,
+    "lockOptionOrder": true
+  },
+  {
+    "id": "assessment-prep-010",
+    "type": "single",
+    "prompt": "When should the Product Owner update the project plan? (choose the best answer)",
+    "options": [
+      { "id": "A", "text": "The Product Owner shouldn’t be occupied by that. It is work for Project Manager." },
+      { "id": "B", "text": "Before the Sprint Planning to know how much work will have to be done in the Sprint." },
+      { "id": "C", "text": "Scrum forbids having a project plan." },
+      { "id": "D", "text": "After the Daily Scrum to ensure an accurate daily overview of project process." },
+      { "id": "E", "text": "The Product Backlog is the plan in Scrum. It is an emergent list of what is needed to improve the product." }
+    ],
+    "correct": ["E"],
+    "explanation": "The Product Backlog is an emergent, ordered list of what is needed to improve the product.",
+    "source": "Scrum Guide, p. 10–11 (Product Backlog & Product Goal)",
+    "version": 1
+  },
+  {
+    "id": "assessment-prep-011",
+    "type": "single",
+    "prompt": "A Scrum Team has been working on a product for 9 Sprints. A new Product Owner comes in, understanding he is accountable for Product Backlog. However, he is unsure about the purpose of the Product Backlog. He’s read the Product Backlog should be a list of all user features for the product. He goes to the Scrum Master asking where to put the other types of requirements that are going to be taken into account. Are all of the following types of requirements acceptable on a Product Backlog? Stability requirements; Performance requirements; Product functionality; Documentation; Fixes (choose the best answer)",
+    "options": [
+      { "id": "A", "text": "No, Product Backlog is a tool for the Product Owner. Other types of requirements should be managed separately by the Developers." },
+      { "id": "B", "text": "Yes, they all belong on the Product Backlog. Product Backlog is supposed to be the ‘single source of work’ for all the work to the product." }
+    ],
+    "correct": ["B"],
+    "explanation": "The Product Backlog is the single source of work undertaken by the Scrum Team.",
+    "source": "Scrum Guide, p. 10",
+    "version": 1
+  }
+]
