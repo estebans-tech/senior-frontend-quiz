@@ -1,0 +1,563 @@
+[
+  {
+    "id": "contracts-&-tooling-001",
+    "version": 1,
+    "type": "single",
+    "prompt": "Runtime-safe decoding of external JSON",
+    "options": [
+      { "id": "A", "text": "Validate with a runtime schema (e.g., Zod/Valibot) at the boundary and derive types from the schema (z.infer/equivalent)" },
+      { "id": "B", "text": "Define a TypeScript interface and cast the response with as Foo" },
+      { "id": "C", "text": "Use satisfies when assigning the JSON to ensure it matches Foo" },
+      { "id": "D", "text": "Trust a generic fetch<T>() return type without validation" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Runtime schema validation provides real runtime guarantees and keeps static types aligned via inference."],
+    "explanationIncorrect": [
+      "Compile-time only: Type assertions do not check runtime shape.",
+      "satisfies-only: Verifies assignment, not untrusted payloads.",
+      "Generics no validation: Types can lie about malformed JSON."
+    ],
+    "source": "TypeScript Handbook (type erasure); Zod/Valibot docs",
+    "category": "TypeScript & API Contracts"
+  },
+  {
+    "id": "contracts-&-tooling-002",
+    "version": 1,
+    "type": "single",
+    "prompt": "Discriminated unions for event payloads",
+    "options": [
+      { "id": "A", "text": "Include a common literal discriminator (e.g., type: 'add' | 'remove') and switch exhaustively with a never check" },
+      { "id": "B", "text": "Narrow with 'in' checks on optional fields only" },
+      { "id": "C", "text": "Omit the discriminator; let TypeScript infer from shape" },
+      { "id": "D", "text": "Add a default: case that swallows unknown variants silently" }
+    ],
+    "correct": ["A"],
+    "explanation": ["A shared discriminant enables precise narrowing and exhaustive handling with never checks."],
+    "explanationIncorrect": [
+      "Heuristic in-checks: Brittle and error-prone narrowing.",
+      "No discriminator: Weak inference and unsafe branches.",
+      "Catch-all default: Hides new variants and blocks exhaustiveness."
+    ],
+    "source": "TypeScript Handbook: Discriminated Unions & exhaustiveness",
+    "category": "TypeScript & API Contracts"
+  },
+  {
+    "id": "contracts-&-tooling-003",
+    "version": 1,
+    "type": "single",
+    "prompt": "Unknown at trust boundaries",
+    "options": [
+      { "id": "A", "text": "Prefer unknown for untrusted inputs and narrow before use" },
+      { "id": "B", "text": "Prefer any to avoid noise; tests will catch it" },
+      { "id": "C", "text": "Use object—it’s “safer” than unknown" },
+      { "id": "D", "text": "Use never for incoming JSON and refine upward" }
+    ],
+    "correct": ["A"],
+    "explanation": ["unknown forces explicit narrowing/validation before use, improving safety at boundaries."],
+    "explanationIncorrect": [
+      "any: Disables type safety and allows unsound use.",
+      "object: Too loose; still allows unsafe access patterns.",
+      "never: Uninhabited; unusable for incoming data."
+    ],
+    "source": "TypeScript Handbook (unknown vs any)",
+    "category": "TypeScript & API Contracts"
+  },
+  {
+    "id": "contracts-&-tooling-004",
+    "version": 1,
+    "type": "single",
+    "prompt": "Typed fetch without lying",
+    "options": [
+      { "id": "A", "text": "Accept a schema/decoder parameter (get(url, schema)) and validate before returning typed data" },
+      { "id": "B", "text": "Write get<T>(url): Promise<T> and cast the parsed JSON" },
+      { "id": "C", "text": "Use fetch<T> directly; the generic ensures runtime shape" },
+      { "id": "D", "text": "Parse to any and rely on unit tests" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Schema-in → validate → type-out keeps types honest and enforces runtime correctness."],
+    "explanationIncorrect": [
+      "Assertion-only: Types can be incorrect at runtime.",
+      "Generics-only: No runtime verification of shape.",
+      "Tests-only: Cannot guarantee all inputs in production."
+    ],
+    "source": "TypeScript runtime validation patterns; Zod/Valibot docs",
+    "category": "TypeScript & API Contracts"
+  },
+  {
+    "id": "contracts-&-tooling-005",
+    "version": 1,
+    "type": "single",
+    "prompt": "Backward-compatible API changes",
+    "options": [
+      { "id": "A", "text": "Add new optional fields with sensible defaults; document them" },
+      { "id": "B", "text": "Rename existing fields in place" },
+      { "id": "C", "text": "Change a field’s type (number→string)" },
+      { "id": "D", "text": "Add a new enum value to a widely exhaustively-switched enum without versioning" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Adding optional fields is generally non-breaking when defaults and docs are provided."],
+    "explanationIncorrect": [
+      "In-place rename: Breaks existing consumers.",
+      "Type change: Breaks validation and client assumptions.",
+      "Enum expansion: Breaks exhaustive switches without versioning."
+    ],
+    "source": "OpenAPI change guidelines; API versioning best practices",
+    "category": "TypeScript & API Contracts"
+  },
+  {
+    "id": "contracts-&-tooling-006",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Using satisfies correctly",
+    "options": [
+      { "id": "A", "text": "const tokens = { primary: '#0af' } satisfies TokenMap preserves literal types and checks extra/missing keys without asserting" },
+      { "id": "B", "text": "as TokenMap will catch extra keys at compile-time" },
+      { "id": "C", "text": "satisfies changes runtime behavior by freezing the object" },
+      { "id": "D", "text": "Combine satisfies with as const for precise literals where appropriate" }
+    ],
+    "correct": ["A", "D"],
+    "explanation": [
+      "Assignment compatibility: satisfies enforces shape without unsafe assertions or widening.",
+      "Literal precision: as const retains literal types; together with satisfies improves token/config correctness."
+    ],
+    "explanationIncorrect": [
+      "Assertion masking: as can hide extra/missing keys.",
+      "No runtime effect: satisfies does not freeze or alter objects."
+    ],
+    "source": "TypeScript 4.9 satisfies release notes/Handbook",
+    "category": "TypeScript & API Contracts"
+  },
+  {
+    "id": "contracts-&-tooling-007",
+    "version": 1,
+    "type": "single",
+    "prompt": "BigInt across JSON",
+    "options": [
+      { "id": "A", "text": "Serialize as decimal strings and parse on the client; document the contract" },
+      { "id": "B", "text": "JSON.stringify BigInt directly; it’s supported" },
+      { "id": "C", "text": "Send as IEEE-754 numbers; precision is fine" },
+      { "id": "D", "text": "Base64-encode the raw bytes without documenting" }
+    ],
+    "correct": ["A"],
+    "explanation": ["String encoding preserves precision and interoperates with JSON reliably; document parsing expectations."],
+    "explanationIncorrect": [
+      "Not supported: JSON.stringify throws on BigInt.",
+      "Precision loss: IEEE-754 cannot represent large integers safely.",
+      "Opaque encoding: Undocumented base64 harms interop and clarity."
+    ],
+    "source": "MDN: JSON limits; Number precision; BigInt",
+    "category": "TypeScript & API Contracts"
+  },
+  {
+    "id": "contracts-&-tooling-008",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Contract testing & schema gates",
+    "options": [
+      { "id": "A", "text": "Maintain OpenAPI/JSON Schema; validate requests/responses in CI and at runtime at boundaries" },
+      { "id": "B", "text": "Use VCR cassettes to replay old responses as your main “contract”" },
+      { "id": "C", "text": "Only manual Swagger reviews before releases" },
+      { "id": "D", "text": "Use consumer-driven contracts (e.g., Pact) to catch drift between services" }
+    ],
+    "correct": ["A", "D"],
+    "explanation": [
+      "Schema validation: Automated gates detect breaking changes early and continuously.",
+      "CDC: Verifies provider behavior meets consumer expectations in CI."
+    ],
+    "explanationIncorrect": [
+      "Replay-only: Stale fixtures and no guarantee of compatibility.",
+      "Manual-only: Non-enforceable and error-prone."
+    ],
+    "source": "Pact docs; OpenAPI validators; Martin Fowler on contract tests",
+    "category": "TypeScript & API Contracts"
+  },
+  {
+    "id": "contracts-&-tooling-009",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Preconditions for effective tree-shaking",
+    "options": [
+      { "id": "A", "text": "Publish/consume ESM with static import/export; avoid dynamic require" },
+      { "id": "B", "text": "Mark \"sideEffects\": false (or list side-effectful files) in package.json" },
+      { "id": "C", "text": "Annotate pure calls with /*#__PURE__*/ to help DCE" },
+      { "id": "D", "text": "Prefer default-only exports; named exports can’t be shaken" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": [
+      "Static ESM: Enables module graph analysis for DCE.",
+      "Accurate sideEffects: Allows safe pruning of unused modules.",
+      "Purity annotations: Help minifiers drop unused results."
+    ],
+    "explanationIncorrect": [
+      "Named exports myth: Named exports are shakeable; defaults are not required."
+    ],
+    "source": "Webpack/Rollup docs; Terser purity annotations",
+    "category": "Tooling & Build Systems"
+  },
+  {
+    "id": "contracts-&-tooling-010",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Code splitting that improves UX",
+    "options": [
+      { "id": "A", "text": "Split by route/feature via import(); preload critical async chunks; prefetch likely-next" },
+      { "id": "B", "text": "Always extract all deps to a single “vendor” chunk" },
+      { "id": "C", "text": "Use HTTP/2/3 parallelism but avoid over-fragmentation into many tiny chunks" },
+      { "id": "D", "text": "Inline large libraries to reduce requests" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": [
+      "Route/feature splits: Improve cache efficiency and reduce blocking; targeted preload/prefetch speeds navs.",
+      "Balanced chunking: Leverages multiplexing without creating waterfall from too many tiny files."
+    ],
+    "explanationIncorrect": [
+      "Monolithic vendor: Hurts cold start and invalidates frequently.",
+      "Inline large libs: Bloats HTML and harms LCP."
+    ],
+    "source": "web.dev: code splitting & preloading; framework bundling guides",
+    "category": "Tooling & Build Systems"
+  },
+  {
+    "id": "contracts-&-tooling-011",
+    "version": 1,
+    "type": "multi",
+    "prompt": "package.json exports and dual builds",
+    "options": [
+      { "id": "A", "text": "Use \"exports\" to define entry points and conditions (import/require/browser); avoid deep imports" },
+      { "id": "B", "text": "Ship dual ESM/CJS when needed and expose types via \"types\" or conditional types" },
+      { "id": "C", "text": "Rely only on \"main\"/\"module\"; exports breaks bundlers" },
+      { "id": "D", "text": "Mark \"type\": \"module\" without testing CJS consumers" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": [
+      "Controlled resolution: exports defines stable public entry points and conditions.",
+      "Compatibility: Dual builds and proper typing support diverse consumers."
+    ],
+    "explanationIncorrect": [
+      "Outdated assumption: Modern bundlers support exports.",
+      "Unvetted ESM-only: Risks breaking CommonJS dependents."
+    ],
+    "source": "Node.js docs: package.json exports; TypeScript + Node resolution docs",
+    "category": "Tooling & Build Systems"
+  },
+  {
+    "id": "contracts-&-tooling-012",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Source maps in production safely",
+    "options": [
+      { "id": "A", "text": "Generate external maps and upload to your error tracker; use hidden-source-map/nosources-source-map as needed" },
+      { "id": "B", "text": "Inline maps in production bundles" },
+      { "id": "C", "text": "Strip maps entirely; stack traces are enough" },
+      { "id": "D", "text": "Ensure minifier/build pipeline preserves accurate mappings" }
+    ],
+    "correct": ["A", "D"],
+    "explanation": [
+      "External maps + secure upload: Enables readable stack traces without exposing source publicly.",
+      "Accurate mappings: Preserve fidelity through minification/transforms for correct debugging."
+    ],
+    "explanationIncorrect": [
+      "Inline maps: Payload bloat and source leakage.",
+      "No maps: Higher MTTR and poor diagnosability."
+    ],
+    "source": "Webpack/Vite docs on source maps; Sentry/Datadog guidance",
+    "category": "Tooling & Build Systems"
+  },
+  {
+    "id": "contracts-&-tooling-013",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Monorepo performance & reproducibility",
+    "options": [
+      { "id": "A", "text": "Use workspaces (pnpm/npm/yarn) + Nx/Turborepo with remote cache keyed by inputs" },
+      { "id": "B", "text": "Define a project graph to run only affected builds/tests" },
+      { "id": "C", "text": "Pin toolchain versions; use lockfiles and deterministic CI (npm ci/pnpm --frozen-lockfile)" },
+      { "id": "D", "text": "Run all builds serially against a single shared node_modules" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": [
+      "Workspaces + task runner: Parallelism and caching accelerate pipelines.",
+      "Affected graph: Scopes work to changed packages only.",
+      "Pinned toolchain: Ensures reproducible, deterministic builds."
+    ],
+    "explanationIncorrect": [
+      "Single shared tree + serial: Slow builds and heisenbugs from hoisting."
+    ],
+    "source": "Nx/Turborepo docs; pnpm/npm workspaces; reproducible builds guidance",
+    "category": "Tooling & Build Systems"
+  },
+  {
+    "id": "contracts-&-tooling-014",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Safer dependency hygiene",
+    "options": [
+      { "id": "A", "text": "Automate updates (Renovate/Dependabot) gated by CI, type checks, perf budgets, and canaries" },
+      { "id": "B", "text": "Avoid deep imports into node_modules; rely on public APIs" },
+      { "id": "C", "text": "Use codemods for breaking changes and commit generated diffs for review" },
+      { "id": "D", "text": "Disable npm audit/SCA entirely—too noisy" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": [
+      "Automated, verified updates: Keep dependencies current with safety checks.",
+      "Public APIs only: Prevents coupling to internals and future breakage.",
+      "Codemods: Systematic, reviewable migrations for breaking releases."
+    ],
+    "explanationIncorrect": [
+      "Turn off SCA: Loses critical supply-chain security signals; tune instead."
+    ],
+    "source": "Renovate/Dependabot docs; jscodeshift/ts-morph; SCA best practices",
+    "category": "Tooling & Build Systems"
+  },
+  {
+    "id": "contracts-&-tooling-015",
+    "version": 1,
+    "type": "single",
+    "prompt": "Build/perf budgets in CI",
+    "options": [
+      { "id": "A", "text": "Enforce per-route JS transfer + execution-time budgets and image byte budgets alongside Web Vitals guards" },
+      { "id": "B", "text": "Enforce a single global Lighthouse score ≥ 90" },
+      { "id": "C", "text": "Count total requests as the main KPI" },
+      { "id": "D", "text": "No budgets; rely on post-release monitoring" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Granular, route-level budgets linked to Web Vitals are actionable and reflect real user impact."],
+    "explanationIncorrect": [
+      "Single score: Easy to game and lacks diagnostic value.",
+      "Request count only: Weak proxy without context.",
+      "No budgets: Issues surface only after users are affected."
+    ],
+    "source": "web.dev: performance budgets; Core Web Vitals guidance",
+    "category": "Tooling & Build Systems"
+  },
+  {
+    "id": "contracts-&-tooling-016",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Runtime composition for independently deployable UIs",
+    "options": [
+      { "id": "A", "text": "Use Module Federation to load remote entries at runtime; share singletons for core libs (React/Router) with strict versioning" },
+      { "id": "B", "text": "Compose at build-time via versioned library packages when runtime coupling is not needed" },
+      { "id": "C", "text": "Server/edge compose HTML fragments (ESI/SSR) with per-fragment caching" },
+      { "id": "D", "text": "Deep-import another team’s private files to avoid duplication" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": [
+      "Module Federation: Runtime loading with shared singletons maintains autonomy.",
+      "Build-time libraries: Versioned packages when runtime indirection isn’t needed.",
+      "Server/edge composition: HTML assembly with cache control per fragment."
+    ],
+    "explanationIncorrect": [
+      "Private deep imports: Break encapsulation and independent deployability."
+    ],
+    "source": "Module Federation docs; microfrontends.org; edge/SSR composition patterns",
+    "category": "Microfrontends & Federation"
+  },
+  {
+    "id": "contracts-&-tooling-017",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Avoiding version/style conflicts",
+    "options": [
+      { "id": "A", "text": "Configure shared singletons for React/Router with strict/required versions" },
+      { "id": "B", "text": "Scope styles (CSS Modules/CSS-in-JS hashing) and avoid global resets leaking across MFEs" },
+      { "id": "C", "text": "Use Web Components for hard encapsulation when mixing frameworks" },
+      { "id": "D", "text": "Expose window.React globally so everything “just works”" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": [
+      "Singletons: Prevent duplicate core libraries and version conflicts.",
+      "Scoped styles: Reduce CSS bleed between microfrontends.",
+      "Web Components: Strong encapsulation across frameworks."
+    ],
+    "explanationIncorrect": [
+      "Global React: Fragile, hinders code-splitting, and invites collisions."
+    ],
+    "source": "Webpack sharing config; MDN: Web Components; CSS scoping best practices",
+    "category": "Microfrontends & Federation"
+  },
+  {
+    "id": "contracts-&-tooling-018",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Routing and URL ownership",
+    "options": [
+      { "id": "A", "text": "Give each MFE ownership of a URL subtree and register with the shell/router" },
+      { "id": "B", "text": "Prefer server-side routing composition for SEO-heavy routes; client composition for app-like areas" },
+      { "id": "C", "text": "Keep cross-MFE navigation explicit (navigate({to})) rather than DOM hacks" },
+      { "id": "D", "text": "Let multiple MFEs compete for the same path and rely on load order" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": [
+      "Route ownership: Eliminates conflicts and clarifies responsibility.",
+      "Server/client split: Matches SEO and interactivity needs.",
+      "Explicit navigation: Reduces coupling and flakiness."
+    ],
+    "explanationIncorrect": [
+      "Route contention: Non-deterministic behavior and bugs."
+    ],
+    "source": "single-spa/router patterns; SSR SEO guidance",
+    "category": "Microfrontends & Federation"
+  },
+  {
+    "id": "contracts-&-tooling-019",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Contracts and schema evolution between MFEs",
+    "options": [
+      { "id": "A", "text": "Version events/props, share TS types via a package, and validate at runtime at boundaries" },
+      { "id": "B", "text": "Use consumer-driven contracts in CI to detect drift" },
+      { "id": "C", "text": "Import private utils from other MFEs to avoid duplication" },
+      { "id": "D", "text": "Break changes silently and document later" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": [
+      "Versioned contracts + shared types: Preserve compatibility across independent releases.",
+      "CDC in CI: Catches drift before it reaches users."
+    ],
+    "explanationIncorrect": [
+      "Private imports: Violates encapsulation and stability.",
+      "Silent breaks: Erode platform reliability."
+    ],
+    "source": "Pact/CDC practices; TypeScript runtime validation patterns",
+    "category": "Microfrontends & Federation"
+  },
+  {
+    "id": "contracts-&-tooling-020",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Perf & telemetry attribution in a federated app",
+    "options": [
+      { "id": "A", "text": "Share core vendors as singletons; lazy-load MFEs on route/intent; prefetch likely-next" },
+      { "id": "B", "text": "Tag RUM/error events with {mfe, version} for attribution and targeted rollback" },
+      { "id": "C", "text": "Preload all MFEs on first paint to avoid later waterfalls" },
+      { "id": "D", "text": "Hide which MFE emitted an error to keep logs simple" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": [
+      "Singleton sharing + on-demand loading: Minimizes duplicate bytes and improves TTI.",
+      "Attribution tags: Enable pinpointing regressions and targeted rollbacks."
+    ],
+    "explanationIncorrect": [
+      "Mass preload: Inflates TTI/LCP and wastes bandwidth.",
+      "No attribution: Makes diagnosis and rollback difficult."
+    ],
+    "source": "web.dev: code splitting/prefetch; RUM attribution patterns",
+    "category": "Microfrontends & Federation"
+  },
+  {
+    "id": "contracts-&-tooling-021",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Hardening a JavaScript bridge in desktop shells",
+    "options": [
+      { "id": "A", "text": "Disable Node integration in renderers, enable contextIsolation, expose a minimal allowlisted API via preload/IPC; validate channel and payload schema" },
+      { "id": "B", "text": "Allow window.require in all renderers for convenience; OS sandbox will catch issues" },
+      { "id": "C", "text": "Set a strict CSP (no wildcard), disallow eval/new Function, and verify auto-update signatures" },
+      { "id": "D", "text": "Use a single global * wildcard in CSP to avoid breaking plugins" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": [
+      "Renderer hardening: Node-off, context isolation, minimal/validated IPC reduce RCE paths.",
+      "Defense-in-depth: Strict CSP and signed updates limit injection/tampering."
+    ],
+    "explanationIncorrect": [
+      "window.require: Expands attack surface to full Node APIs.",
+      "Wildcard CSP: Defeats CSP protections and invites injection."
+    ],
+    "source": "Electron security docs; Tauri security guide; MDN: CSP",
+    "category": "Native Bridges & WebViews"
+  },
+  {
+    "id": "contracts-&-tooling-022",
+    "version": 1,
+    "type": "multi",
+    "prompt": "OAuth in apps with embedded web content",
+    "options": [
+      { "id": "A", "text": "Prefer system browser (Custom Tabs/SFSafariViewController) with PKCE; avoid raw WebViews for sign-in" },
+      { "id": "B", "text": "Persist tokens in Keychain/Keystore via the native layer; scope refresh logic to the platform" },
+      { "id": "C", "text": "Inject JS into IdP forms inside a WebView to auto-fill credentials" },
+      { "id": "D", "text": "Disable universal/app links; deep links are brittle anyway" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": [
+      "System browser + PKCE: Better security, SSO parity, reduced phishing surface.",
+      "Secure storage: Keeps tokens in platform stores with proper lifecycle."
+    ],
+    "explanationIncorrect": [
+      "WebView injection: Discouraged and risks leakage.",
+      "No app links: Harms UX and weakens security properties."
+    ],
+    "source": "RFC 8252 (OAuth for Native Apps); platform guidelines",
+    "category": "Native Bridges & WebViews"
+  },
+  {
+    "id": "contracts-&-tooling-023",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Mobile WebView hardening",
+    "options": [
+      { "id": "A", "text": "Android: avoid addJavascriptInterface unless necessary; if used, annotate and validate; restrict to a private process" },
+      { "id": "B", "text": "iOS: use WKWebView with message handlers/WKContentWorld; restrict navigations with policy delegates" },
+      { "id": "C", "text": "Disable arbitrary file:// access and unknown URL schemes; enable Safe Browsing/SmartScreen where available" },
+      { "id": "D", "text": "Allow arbitrary navigation/intent schemes so links “just work”" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": [
+      "Android bridge caution: Minimizes RCE surface and enforces input validation.",
+      "WKWebView isolation: Safer messaging and navigation control.",
+      "Scheme/URL restrictions: Reduce phishing/RCE vectors; platform protection adds defense."
+    ],
+    "explanationIncorrect": [
+      "Permissive navigation: Expands attack surface significantly."
+    ],
+    "source": "Android WebView security tips; Apple WKWebView best practices",
+    "category": "Native Bridges & WebViews"
+  },
+  {
+    "id": "contracts-&-tooling-024",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Shipping updates without breaking policy",
+    "options": [
+      { "id": "A", "text": "Use feature flags/remote config for behavior toggles; keep code updates within allowed scope; sign/notarize desktop auto-updates" },
+      { "id": "B", "text": "Hot-patch native capabilities with arbitrary downloaded code to bypass review" },
+      { "id": "C", "text": "Maintain release trains with staged rollouts and an emergency hotfix path" },
+      { "id": "D", "text": "Skip signature verification to speed up updates" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": [
+      "Policy-compliant toggles: Safely adjust behavior without violating store rules; signed updates ensure integrity.",
+      "Release trains: Predictable cadence, staged rollouts, and hotfix channel reduce risk."
+    ],
+    "explanationIncorrect": [
+      "Arbitrary native code: Violates store policies and increases risk.",
+      "No signature verification: Enables tampering and supply-chain attacks."
+    ],
+    "source": "App Store/Play policies; Electron autoUpdater; code signing/notarization docs",
+    "category": "Native Bridges & WebViews"
+  },
+  {
+    "id": "contracts-&-tooling-025",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Cross-origin messaging in WebViews",
+    "options": [
+      { "id": "A", "text": "Prefer structured postMessage with explicit origin checks and schema validation" },
+      { "id": "B", "text": "Use eval to run stringified code from the host for flexibility" },
+      { "id": "C", "text": "On iOS, separate WKContentWorld for isolation; on Android, limit addJavascriptInterface surface" },
+      { "id": "D", "text": "Accept messages from * origin to avoid breaking integrations" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": [
+      "postMessage + origin/schema checks: Ensures authenticated, well-formed messages.",
+      "Context isolation/limited bridges: Reduces attack surface and privilege exposure."
+    ],
+    "explanationIncorrect": [
+      "eval execution: High-risk and unnecessary.",
+      "Wildcard origins: Removes origin authentication and invites abuse."
+    ],
+    "source": "MDN: postMessage security; WKContentWorld; Android addJavascriptInterface guidance",
+    "category": "Native Bridges & WebViews"
+  }
+]

@@ -1,0 +1,383 @@
+[
+  {
+    "id": "operations-&-impact-001",
+    "version": 1,
+    "type": "single",
+    "prompt": "Choosing the right data for user-facing SLOs (e.g., LCP/INP targets)",
+    "options": [
+      { "id": "A", "text": "Real User Monitoring (field) at the 75th percentile, segmented by route and device classes" },
+      { "id": "B", "text": "Lab data from a single CI Lighthouse run on fast hardware" },
+      { "id": "C", "text": "Synthetic checks only; users are too noisy" },
+      { "id": "D", "text": "Error log volume per minute" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Field p75 by route/device reflects real user experience and avoids masking regressions in averages."],
+    "explanationIncorrect": [
+      "Lab-only: Misses real devices/networks.",
+      "Synthetic-only: Complementary but not representative of users.",
+      "Error volume: Reliability signal, not a UX performance SLO."
+    ],
+    "source": "web.dev: Core Web Vitals (field p75); Chrome UX Report; SRE Workbook (SLOs)",
+    "category": "Observability & Operational Readiness"
+  },
+  {
+    "id": "operations-&-impact-002",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Correlating frontend UX with backend latency",
+    "options": [
+      { "id": "A", "text": "Propagate W3C Trace Context (traceparent) on fetch/XHR to link frontend spans to backend traces" },
+      { "id": "B", "text": "Use Server-Timing to expose backend phases and trace IDs to the browser" },
+      { "id": "C", "text": "Only log console.time() in the browser; correlation is unnecessary" },
+      { "id": "D", "text": "Rely on opaque CDN cache logs; no need to instrument the app" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": [
+      "Trace propagation: Connects frontend spans to backend traces for end-to-end visibility.",
+      "Server-Timing: Surfaces backend phase timings/trace IDs to correlate with UX metrics."
+    ],
+    "explanationIncorrect": [
+      "Console timers only: Uncorrelated and incomplete.",
+      "CDN logs only: Opaque and cannot tie to user experience."
+    ],
+    "source": "W3C Trace Context; MDN: Server-Timing; OpenTelemetry docs",
+    "category": "Observability & Operational Readiness"
+  },
+  {
+    "id": "operations-&-impact-003",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Alerting on user-visible errors without paging on noise",
+    "options": [
+      { "id": "A", "text": "Page when the rate of unhandled exceptions crosses a threshold per release/route and cohort" },
+      { "id": "B", "text": "De-duplicate by error fingerprint and exclude benign aborts (e.g., AbortError)" },
+      { "id": "C", "text": "Alert on every console.error globally" },
+      { "id": "D", "text": "Use rolling windows and require a minimum sample size before paging" }
+    ],
+    "correct": ["A", "B", "D"],
+    "explanation": [
+      "Impact thresholds: Page only for sustained, cohort-specific user impact.",
+      "Dedup/filter: Fingerprint errors and drop non-actionable noise like cancellations.",
+      "Windows/samples: Stabilize alerts and avoid single-event paging."
+    ],
+    "explanationIncorrect": [
+      "Alert on every console.error: Creates alert fatigue and hides real issues."
+    ],
+    "source": "SRE Workbook (alerting); error-monitoring vendor practices",
+    "category": "Observability & Operational Readiness"
+  },
+  {
+    "id": "operations-&-impact-004",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Sampling and cost control for telemetry",
+    "options": [
+      { "id": "A", "text": "Head-sample normal traces (e.g., 5–10%), but keep 100% of error events and selected key transactions" },
+      { "id": "B", "text": "Tail-based sampling in the backend and dynamic upsampling on anomalies" },
+      { "id": "C", "text": "Drop all RUM beacons on slow networks to save cost" },
+      { "id": "D", "text": "Session-based sampling (e.g., 1 in N sessions) to avoid bias toward heavy users" }
+    ],
+    "correct": ["A", "B", "D"],
+    "explanation": [
+      "Head sampling + error passthrough: Reduces volume while preserving critical signals.",
+      "Tail sampling: Keeps interesting outliers and anomalies via backend decisions.",
+      "Session sampling: Avoids per-event bias and captures user-level context."
+    ],
+    "explanationIncorrect": [
+      "Drop slow-network RUM: Discards the most important signals for UX."
+    ],
+    "source": "OpenTelemetry sampling strategies; SRE guidance",
+    "category": "Observability & Operational Readiness"
+  },
+  {
+    "id": "operations-&-impact-005",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Operational guardrails with feature flags",
+    "options": [
+      { "id": "A", "text": "Implement kill switches via remote config; default to a safe state if config fails to load" },
+      { "id": "B", "text": "Couple flags with telemetry (emit variant in events) and allow per-cohort rollbacks" },
+      { "id": "C", "text": "Evaluate flags only at build time to enable tree-shaking" },
+      { "id": "D", "text": "Use flags for authorization decisions so permissions can change instantly" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": [
+      "Kill switches: Rapid mitigation path with fail-safe defaults on config failure.",
+      "Telemetry coupling: Variant attribution enables targeted rollbacks and impact analysis."
+    ],
+    "explanationIncorrect": [
+      "Evaluate flags: Build-time flags remove runtime control.",
+      "Auth via flags: Authorization should not rely on mutable client-side flags."
+    ],
+    "source": "LaunchDarkly/Unleash patterns; SRE change management",
+    "category": "Observability & Operational Readiness"
+  },
+  {
+    "id": "operations-&-impact-006",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Runbooks and incident readiness",
+    "options": [
+      { "id": "A", "text": "Maintain per-service runbooks with SEV classification, contacts, rollback steps, and dashboards/queries" },
+      { "id": "B", "text": "Detect incidents exclusively via Slack user reports" },
+      { "id": "C", "text": "Practice game days and postmortems with actionable follow-ups" },
+      { "id": "D", "text": "Treat SLO breaches as FYI and only act on absolute outages" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": [
+      "Runbooks: Prepared procedures reduce MTTR during incidents.",
+      "Game days/postmortems: Practice and learning loops reduce recurrence."
+    ],
+    "explanationIncorrect": [
+      "User reports only: Reactive and slow incident detection.",
+      "Ignore SLO breaches: Undermines reliability commitments."
+    ],
+    "source": "Google SRE Book/Workbook",
+    "category": "Observability & Operational Readiness"
+  },
+  {
+    "id": "operations-&-impact-007",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Reducing E2E flakiness",
+    "options": [
+      { "id": "A", "text": "Prefer role/text selectors; wait on UI states or network idleness over fixed sleeps; avoid cross-test data coupling" },
+      { "id": "B", "text": "Insert fixed 5-second sleeps after each navigation" },
+      { "id": "C", "text": "Stub animations and control time to remove nondeterminism" },
+      { "id": "D", "text": "Mock all network calls in E2E so they never hit a backend" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": [
+      "Robust selectors/waits: Target user-visible states and avoid brittle timing.",
+      "Deterministic timing: Disable animations and control clocks to reduce nondeterminism."
+    ],
+    "explanationIncorrect": [
+      "Fixed sleeps: Brittle and slow.",
+      "Mock everything: Stops being end-to-end; keep critical paths real."
+    ],
+    "source": "Cypress/Playwright best practices; Testing Library guidance",
+    "category": "Testing & Quality"
+  },
+  {
+    "id": "operations-&-impact-008",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Consumer-driven contracts",
+    "options": [
+      { "id": "A", "text": "Use Pact (or similar) so the provider verifies consumer expectations in CI" },
+      { "id": "B", "text": "Record once, replay forever (VCR) to lock behaviors" },
+      { "id": "C", "text": "Maintain OpenAPI/JSON Schema and run breaking-change checks in CI" },
+      { "id": "D", "text": "Only rely on manual Swagger review before releases" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": [
+      "CDC in CI: Enforces compatibility by verifying consumer expectations.",
+      "Schema checks: Automated diffing flags breaking changes early."
+    ],
+    "explanationIncorrect": [
+      "Record/replay only: Brittle data and hides real drift.",
+      "Manual review only: Error-prone without enforcement."
+    ],
+    "source": "Pact docs; OpenAPI validation tooling; Martin Fowler on contract testing",
+    "category": "Testing & Quality"
+  },
+  {
+    "id": "operations-&-impact-009",
+    "version": 1,
+    "type": "single",
+    "prompt": "A healthy test pyramid",
+    "options": [
+      { "id": "A", "text": "Many fast unit tests, fewer integration tests, a small number of E2E for critical journeys" },
+      { "id": "B", "text": "Snapshot most components and treat snapshots as the safety net" },
+      { "id": "C", "text": "Write an E2E for every UI permutation" },
+      { "id": "D", "text": "Skip tests; rely on monitoring and flags only" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Balanced pyramid optimizes feedback speed and confidence; E2E is reserved for highest-value flows."],
+    "explanationIncorrect": [
+      "Snapshot-heavy: Noisy, weak behavior signal.",
+      "All-E2E permutations: High cost and flakiness.",
+      "Monitoring-only: Complements tests, does not replace them."
+    ],
+    "source": "Google Testing Blog; Martin Fowler: Test Pyramid",
+    "category": "Testing & Quality"
+  },
+  {
+    "id": "operations-&-impact-010",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Behavior-focused React testing",
+    "options": [
+      { "id": "A", "text": "Use Testing Library queries by role/label and assert visible outcomes over implementation details" },
+      { "id": "B", "text": "Use MSW to stub network at the boundary in integration tests" },
+      { "id": "C", "text": "Prefer snapshotting the entire DOM tree" },
+      { "id": "D", "text": "Query mainly by test IDs to avoid a11y coupling" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": [
+      "Role/label queries: Mimic real user interactions and improve a11y.",
+      "MSW boundary stubs: Hermetic yet realistic network behavior."
+    ],
+    "explanationIncorrect": [
+      "Full-DOM snapshots: Noisy and brittle.",
+      "Test IDs only: Useful sparingly; weaker alignment with user behavior."
+    ],
+    "source": "Testing Library docs; MSW docs; Kent C. Dodds guidance",
+    "category": "Testing & Quality"
+  },
+  {
+    "id": "operations-&-impact-011",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Hermetic data and isolation",
+    "options": [
+      { "id": "A", "text": "Spin ephemeral DBs/containers per suite; seed fixtures; rollback/truncate between tests" },
+      { "id": "B", "text": "Parallelize against a shared staging DB to mimic production" },
+      { "id": "C", "text": "Randomize ports/namespaces; reset global singletons between tests" },
+      { "id": "D", "text": "Depend on wall-clock time; never mock timers" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": [
+      "Isolated environments: Prevent cross-test bleed and nondeterminism.",
+      "Namespace/time control: Avoid global collisions and stabilize timing."
+    ],
+    "explanationIncorrect": [
+      "Shared staging: Induces test flakiness and interference.",
+      "Real-time only: Adds timing noise and flakes."
+    ],
+    "source": "Docker test envs; Playwright/Cypress isolation tips; Jest/Vitest timers",
+    "category": "Testing & Quality"
+  },
+  {
+    "id": "operations-&-impact-012",
+    "version": 1,
+    "type": "single",
+    "prompt": "Risk-driven quality gates",
+    "options": [
+      { "id": "A", "text": "Gate merges on p75 Web Vitals regressions, per-package coverage floors, change-affected coverage; sample mutation testing" },
+      { "id": "B", "text": "Enforce 100% global coverage for all files" },
+      { "id": "C", "text": "No coverage thresholds; trust the process" },
+      { "id": "D", "text": "Gate merges on Lighthouse score only" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Field vitals + targeted coverage and mutation sampling align quality gates with user impact and code risk."],
+    "explanationIncorrect": [
+      "100% global coverage: Incentivizes shallow tests.",
+      "No thresholds: Insufficient guardrails.",
+      "Single-score gate: Easy to game and not diagnostic."
+    ],
+    "source": "Chrome UX field guidance; Stryker mutation testing; pragmatic coverage practices",
+    "category": "Testing & Quality"
+  },
+  {
+    "id": "operations-&-impact-013",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Guardrails vs primary metric in an A/B test (checkout)",
+    "options": [
+      { "id": "A", "text": "Primary: conversion to purchase; Guardrails: error rate, p75 LCP, add-to-cart latency, refund rate" },
+      { "id": "B", "text": "Primary: pageviews; Guardrails: time-on-site" },
+      { "id": "C", "text": "Primary: revenue/user; Guardrails: sample ratio mismatch (SRM)" },
+      { "id": "D", "text": "Primary: conversion; Guardrails: none—guardrails reduce power" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Business KPI as primary plus UX/reliability guardrails prevents harmful 'wins' that degrade experience."],
+    "explanationIncorrect": [
+      "Weak proxies: Pageviews/time-on-site are not business outcomes.",
+      "SRM as guardrail: SRM is a health check, not a guardrail metric.",
+      "No guardrails: Risks shipping regressions masked by uplift."
+    ],
+    "source": "Google/Microsoft experimentation papers (guardrails)",
+    "category": "Experimentation & Product Impact"
+  },
+  {
+    "id": "operations-&-impact-014",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Detecting and responding to sample ratio mismatch (SRM)",
+    "options": [
+      { "id": "A", "text": "Run a chi-square goodness-of-fit on assignment counts; pause if p < 0.001" },
+      { "id": "B", "text": "Ignore SRM if overall variance looks normal" },
+      { "id": "C", "text": "Common causes include randomization bugs, asymmetric bot filters, and eligibility checks after assignment" },
+      { "id": "D", "text": "Fix by reweighting post-hoc and keep the same run" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": [
+      "Statistical check: Chi-square on assignment counts detects SRM reliably.",
+      "Root causes: Pipeline bugs and asymmetric filtering frequently cause SRM."
+    ],
+    "explanationIncorrect": [
+      "Ignore SRM: Invalidates inference regardless of variance.",
+      "Post-hoc reweight: Cannot repair broken randomization; restart after fixing."
+    ],
+    "source": "Evan Miller: How Not to Run an A/B Test; Booking.com/MExP SRM posts",
+    "category": "Experimentation & Product Impact"
+  },
+  {
+    "id": "operations-&-impact-015",
+    "version": 1,
+    "type": "single",
+    "prompt": "Peeking and sequential analysis",
+    "options": [
+      { "id": "A", "text": "Use group-sequential or always-valid methods (alpha-spending, sequential likelihood ratio, Bayesian with stopping rules) to allow interim looks" },
+      { "id": "B", "text": "Peek daily at p<0.05 without correction; ship if significant" },
+      { "id": "C", "text": "Fix by collecting exactly N users and never looking early" },
+      { "id": "D", "text": "Use Bayesian posteriors but still apply frequentist p-value thresholds" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Sequential designs control error while enabling interim decisions and agility."],
+    "explanationIncorrect": [
+      "Uncorrected peeking: Inflates Type I error.",
+      "Fixed-N only: Removes flexibility; not required with sequential methods.",
+      "Framework mixing: Incoherent decision criteria."
+    ],
+    "source": "Jennison & Turnbull (Group Sequential Methods); Google/Amplitude sequential testing guides",
+    "category": "Experimentation & Product Impact"
+  },
+  {
+    "id": "operations-&-impact-016",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Variance reduction (CUPED/control variates)",
+    "options": [
+      { "id": "A", "text": "Use pre-experiment user metrics (e.g., past-week spend/visits) as covariates to reduce variance and required sample size" },
+      { "id": "B", "text": "Winsorize revenue at the 99.9th percentile and call it CUPED" },
+      { "id": "C", "text": "Randomize at the session level to reduce variance for user KPIs" },
+      { "id": "D", "text": "Stratify or block by important covariates during assignment" }
+    ],
+    "correct": ["A", "D"],
+    "explanation": [
+      "Control variates (CUPED): Use pre-experiment covariates to reduce variance without bias.",
+      "Stratified randomization: Balance key covariates to improve precision."
+    ],
+    "explanationIncorrect": [
+      "Winsorizing: Outlier trimming is not CUPED and does not exploit covariance.",
+      "Session-level randomization: Increases variance for user-level outcomes due to within-user correlation."
+    ],
+    "source": "Deng et al. (CUPED); Kohavi et al., Trustworthy Online Controlled Experiments",
+    "category": "Experimentation & Product Impact"
+  },
+  {
+    "id": "operations-&-impact-017",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Sequential rollouts and guardrails",
+    "options": [
+      { "id": "A", "text": "Ramp 1%→5%→25%→50%→100% with automatic rollback if guardrails breach" },
+      { "id": "B", "text": "Roll to 100% immediately to maximize learning speed" },
+      { "id": "C", "text": "Use kill switches and per-cohort rollbacks; emit variant in telemetry" },
+      { "id": "D", "text": "Ignore heterogeneity; one global effect is enough for decisions" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": [
+      "Progressive delivery: Limits blast radius and enables safe, staged rollout.",
+      "Guardrails/telemetry: Fast rollback and variant attribution for targeted mitigation."
+    ],
+    "explanationIncorrect": [
+      "Immediate 100%: High risk of widespread impact.",
+      "Ignore heterogeneity: Masks subgroup harm (e.g., slow devices or networks)."
+    ],
+    "source": "Progressive delivery best practices; SRE change management",
+    "category": "Experimentation & Product Impact"
+  }
+]

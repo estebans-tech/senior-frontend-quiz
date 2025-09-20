@@ -1,0 +1,381 @@
+[
+  {
+    "id": "security-&-integrity-001",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Robust DOM XSS mitigation in a SPA",
+    "options": [
+      { "id": "A", "text": "Enforce CSP with nonce-based script-src (no 'unsafe-inline'), add 'strict-dynamic', lock down object-src/base-uri; adopt Trusted Types and avoid dangerous sinks" },
+      { "id": "B", "text": "Sanitize user input once at the edge and then freely use innerHTML" },
+      { "id": "C", "text": "Prefer template strings over concatenation; XSS becomes impossible" },
+      { "id": "D", "text": "Add SRI to all first-party scripts; it blocks injected inline code" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Defense-in-depth: a strict nonce-based CSP with strict-dynamic plus Trusted Types and avoidance of dangerous sinks meaningfully reduces XSS execution surfaces in the DOM."],
+    "explanationIncorrect": [
+      "Sanitize once: Single-point sanitization does not make DOM sinks safe; context and late injection still bite.",
+      "Template strings: They do not auto-escape; XSS is still possible if strings reach HTML/URL/script sinks.",
+      "SRI scope: SRI verifies external resource bytes; it does not govern inline/event-handler execution."
+    ],
+    "source": "CSP3 spec; MDN: Trusted Types; OWASP XSS Cheat Sheet",
+    "category": "Web Security"
+  },
+  {
+    "id": "security-&-integrity-002",
+    "version": 1,
+    "type": "multi",
+    "prompt": "CSRF protections for cookie-based sessions",
+    "options": [
+      { "id": "A", "text": "Require an anti-CSRF token per mutating request (synchronizer/double-submit) and validate server-side" },
+      { "id": "B", "text": "Set cookies with SameSite=Lax/Strict where possible, and Secure, HttpOnly" },
+      { "id": "C", "text": "Rely on CORS preflight; it stops CSRF on POST" },
+      { "id": "D", "text": "Switch to SameSite=None for clarity without other changes" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": ["Tokens plus hardened cookie attributes provide layered CSRF protection for cookie-backed sessions."],
+    "explanationIncorrect": [
+      "CORS != CSRF: CORS governs cross-origin resource sharing; many CSRF vectors do not preflight.",
+      "SameSite=None alone: Expands cross-site sending; it must be paired with Secure and other mitigations."
+    ],
+    "source": "OWASP CSRF Cheat Sheet; RFC 6265bis; MDN: CSRF vs CORS",
+    "category": "Web Security"
+  },
+  {
+    "id": "security-&-integrity-003",
+    "version": 1,
+    "type": "multi",
+    "prompt": "OAuth2/OIDC for public (browser) clients",
+    "options": [
+      { "id": "A", "text": "Use Authorization Code with PKCE; avoid the Implicit Flow" },
+      { "id": "B", "text": "Include state to bind request/response and prevent redirect-CSRF" },
+      { "id": "C", "text": "For OIDC, include nonce to prevent ID token replay" },
+      { "id": "D", "text": "Prefer ROPC (Resource Owner Password Credentials) for SPAs" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": ["Code + PKCE is the modern standard for public clients; state defends against CSRF, and nonce protects against ID token replay in OIDC."],
+    "explanationIncorrect": [
+      "ROPC is deprecated and inappropriate for SPAs lacking a trusted backend."
+    ],
+    "source": "OAuth 2.1 best practices; OpenID Connect Core; RFC 7636 (PKCE)",
+    "category": "Web Security"
+  },
+  {
+    "id": "security-&-integrity-004",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Cookie attributes and their effects",
+    "options": [
+      { "id": "A", "text": "HttpOnly prevents JavaScript from reading the cookie, reducing XSS exfiltration risk" },
+      { "id": "B", "text": "Secure ensures the cookie is only sent over HTTPS" },
+      { "id": "C", "text": "SameSite=Lax/Strict reduces cross-site sending of the cookie" },
+      { "id": "D", "text": "Domain=.example.com narrows the scope and is safer by default" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": ["HttpOnly/Secure/SameSite are baseline hardenings for session cookies against theft and CSRF."],
+    "explanationIncorrect": [
+      "Domain-widening: Setting Domain extends scope to subdomains and generally increases risk."
+    ],
+    "source": "RFC 6265bis; MDN: Cookie attributes",
+    "category": "Web Security"
+  },
+  {
+    "id": "security-&-integrity-005",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Cross-origin isolation for advanced APIs",
+    "options": [
+      { "id": "A", "text": "Set Cross-Origin-Opener-Policy: same-origin and Cross-Origin-Embedder-Policy: require-corp to achieve isolation (needed for SharedArrayBuffer, etc.)" },
+      { "id": "B", "text": "COEP requires embedded subresources to send CORP or appropriate CORS headers" },
+      { "id": "C", "text": "CORS response headers alone are sufficient for isolation" },
+      { "id": "D", "text": "X-Frame-Options: DENY replaces COOP" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": ["COOP+COEP establish cross-origin isolation; COEP enforces that embedded resources opt-in via CORP/CORS."],
+    "explanationIncorrect": [
+      "CORS-only: Without COOP/COEP you don't get isolation.",
+      "XFO: X-Frame-Options controls framing, not browsing-context isolation."
+    ],
+    "source": "MDN: COOP/COEP/CORP; Chrome docs on cross-origin isolation",
+    "category": "Web Security"
+  },
+  {
+    "id": "security-&-integrity-006",
+    "version": 1,
+    "type": "multi",
+    "prompt": "What Trusted Types actually enforces",
+    "options": [
+      { "id": "A", "text": "Restricts dangerous DOM sinks (innerHTML, insertAdjacentHTML, script URLs, etc.) to values created by registered policies" },
+      { "id": "B", "text": "Enabled via Content-Security-Policy: require-trusted-types-for 'script' (and optionally trusted-types ...)" },
+      { "id": "C", "text": "Automatically sanitizes all strings into safe values" },
+      { "id": "D", "text": "Only works in Chrome and is useless elsewhere" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": ["Trusted Types blocks raw strings at high-risk sinks unless produced by policies; it is activated through CSP directives."],
+    "explanationIncorrect": [
+      "Auto-sanitization: Trusted Types doesn't magically sanitize arbitrary strings.",
+      "Portability: Non-Chromium lacks full support, but the policy requirement fails closed safely where supported."
+    ],
+    "source": "MDN: Trusted Types; W3C explainer; CSP TT directives",
+    "category": "Web Security"
+  },
+  {
+    "id": "security-&-integrity-007",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Lawful basis for non-essential cookies in the EU",
+    "options": [
+      { "id": "A", "text": "Obtain explicit, informed, prior opt-in; block non-essential tags until consent; provide equally prominent 'Accept all'/'Reject all'; log consent proof" },
+      { "id": "B", "text": "Rely on 'legitimate interest' for analytics/ads and set cookies on the first pageview" },
+      { "id": "C", "text": "Treat continued scrolling as consent by default" },
+      { "id": "D", "text": "Use pre-ticked boxes to speed up onboarding" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Under ePrivacy and GDPR, non-essential storage (most analytics/ads) requires prior opt-in, granular choices, and auditable records."],
+    "explanationIncorrect": [
+      "Legitimate interest/scroll/pre-ticked: These patterns are inconsistent with EU guidance on valid consent."
+    ],
+    "source": "GDPR Art. 4(11), 7; ePrivacy rules; EDPB/DPA cookie guidance",
+    "category": "Privacy & Compliance"
+  },
+  {
+    "id": "security-&-integrity-008",
+    "version": 1,
+    "type": "multi",
+    "prompt": "CMP integration and gating",
+    "options": [
+      { "id": "A", "text": "Read consent state (e.g., TCF string via __tcfapi); fire vendors only when relevant purposes are granted; respect gdprApplies and region" },
+      { "id": "B", "text": "Load all tags first for performance, then delete cookies if the user rejects" },
+      { "id": "C", "text": "Store consent but ignore withdrawal until the next session" },
+      { "id": "D", "text": "Trigger 'essential' vendors via a data-layer event without checking purposes" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Consent must gate collection at source; revocation must take effect immediately."],
+    "explanationIncorrect": [
+      "Collect-first: Loading before consent is non-compliant.",
+      "Delayed withdrawal: Ignoring revocation breaches consent requirements.",
+      "Purpose blind: Even 'essential' should be assessed narrowly; purpose checks are key."
+    ],
+    "source": "IAB TCF v2.x; national DPA guidance",
+    "category": "Privacy & Compliance"
+  },
+  {
+    "id": "security-&-integrity-009",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Privacy-preserving conversion measurement",
+    "options": [
+      { "id": "A", "text": "Use the Attribution Reporting API (event-level/aggregatable reports) instead of third-party cookies" },
+      { "id": "B", "text": "Use fingerprinting (fonts, canvas, IP) to correlate clicks and conversions" },
+      { "id": "C", "text": "Rely on first-party cookies and server-side matching only" },
+      { "id": "D", "text": "Use Private Aggregation/aggregation services for privacy-budgeted metrics" }
+    ],
+    "correct": ["A", "D"],
+    "explanation": ["Sandboxed, aggregated measurement avoids cross-site IDs and supports privacy budgets."],
+    "explanationIncorrect": [
+      "Fingerprinting: Generally prohibited and non-compliant.",
+      "First-party only: Helps same-party scopes but does not address cross-site tracking limits."
+    ],
+    "source": "Privacy Sandbox docs: Attribution Reporting & Private Aggregation; regulator guidance on fingerprinting",
+    "category": "Privacy & Compliance"
+  },
+  {
+    "id": "security-&-integrity-010",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Data minimization in RUM/telemetry",
+    "options": [
+      { "id": "A", "text": "Avoid collecting PII by default; hash/pseudonymize identifiers; drop query strings with user data; enforce retention limits" },
+      { "id": "B", "text": "Record full URLs, request/response bodies, and keystrokes for rich debugging" },
+      { "id": "C", "text": "Allow engineers to opt-out deletion requests to preserve diagnostics" },
+      { "id": "D", "text": "Sample sessions and favor aggregated metrics (e.g., p75) instead of exhaustive raw event streams" }
+    ],
+    "correct": ["A", "D"],
+    "explanation": ["Collect the minimum necessary and aggregate where possible; honor retention and DSAR processes."],
+    "explanationIncorrect": [
+      "Full capture: Over-collection increases risk and often violates minimization principles.",
+      "Ignore deletion: Conflicts with user rights (access/erasure)."
+    ],
+    "source": "GDPR Art. 5(1)(c); Art. 15–17; RUM best practices",
+    "category": "Privacy & Compliance"
+  },
+  {
+    "id": "security-&-integrity-011",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Cross-border data transfers",
+    "options": [
+      { "id": "A", "text": "Prefer EU/EEA processing; if transferring to a third country, use an adequacy decision or SCCs plus a transfer risk assessment" },
+      { "id": "B", "text": "Assume CDN logs with IPs are not personal data and can be transferred freely" },
+      { "id": "C", "text": "Use a first-party proxy to vendors to localize IP/IDs where feasible" },
+      { "id": "D", "text": "Ignore vendor sub-processors; only your direct contract matters" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": ["Lawful mechanisms (adequacy/SCCs) plus architectural controls (proxy/localization) reduce transfer risk."],
+    "explanationIncorrect": [
+      "IP status: IP addresses are personal data under EU case law.",
+      "Sub-processors: Must be governed, disclosed, and assessed."
+    ],
+    "source": "GDPR Chapter V; SCCs (2021/914); CJEU case law; vendor due-diligence guidance",
+    "category": "Privacy & Compliance"
+  },
+  {
+    "id": "security-&-integrity-012",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Consent UX and dark patterns",
+    "options": [
+      { "id": "A", "text": "Provide equal prominence for 'Reject all' and 'Accept all'; avoid nudging; offer an easy, persistent way to change consent" },
+      { "id": "B", "text": "Hide 'Reject all' behind extra clicks and use color contrast to nudge acceptance" },
+      { "id": "C", "text": "Use cookie walls for access to essential services without a genuine alternative" },
+      { "id": "D", "text": "Pre-opt into all purposes and let users opt out later" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Valid consent requires non-coercive UI, equal refusal/acceptance, and easy withdrawal."],
+    "explanationIncorrect": [
+      "Nudging/hiding options, cookie walls without alternatives, and pre-opt-in are broadly criticized as dark patterns and invalid consent."
+    ],
+    "source": "EDPB Guidelines on dark patterns; national DPA decisions on cookie banners",
+    "category": "Privacy & Compliance"
+  },
+  {
+    "id": "security-&-integrity-013",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Lockfile policy and reproducible installs",
+    "options": [
+      { "id": "A", "text": "Commit lockfiles; use npm ci/pnpm --frozen-lockfile in CI; pin registries; verify integrity hashes" },
+      { "id": "B", "text": "Use npm install in CI without a lockfile to get latest patches" },
+      { "id": "C", "text": "Delete lockfiles regularly to avoid drift" },
+      { "id": "D", "text": "Allow developers to switch registries per project ad hoc" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Reproducible, tamper-evident installs with pinned registries and integrity checks reduce supply-chain variance."],
+    "explanationIncorrect": [
+      "No lockfile: Reintroduces nondeterminism.",
+      "Lockfile deletion: Causes churn and unpredictability.",
+      "Ad hoc registries: Increases risk of dependency confusion and spoofed sources."
+    ],
+    "source": "npm/pnpm docs; OWASP Software Supply Chain (SCS)",
+    "category": "Supply-Chain Security"
+  },
+  {
+    "id": "security-&-integrity-014",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Mitigating dependency confusion",
+    "options": [
+      { "id": "A", "text": "Scope internal packages (e.g., @org/*) and pin their registry via .npmrc" },
+      { "id": "B", "text": "Allow installing unscoped names identical to internal package names from the public registry" },
+      { "id": "C", "text": "Use a private proxy/registry and block unknown names" },
+      { "id": "D", "text": "Ensure CI uses always-auth and an explicit registry for publish/install" }
+    ],
+    "correct": ["A", "C", "D"],
+    "explanation": ["Scoped namespaces, registry pinning/proxies, and authenticated CI eliminate public lookalike takeovers."],
+    "explanationIncorrect": [
+      "Name collision: Installing public packages with the same name is the core attack vector."
+    ],
+    "source": "Microsoft/Shopify dependency confusion write-ups; npm registry config docs",
+    "category": "Supply-Chain Security"
+  },
+  {
+    "id": "security-&-integrity-015",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Lifecycle scripts and CI hardening",
+    "options": [
+      { "id": "A", "text": "Run installs with --ignore-scripts in CI; use an allowlist tool (e.g., allow-scripts) locally for known-safe packages" },
+      { "id": "B", "text": "Permit arbitrary postinstall/prepare scripts everywhere for developer experience" },
+      { "id": "C", "text": "Pin Node/toolchain versions; run builds in sandboxed containers" },
+      { "id": "D", "text": "Forbid transitive dependencies entirely" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": ["Disabling arbitrary scripts in CI and sandboxing/pinning toolchains limit RCE surface and improve reproducibility."],
+    "explanationIncorrect": [
+      "Arbitrary scripts: Greatly increases RCE risk.",
+      "Ban transitives: Impractical given modern ecosystems."
+    ],
+    "source": "npm CLI (--ignore-scripts); allow-scripts tools; NIST SSDF",
+    "category": "Supply-Chain Security"
+  },
+  {
+    "id": "security-&-integrity-016",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Subresource Integrity (SRI) for CDN scripts",
+    "options": [
+      { "id": "A", "text": "Use <script src=\"…\" integrity=\"sha384-…\" crossorigin=\"anonymous\"></script> for third-party CDN assets" },
+      { "id": "B", "text": "Skip SRI if the CDN is 'trusted'" },
+      { "id": "C", "text": "Rotate URLs with version hashes to replace integrity attributes" },
+      { "id": "D", "text": "Combine SRI with a strict CSP that blocks inline/event-handler scripts" }
+    ],
+    "correct": ["A", "D"],
+    "explanation": ["SRI verifies fetched bytes; a strict CSP constrains execution sources—together they mitigate tampering/injection."],
+    "explanationIncorrect": [
+      "Trust-only: Trust does not equal verification.",
+      "Versioned URLs: Do not provide end-to-end integrity guarantees by themselves."
+    ],
+    "source": "MDN: Subresource Integrity; CSP3 guidance",
+    "category": "Supply-Chain Security"
+  },
+  {
+    "id": "security-&-integrity-017",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Provenance, signing, and attestations",
+    "options": [
+      { "id": "A", "text": "Prefer packages with provenance/attestations (e.g., Sigstore/SLSA) and verified publishers; verify in CI" },
+      { "id": "B", "text": "Rely solely on npm audit severity to decide safety" },
+      { "id": "C", "text": "Fork and self-host every dependency to avoid trust" },
+      { "id": "D", "text": "Require 2FA for publisher accounts and enforce it in your org" }
+    ],
+    "correct": ["A", "D"],
+    "explanation": ["Signed provenance and verified publishers reduce tampering risk; enforcing 2FA hardens maintainer accounts."],
+    "explanationIncorrect": [
+      "Audit-only: Misses supply-chain tampering vectors.",
+      "Self-host everything: Unrealistic except for a tiny set of critical deps."
+    ],
+    "source": "SLSA framework; Sigstore/cosign; npm Verified Publishers/2FA",
+    "category": "Supply-Chain Security"
+  },
+  {
+    "id": "security-&-integrity-018",
+    "version": 1,
+    "type": "multi",
+    "prompt": "SBOMs and continuous SCA",
+    "options": [
+      { "id": "A", "text": "Generate SBOMs (CycloneDX/SPDX) in CI; scan with SCA; diff SBOMs per release" },
+      { "id": "B", "text": "Use npm ls text output as your SBOM" },
+      { "id": "C", "text": "Only scan direct dependencies; transitives rarely matter" },
+      { "id": "D", "text": "Pin and periodically review high-risk deps (native bindings, parsers) with deeper scrutiny" }
+    ],
+    "correct": ["A", "D"],
+    "explanation": ["Standards-based SBOMs plus continuous scanning provide inventory and faster incident response; focus extra scrutiny on high-risk deps."],
+    "explanationIncorrect": [
+      "npm ls: Not a standard SBOM format.",
+      "Ignore transitives: Most vulnerabilities live in transitive trees."
+    ],
+    "source": "CycloneDX/SPDX; OWASP Dependency-Track; SCA vendor guidance",
+    "category": "Supply-Chain Security"
+  },
+  {
+    "id": "security-&-integrity-019",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Release gates for dependency updates",
+    "options": [
+      { "id": "A", "text": "Automated PRs (Renovate/Dependabot) gated by tests, type checks, bundle/performance budgets, and canary rollouts" },
+      { "id": "B", "text": "Auto-merge everything marked 'patch' without CI" },
+      { "id": "C", "text": "Update once a year to reduce churn" },
+      { "id": "D", "text": "Skip changelogs and rely on semver faith" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Automation with verification and progressive delivery catches breaking and performance/security regressions early."],
+    "explanationIncorrect": [
+      "Blind patch merges: Risk regressions.",
+      "Annual batches: Accrue tech debt and amplify breakage risk.",
+      "Semver faith: Not a safety mechanism; changelogs/tests are needed."
+    ],
+    "source": "Renovate/Dependabot docs; progressive delivery best practices",
+    "category": "Supply-Chain Security"
+  }
+]

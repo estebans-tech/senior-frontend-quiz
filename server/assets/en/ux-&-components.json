@@ -1,0 +1,483 @@
+[
+  {
+    "id": "ux-&-components-001",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Accessible modal dialog focus management",
+    "options": [
+      { "id": "A", "text": "On open, move focus inside; trap focus in the dialog; Escape closes; restore focus to the opener; use role=\"dialog\" with aria-modal=\"true\" and a proper label (aria-labelledby/aria-label)" },
+      { "id": "B", "text": "Add tabindex=\"-1\" to every background element to block tabbing" },
+      { "id": "C", "text": "Only toggle display: none/block; screen readers will infer dialog semantics" },
+      { "id": "D", "text": "Keep focus on the opener outside; rely on click-outside to close" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Focus trap and semantics: move focus into the dialog, trap it, support Escape to close, restore focus to the trigger, and provide proper ARIA dialog semantics and labeling."],
+    "explanationIncorrect": [
+      "Blanket tabindex: Sprinkling tabindex is brittle and does not stop screen readers’ virtual cursor.",
+      "Visual-only toggling: Hiding/showing without dialog semantics leaves AT unaware of modality.",
+      "Focus remains outside: Users of keyboard/AT may never discover the modal."
+    ],
+    "source": "WAI-ARIA Authoring Practices: Dialog (Modal); MDN: aria-modal, focus management",
+    "category": "Accessibility & Semantics (A11y)"
+  },
+  {
+    "id": "ux-&-components-002",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Accessible buttons vs ARIA button role",
+    "options": [
+      { "id": "A", "text": "Prefer native <button> for clickable actions; use div[role=\"button\"] only when you cannot change markup and you fully replicate keyboard/ARIA semantics" },
+      { "id": "B", "text": "div[role=\"button\"] is fine without keyboard handling—the role is enough" },
+      { "id": "C", "text": "Use <a> without href for buttons to avoid default styles" },
+      { "id": "D", "text": "Use <button> but remove it from tab order with tabindex=\"-1\"" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Native button semantics provide built-in keyboard support and accessibility; ARIA role is a last resort and must fully replicate semantics and keyboard handling."],
+    "explanationIncorrect": [
+      "Role-only: A role does not add Enter/Space activation or focusability by itself.",
+      "Link without href: Incorrect semantics and keyboard behavior for buttons.",
+      "Tabindex -1: Removes the control from keyboard navigation, making it inaccessible."
+    ],
+    "source": "MDN: Button accessibility; WAI-ARIA Authoring Practices: Button",
+    "category": "Accessibility & Semantics (A11y)"
+  },
+  {
+    "id": "ux-&-components-003",
+    "version": 1,
+    "type": "multi",
+    "prompt": "WCAG AA contrast basics",
+    "options": [
+      { "id": "A", "text": "Body text (~14–16px regular): at least 4.5:1" },
+      { "id": "B", "text": "Large text (≥18pt/24px regular or ≥14pt/18.66px bold): at least 3:1" },
+      { "id": "C", "text": "Non-text UI components (icons/controls): at least 4.5:1" },
+      { "id": "D", "text": "Decorative images must meet the same contrast as text" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": ["WCAG AA requires 4.5:1 for normal text and 3:1 for large text."],
+    "explanationIncorrect": [
+      "Non-text contrast: Non-text UI and graphical objects have a 3:1 requirement, not 4.5:1.",
+      "Decorative images: Purely decorative images are exempt (use alt=\"\")."
+    ],
+    "source": "WCAG 2.2: 1.4.3 Contrast (Minimum), 1.4.11 Non-text Contrast",
+    "category": "Accessibility & Semantics (A11y)"
+  },
+  {
+    "id": "ux-&-components-004",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Announcing dynamic price updates",
+    "options": [
+      { "id": "A", "text": "Place the price in a visible node with aria-live=\"polite\" (and aria-atomic=\"true\" if replacing the whole value)" },
+      { "id": "B", "text": "Use role=\"alert\" for price updates so it interrupts immediately" },
+      { "id": "C", "text": "Hide the price with display:none and update it there for assistive tech" },
+      { "id": "D", "text": "Set aria-hidden=\"true\" on the price to avoid 'noise'" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Polite live regions announce changes without interruption; aria-atomic ensures the new value is read as a whole."],
+    "explanationIncorrect": [
+      "Urgency misuse: Alerts are for urgent events; prices usually are not.",
+      "Hidden nodes: display:none content is not announced.",
+      "aria-hidden: Hides information from assistive tech entirely."
+    ],
+    "source": "MDN: Live regions; WAI-ARIA APG: Status/Alert",
+    "category": "Accessibility & Semantics (A11y)"
+  },
+  {
+    "id": "ux-&-components-005",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Accessible custom checkbox",
+    "options": [
+      { "id": "A", "text": "Use a visually hidden <input type=\"checkbox\"> with a <label>; style the visual control via CSS and reflect state from the input" },
+      { "id": "B", "text": "If fully custom, use role=\"checkbox\" + tabindex=\"0\", manage aria-checked, toggle on Space/Enter, and ensure a programmatic label" },
+      { "id": "C", "text": "A clickable <div> is sufficient; screen readers will infer it's a checkbox" },
+      { "id": "D", "text": "Make it focusable with tabindex=\"-1\" so it doesn’t distract" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": ["Either wrap the native checkbox and label or fully implement ARIA semantics and keyboard interactions for a custom control."],
+    "explanationIncorrect": [
+      "Clickable div: Lacks semantics and keyboard handling by default.",
+      "tabindex -1: Removes the control from keyboard navigation."
+    ],
+    "source": "WAI-ARIA Authoring Practices: Checkbox; MDN: Custom controls",
+    "category": "Accessibility & Semantics (A11y)"
+  },
+  {
+    "id": "ux-&-components-006",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Headings and landmarks",
+    "options": [
+      { "id": "A", "text": "Multiple <h1> elements are allowed in HTML5 if they reflect the document structure" },
+      { "id": "B", "text": "Avoid skipping heading levels (a recommendation, not a hard requirement)" },
+      { "id": "C", "text": "Exactly one <main> per page for primary content" },
+      { "id": "D", "text": "Add role=\"navigation\" to every link list, including footers and sidebars" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": ["HTML5 supports multiple H1s when used structurally; keep a logical heading hierarchy; ensure a single <main> landmark."],
+    "explanationIncorrect": [
+      "Overusing navigation landmarks creates noise; use them where true navigation exists."
+    ],
+    "source": "HTML Living Standard (headings); WAI-ARIA Landmarks",
+    "category": "Accessibility & Semantics (A11y)"
+  },
+  {
+    "id": "ux-&-components-007",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Design tokens as a source of truth",
+    "options": [
+      { "id": "A", "text": "Store tokens (core + semantic) in a platform-agnostic format (e.g., JSON) and generate artifacts (CSS variables, iOS/Android)" },
+      { "id": "B", "text": "Hardcode colors/spacings in component CSS for simplicity" },
+      { "id": "C", "text": "Use only global tokens; semantic tokens add no value" },
+      { "id": "D", "text": "Keep tokens in JS only; CSS custom properties are unnecessary" }
+    ],
+    "correct": ["A"],
+    "explanation": ["A token pipeline enables consistency, theming, and multi-platform delivery; semantic tokens decouple intent from values."],
+    "explanationIncorrect": [
+      "Hardcoding blocks theming and reuse.",
+      "No semantic tokens: Ties usage to raw values and hinders dark mode.",
+      "No CSS vars: Limits runtime theming and cascade control."
+    ],
+    "source": "W3C Design Tokens Community Group; MDN: CSS Custom Properties",
+    "category": "Design Systems & Component API"
+  },
+  {
+    "id": "ux-&-components-008",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Ergonomic, accessible Tabs API (compound components)",
+    "options": [
+      { "id": "A", "text": "<Tabs><Tabs.List/><Tabs.Trigger/><Tabs.Panel/></Tabs> with roles/ids, roving tabindex, and context wiring" },
+      { "id": "B", "text": "A single <Tabs items=[...]> prop that renders everything internally with no slots" },
+      { "id": "C", "text": "Use <div>s with click handlers; add ARIA later if needed" },
+      { "id": "D", "text": "Place panels outside the Tabs tree and toggle with query selectors" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Compound composition exposes flexibility while the component handles semantics, labeling, and keyboard interactions."],
+    "explanationIncorrect": [
+      "Monolithic items prop limits extensibility and a11y.",
+      "Div-only patterns miss semantics/keyboard by default.",
+      "Out-of-tree toggling is brittle and harms accessibility."
+    ],
+    "source": "WAI-ARIA Authoring Practices: Tabs; React composition patterns",
+    "category": "Design Systems & Component API"
+  },
+  {
+    "id": "ux-&-components-009",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Controlled vs uncontrolled component contracts",
+    "options": [
+      { "id": "A", "text": "Controlled: value + onValueChange; Uncontrolled: defaultValue + internal state; do not mix both in one instance" },
+      { "id": "B", "text": "If both value and defaultValue are provided, silently prefer defaultValue" },
+      { "id": "C", "text": "Fire onValueChange on every render to keep parents in sync" },
+      { "id": "D", "text": "Document controlled/uncontrolled behavior and provide a migration codemod for breaking changes in defaults" }
+    ],
+    "correct": ["A", "D"],
+    "explanation": ["Clear controlled/uncontrolled contracts avoid half-controlled bugs; documentation and codemods make upgrades safe."],
+    "explanationIncorrect": [
+      "Silent default preference leads to confusion.",
+      "Change events should only fire on actual state changes, not every render."
+    ],
+    "source": "React docs: Controlled vs Uncontrolled Components; DS upgrade guidance",
+    "category": "Design Systems & Component API"
+  },
+  {
+    "id": "ux-&-components-010",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Polymorphic components with proper typing",
+    "options": [
+      { "id": "A", "text": "Support an as prop and forwardRef; type with a generic over ElementType + ComponentPropsWithoutRef<T> to preserve props and refs" },
+      { "id": "B", "text": "Use any for the ref to simplify" },
+      { "id": "C", "text": "Hardcode the root element to avoid complexity" },
+      { "id": "D", "text": "Don’t forward refs; users can query the DOM manually" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Polymorphic typing preserves correct props and ref types across element types, improving a11y and flexibility."],
+    "explanationIncorrect": [
+      "any ref removes type safety and can hide bugs.",
+      "Hardcoding reduces flexibility and reuse.",
+      "No refs harms focus management and accessibility."
+    ],
+    "source": "React docs: forwardRef; TypeScript polymorphic patterns",
+    "category": "Design Systems & Component API"
+  },
+  {
+    "id": "ux-&-components-011",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Themeable components and specificity control",
+    "options": [
+      { "id": "A", "text": "Expose tokens as CSS variables and apply them in low-specificity layers; allow theme overrides via the cascade/@layer" },
+      { "id": "B", "text": "Rely on !important to avoid overrides" },
+      { "id": "C", "text": "Use inline styles for all tokens to ensure priority" },
+      { "id": "D", "text": "Use deep selectors (BEM+++) to win over app CSS" }
+    ],
+    "correct": ["A"],
+    "explanation": ["CSS variables with controlled specificity make theming predictable and overrideable."],
+    "explanationIncorrect": [
+      "Important/inline/deep selectors create brittle cascades and block theming."
+    ],
+    "source": "MDN: CSS Cascade, Cascade Layers, Custom Properties",
+    "category": "Design Systems & Component API"
+  },
+  {
+    "id": "ux-&-components-012",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Motion & reduced motion in design system components",
+    "options": [
+      { "id": "A", "text": "Animate primarily transform/opacity; respect @media (prefers-reduced-motion: reduce)" },
+      { "id": "B", "text": "Use layout properties (top/left/height) for smoother perception" },
+      { "id": "C", "text": "Ignore reduced-motion—product managers want animations" },
+      { "id": "D", "text": "Tie animation durations and curves to motion tokens for consistency" }
+    ],
+    "correct": ["A", "D"],
+    "explanation": ["Compositor-friendly properties avoid layout/paint jank; motion tokens standardize behavior and align with user preferences."],
+    "explanationIncorrect": [
+      "Layout properties trigger reflow and jank.",
+      "Ignoring reduced-motion violates accessibility preferences."
+    ],
+    "source": "web.dev: animation performance; MDN: prefers-reduced-motion; DS motion guidelines",
+    "category": "Design Systems & Component API"
+  },
+  {
+    "id": "ux-&-components-013",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Accessible, actionable error UX in forms",
+    "options": [
+      { "id": "A", "text": "On submit, focus the first invalid field; set aria-invalid=\"true\" and link an inline error via aria-describedby" },
+      { "id": "B", "text": "Announce a summary via a live region (role=\"alert\") listing errors with anchors" },
+      { "id": "C", "text": "Show red borders only; screen readers will understand" },
+      { "id": "D", "text": "Hide errors behind hover tooltips" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": ["Focus management and programmatic associations make errors discoverable; a summary alert offers quick navigation."],
+    "explanationIncorrect": [
+      "Visual-only cues lack semantics.",
+      "Hover tooltips are hard for keyboard and assistive tech users."
+    ],
+    "source": "WAI-ARIA APG: Form errors; MDN: aria-invalid, aria-describedby",
+    "category": "Forms & Validation (in depth)"
+  },
+  {
+    "id": "ux-&-components-014",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Async and server-side validation flow",
+    "options": [
+      { "id": "A", "text": "Validate on the client for instant feedback, but treat the server as the source of truth; reconcile server errors back to fields" },
+      { "id": "B", "text": "Block all typing until async validators return to avoid races" },
+      { "id": "C", "text": "Debounce async field validation (~300–500 ms) and cancel in-flight requests with AbortController" },
+      { "id": "D", "text": "Show only a generic toast; do not map server errors back to fields" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": ["Combine responsive client checks with authoritative server validation; debounce and cancellation prevent request storms and stale responses."],
+    "explanationIncorrect": [
+      "Typing block: Freezes UX and harms usability.",
+      "Generic toast: Lacks actionable, field-level guidance."
+    ],
+    "source": "MDN: AbortController; form validation UX guidance",
+    "category": "Forms & Validation (in depth)"
+  },
+  {
+    "id": "ux-&-components-015",
+    "version": 1,
+    "type": "multi",
+    "prompt": "IME composition and input events (forms)",
+    "options": [
+      { "id": "A", "text": "Respect compositionstart/update/end and/or beforeinput; avoid mutating values during composition" },
+      { "id": "B", "text": "Validate on keydown and reject characters mid-composition" },
+      { "id": "C", "text": "Use beforeinput.inputType (e.g., insertCompositionText, insertFromPaste) to tailor logic" },
+      { "id": "D", "text": "Submit the form automatically when Enter is pressed, regardless of active composition" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": ["IME is multi-step; do not interfere while composing. Input types help distinguish scenarios for correct handling."],
+    "explanationIncorrect": [
+      "Keydown blocking corrupts composition flows.",
+      "Autosubmit during composition interrupts CJK/IME users."
+    ],
+    "source": "MDN: IME events; Input Events Level 2",
+    "category": "Forms & Validation (in depth)"
+  },
+  {
+    "id": "ux-&-components-016",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Robust file uploads (large files, flaky networks)",
+    "options": [
+      { "id": "A", "text": "Use pre-signed URLs; chunk uploads with a resumable protocol; retry with backoff; hash to verify integrity; show progress" },
+      { "id": "B", "text": "Send giant files via a single POST without progress; hope for the best" },
+      { "id": "C", "text": "Keep the file only in memory; never persist to IndexedDB during resume" },
+      { "id": "D", "text": "Validate file type/size client-side and server-side; scan on the backend" }
+    ],
+    "correct": ["A", "D"],
+    "explanation": ["Resumable, verifiable uploads improve reliability; dual-sided validation and scanning improve safety."],
+    "explanationIncorrect": [
+      "Single POST without progress is fragile and user-hostile.",
+      "No persistence risks data loss on refresh/crash."
+    ],
+    "source": "Resumable upload patterns (tus/S3 multipart); upload security best practices",
+    "category": "Forms & Validation (in depth)"
+  },
+  {
+    "id": "ux-&-components-017",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Preventing accidental data loss in forms",
+    "options": [
+      { "id": "A", "text": "Autosave drafts (throttled) to local storage/IndexedDB; warn on navigation if dirty; restore on return" },
+      { "id": "B", "text": "Rely on beforeunload alone; browsers will always show a prompt" },
+      { "id": "C", "text": "Clear the form on validation error to force re-entry" },
+      { "id": "D", "text": "Save only on final submit; partial progress isn’t worth storing" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Draft autosave and guarded navigation protect user effort and improve completion rates."],
+    "explanationIncorrect": [
+      "beforeunload prompts are inconsistent across browsers.",
+      "Clearing or saving only on submit harms UX and increases abandonment."
+    ],
+    "source": "web.dev: form UX patterns; MDN: beforeunload caveats",
+    "category": "Forms & Validation (in depth)"
+  },
+  {
+    "id": "ux-&-components-018",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Schema-first forms and type safety",
+    "options": [
+      { "id": "A", "text": "Define a single schema (Zod/JSON Schema) for both client and server; derive TypeScript types and form UI from the schema" },
+      { "id": "B", "text": "Keep separate ad-hoc validators and TS interfaces; update both manually" },
+      { "id": "C", "text": "Validate only on the client—the server can trust the UI" },
+      { "id": "D", "text": "Use schema-driven defaults and transformations (e.g., trimming, coercion) at the boundary" }
+    ],
+    "correct": ["A", "D"],
+    "explanation": ["A single source of truth avoids drift; boundary transforms/validation ensure consistent, clean data."],
+    "explanationIncorrect": [
+      "Manual duplication invites divergence.",
+      "Servers must re-validate untrusted input."
+    ],
+    "source": "JSON Schema/Zod docs; single-source validation patterns",
+    "category": "Forms & Validation (in depth)"
+  },
+  {
+    "id": "ux-&-components-019",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Pluralization and message formatting",
+    "options": [
+      { "id": "A", "text": "Use ICU MessageFormat/CLDR plural rules; languages can have multiple categories (e.g., one, few, many, other)" },
+      { "id": "B", "text": "English rule (n !== 1) generalizes well for all locales" },
+      { "id": "C", "text": "Build strings via concatenation: \"You have \" + n + \" items\"" },
+      { "id": "D", "text": "Keep placeholder order fixed; no argument reordering is needed" }
+    ],
+    "correct": ["A"],
+    "explanation": ["ICU/CLDR handle locale-specific plural categories and argument reordering for grammatical correctness."],
+    "explanationIncorrect": [
+      "English rules fail for many languages with different plural systems.",
+      "String concatenation ignores grammar and ordering.",
+      "Fixed placeholder order breaks languages that require reordering/gendered forms."
+    ],
+    "source": "Unicode CLDR; ICU MessageFormat",
+    "category": "i18n/RTL & Complex Input"
+  },
+  {
+    "id": "ux-&-components-020",
+    "version": 1,
+    "type": "multi",
+    "prompt": "RTL layout without fragile overrides",
+    "options": [
+      { "id": "A", "text": "Prefer logical properties (margin-inline, padding-inline, inset-inline-start) and text-align:start" },
+      { "id": "B", "text": "Mirror directional icons and carets when dir=\"rtl\"" },
+      { "id": "C", "text": "Use :dir(rtl) and :dir(ltr) selectors to scope differences" },
+      { "id": "D", "text": "Use left/right everywhere and duplicate styles for [dir=\"rtl\"] overrides" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": ["Logical properties and direction-aware selectors reduce duplication and handle mirroring correctly for RTL."],
+    "explanationIncorrect": [
+      "Left/right overrides are brittle and easy to miss; prefer logical properties."
+    ],
+    "source": "MDN: CSS Logical Properties; :dir() selector; RTL iconography guidelines",
+    "category": "i18n/RTL & Complex Input"
+  },
+  {
+    "id": "ux-&-components-021",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Bidi text safety in user content",
+    "options": [
+      { "id": "A", "text": "Wrap unknown fragments in <bdi> or containers with dir=\"auto\"" },
+      { "id": "B", "text": "Insert Unicode bidi control characters directly in stored content to 'fix' direction" },
+      { "id": "C", "text": "Rely solely on the Unicode BiDi algorithm defaults and hope for the best" },
+      { "id": "D", "text": "Normalize and sanitize mixed-script input to mitigate spoofing while preserving logical order" }
+    ],
+    "correct": ["A", "D"],
+    "explanation": ["Isolation with <bdi>/dir=\"auto\" prevents spillover; normalization/sanitization reduces spoofing risks while preserving content order."],
+    "explanationIncorrect": [
+      "Embedding control characters pollutes data and can cause rendering/security issues.",
+      "Defaults alone often misorder mixed LTR/RTL content."
+    ],
+    "source": "Unicode UAX #9 (BiDi); WHATWG HTML (dir, bdi); security guidance on mixed-script spoofing",
+    "category": "i18n/RTL & Complex Input"
+  },
+  {
+    "id": "ux-&-components-022",
+    "version": 1,
+    "type": "multi",
+    "prompt": "IME composition and validation (i18n angle)",
+    "options": [
+      { "id": "A", "text": "Respect composition events; do not mutate values while composition is active" },
+      { "id": "B", "text": "Validate on keydown and block characters during composition" },
+      { "id": "C", "text": "Use beforeinput.inputType to tailor behavior (e.g., insertCompositionText)" },
+      { "id": "D", "text": "Move focus or auto-submit while a composition is active" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": ["Composition is multi-step; avoid interference and use inputType to adapt logic for IME scenarios."],
+    "explanationIncorrect": [
+      "Keydown blocking and forced submit/focus changes break IME workflows."
+    ],
+    "source": "MDN: IME events; Input Events Level 2",
+    "category": "i18n/RTL & Complex Input"
+  },
+  {
+    "id": "ux-&-components-023",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Numbers, dates, and parsing",
+    "options": [
+      { "id": "A", "text": "Use Intl.NumberFormat/Intl.DateTimeFormat with explicit locale and time zone; store ISO 8601/UTC in data" },
+      { "id": "B", "text": "Parse localized numbers/dates with parseFloat/Date.parse on the displayed string" },
+      { "id": "C", "text": "Display and parse with the same locale rules or use structured inputs (separate fields)" },
+      { "id": "D", "text": "Never rely on display strings for round-tripping values" }
+    ],
+    "correct": ["A", "C", "D"],
+    "explanation": ["Use ECMA-402 for formatting, keep canonical storage formats, and avoid round-tripping through localized display strings."],
+    "explanationIncorrect": [
+      "Naive parsing fails with non-dot decimal separators and locale-specific formats."
+    ],
+    "source": "ECMA-402 Intl APIs; MDN: Intl.NumberFormat, Intl.DateTimeFormat",
+    "category": "i18n/RTL & Complex Input"
+  },
+  {
+    "id": "ux-&-components-024",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Testing i18n correctness",
+    "options": [
+      { "id": "A", "text": "Pseudo-localize (lengthen text, add accent marks, RTL mirroring) in CI/Storybook" },
+      { "id": "B", "text": "Assume English coverage is enough; translations will fit" },
+      { "id": "C", "text": "Lint for hard-coded strings and collect keys with extraction tooling" },
+      { "id": "D", "text": "Snapshot tests for English only" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": ["Pseudo-localization and string extraction catch truncation, concatenation, and RTL issues early."],
+    "explanationIncorrect": [
+      "English-only assumptions and snapshots miss RTL/length and untranslated string problems."
+    ],
+    "source": "Microsoft pseudo-localization guidance; formatjs/i18next tooling",
+    "category": "i18n/RTL & Complex Input"
+  }
+]

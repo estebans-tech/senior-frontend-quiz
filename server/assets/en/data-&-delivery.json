@@ -1,0 +1,733 @@
+[
+  {
+    "id": "data-&-delivery-001",
+    "version": 1,
+    "type": "single",
+    "prompt": "You want clients/CDNs to cache for up to 1 hour, allow serving stale content while transparently revalidating, and serve stale for up to 24 hours on errors. Which directive set fits best?",
+    "options": [
+      { "id": "A", "text": "public, max-age=3600, stale-while-revalidate=60, stale-if-error=86400" },
+      { "id": "B", "text": "no-cache, must-revalidate" },
+      { "id": "C", "text": "private, max-age=0, no-store" },
+      { "id": "D", "text": "public, s-maxage=0, immutable" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Cache for 1 hour via max-age, serve stale during background revalidation via stale-while-revalidate, and allow stale on error via stale-if-error."],
+    "explanationIncorrect": [
+      "no-cache: Requires revalidation before reuse; no background SWR.",
+      "no-store: Disables caching entirely.",
+      "immutable with s-maxage=0: Prevents shared caching and discourages revalidation behavior."
+    ],
+    "source": "RFC 9111 (HTTP Caching); MDN: Cache-Control, stale-while-revalidate/stale-if-error",
+    "category": "Data & Networking"
+  },
+  {
+    "id": "data-&-delivery-002",
+    "version": 1,
+    "type": "single",
+    "prompt": "You need uni-directional server→client updates that survive corporate proxies, provide built-in reconnection, and carry a last-seen cursor.",
+    "options": [
+      { "id": "A", "text": "Server-Sent Events (SSE)" },
+      { "id": "B", "text": "WebSocket" },
+      { "id": "C", "text": "Long polling with fixed interval" },
+      { "id": "D", "text": "HTTP/3 server push" }
+    ],
+    "correct": ["A"],
+    "explanation": ["SSE is HTTP-based, proxy-friendly, auto-reconnects, and supports Last-Event-ID for replay."],
+    "explanationIncorrect": [
+      "WebSocket: Often blocked by proxies and lacks built-in replay cursor.",
+      "Long polling: Inefficient and lacks standardized replay semantics.",
+      "Server Push: Discouraged/deprecated for app data."
+    ],
+    "source": "MDN: Server-Sent Events; WebSocket limitations; IETF discussions on HTTP/2 Push",
+    "category": "Data & Networking"
+  },
+  {
+    "id": "data-&-delivery-003",
+    "version": 1,
+    "type": "single",
+    "prompt": "Your client fetches a large NDJSON stream. Users navigate away mid-stream; you want to stop both client processing and server work, and avoid buffering blowups.",
+    "options": [
+      { "id": "A", "text": "Pass an AbortSignal to fetch and propagate; respect ReadableStream backpressure when piping" },
+      { "id": "B", "text": "Set a client timeout but ignore server-side cancellation" },
+      { "id": "C", "text": "Use keepalive: true so the request finishes after unload" },
+      { "id": "D", "text": "Ignore reader.cancel() and accumulate chunks until the stream ends" }
+    ],
+    "correct": ["A"],
+    "explanation": ["AbortSignal allows canceling the fetch and upstream work; backpressure-aware piping prevents memory bloat."],
+    "explanationIncorrect": [
+      "Timeout-only: Doesn’t reliably stop server work.",
+      "keepalive true: For small fire-and-forget; prevents timely cancellation.",
+      "Ignore cancel/backpressure: Risks memory growth and wasted processing."
+    ],
+    "source": "WHATWG Fetch (AbortSignal); MDN: Streams API & backpressure",
+    "category": "Data & Networking"
+  },
+  {
+    "id": "data-&-delivery-004",
+    "version": 1,
+    "type": "single",
+    "prompt": "You want CDN caching of GraphQL responses that vary by variables and user locale. What setup is sound?",
+    "options": [
+      { "id": "A", "text": "Persisted queries over GET; cache public, s-maxage=300, stale-while-revalidate=30; include persisted id and variables plus Accept-Language in the cache key" },
+      { "id": "B", "text": "POST for everything; intermediaries will cache with max-age" },
+      { "id": "C", "text": "GET but strip the query string in the CDN" },
+      { "id": "D", "text": "GET and cache on URL path only, ignoring locale" }
+    ],
+    "correct": ["A"],
+    "explanation": ["GET + persisted queries enable HTTP caching; keys must include variables and locale to avoid variant bleed."],
+    "explanationIncorrect": [
+      "POST-only: Intermediaries typically don’t cache POST responses.",
+      "Strip query: Loses variable discrimination; serves wrong content.",
+      "Ignore locale: Mixes language variants in cache."
+    ],
+    "source": "Apollo/APQ persisted queries; RFC 9111: Vary and cache keys; CDN cache key configuration",
+    "category": "Data & Networking"
+  },
+  {
+    "id": "data-&-delivery-005",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Which failures are reasonable to retry with backoff + jitter (respecting Retry-After)?",
+    "options": [
+      { "id": "A", "text": "408 Request Timeout" },
+      { "id": "B", "text": "429 Too Many Requests" },
+      { "id": "C", "text": "502/503/504 gateway/service errors" },
+      { "id": "D", "text": "401 Unauthorized or 422 Unprocessable Entity" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": ["Transient conditions like timeouts, rate limits, and gateway/service errors are appropriate for backoff + jitter retries."],
+    "explanationIncorrect": [
+      "Auth/semantic errors: Require credential changes or input fixes, not blind retries."
+    ],
+    "source": "RFC 9110/9111; Cloud vendor retry guidance (jitter, backoff)",
+    "category": "Data & Networking"
+  },
+  {
+    "id": "data-&-delivery-006",
+    "version": 1,
+    "type": "multi",
+    "prompt": "How do you enable “no body if unchanged” semantics for a list endpoint?",
+    "options": [
+      { "id": "A", "text": "Return a strong ETag and accept If-None-Match" },
+      { "id": "B", "text": "Return Last-Modified and accept If-Modified-Since" },
+      { "id": "C", "text": "Ask the client to send If-Range without Range requests" },
+      { "id": "D", "text": "Set Cache-Control: no-store for safety" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": ["Conditional requests via ETag/If-None-Match or Last-Modified/If-Modified-Since allow 304 Not Modified without a body."],
+    "explanationIncorrect": [
+      "If-Range: Applies to partial content, not standard conditional GET.",
+      "no-store: Disables caching and validation entirely."
+    ],
+    "source": "RFC 9110 (validators); MDN: ETag and Last-Modified",
+    "category": "Data & Networking"
+  },
+  {
+    "id": "data-&-delivery-007",
+    "version": 1,
+    "type": "multi",
+    "prompt": "HTTP/3/QUIC: which statements are correct?",
+    "options": [
+      { "id": "A", "text": "Independent streams avoid TCP head-of-line blocking at the transport level" },
+      { "id": "B", "text": "QUIC uses UDP with mandatory TLS 1.3; supports 0-RTT with replay risks for unsafe requests" },
+      { "id": "C", "text": "Server Push is widely recommended for app data delivery in H3" },
+      { "id": "D", "text": "QUIC ensures lower latency than HTTP/2 in every scenario" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": ["QUIC multiplexing mitigates HoL at the transport; TLS 1.3 and optional 0-RTT are integral to H3 with replay caveats."],
+    "explanationIncorrect": [
+      "Server Push: Generally discouraged for app data.",
+      "Guaranteed faster: Performance depends on context; no universal win."
+    ],
+    "source": "RFC 9000/9114; Industry guidance on HTTP/2 Push deprecation",
+    "category": "Edge & Protocols"
+  },
+  {
+    "id": "data-&-delivery-008",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Early Hints (103): what is correct usage?",
+    "options": [
+      { "id": "A", "text": "Send 103 Early Hints with Link: rel=preload for critical resources while the origin prepares the final response" },
+      { "id": "B", "text": "Send parts of the HTML body in the 103 response" },
+      { "id": "C", "text": "103 works only with HTTP/2" },
+      { "id": "D", "text": "If unsupported, clients ignore it harmlessly" }
+    ],
+    "correct": ["A", "D"],
+    "explanation": ["Early Hints allows header-only hints for parallelization and degrades gracefully when unsupported."],
+    "explanationIncorrect": [
+      "Body in 103: Early Hints carries headers only.",
+      "H2-only: It is protocol-agnostic if intermediaries support it."
+    ],
+    "source": "RFC 8297 (Early Hints); CDN vendor documentation",
+    "category": "Edge & Protocols"
+  },
+  {
+    "id": "data-&-delivery-009",
+    "version": 1,
+    "type": "multi",
+    "prompt": "0-RTT in TLS 1.3: safe usage patterns?",
+    "options": [
+      { "id": "A", "text": "Restrict to idempotent routes and guard handlers against replay" },
+      { "id": "B", "text": "Accept for any method to maximize speed" },
+      { "id": "C", "text": "Disable 0-RTT if your app cannot tolerate replay, or gate it by path" },
+      { "id": "D", "text": "Store and compare anti-replay tokens on the server" }
+    ],
+    "correct": ["A", "C", "D"],
+    "explanation": ["Use 0-RTT only for idempotent requests, consider disabling or scoping it, and implement anti-replay measures server-side."],
+    "explanationIncorrect": [
+      "Unrestricted methods: Risk duplicate side effects on replay."
+    ],
+    "source": "RFC 8446 (TLS 1.3) 0-RTT guidance; QUIC best practices",
+    "category": "Edge & Protocols"
+  },
+  {
+    "id": "data-&-delivery-010",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Building robust CDN cache keys",
+    "options": [
+      { "id": "A", "text": "Include path plus only relevant query params; ignore noise (e.g., utm_*); vary on locale headers as needed" },
+      { "id": "B", "text": "Always include cookies in the cache key to maximize correctness" },
+      { "id": "C", "text": "Normalize URLs (trailing slashes, case) to avoid duplicate entries" },
+      { "id": "D", "text": "Use a single global key regardless of device/locale to increase hit rate" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": [
+      "Precise keying: Limiting the cache key to path and truly variant-driving params (and appropriate Vary like locale) prevents variant bleed and boosts hit rate.",
+      "Normalization: Canonicalizing URLs (e.g., trailing slash, case) avoids cache fragmentation from semantically identical URLs."
+    ],
+    "explanationIncorrect": [
+      "Cookies in key: Cookies often personalize responses and explode the key space, collapsing cache efficiency.",
+      "Single global key: A one-size key ignores device/locale variants and can serve incorrect content."
+    ],
+    "source": "CDN best practices on cache keys and normalization; RFC 9111 (Vary, cache keys)",
+    "category": "Edge & Protocols"
+  },
+  {
+    "id": "data-&-delivery-011",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Origin shielding and failure policies",
+    "options": [
+      { "id": "A", "text": "Use an origin shield/central POP to coalesce misses and protect the origin" },
+      { "id": "B", "text": "Configure stale-while-revalidate and stale-if-error to ride through spikes/outages" },
+      { "id": "C", "text": "Disable negative caching of 5xx so every error re-hammers origin" },
+      { "id": "D", "text": "Purge everything on each deploy to be safe" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": ["Shielding concentrates misses; stale policies maintain availability and reduce load during incidents."],
+    "explanationIncorrect": [
+      "No negative caching: Causes thundering herds.",
+      "Purge-all: Destroys locality and increases cold starts."
+    ],
+    "source": "CDN best practices (origin shield, stale policies)",
+    "category": "Edge & Protocols"
+  },
+  {
+    "id": "data-&-delivery-012",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Compression and content negotiation",
+    "options": [
+      { "id": "A", "text": "Serve Brotli (br) for text over HTTPS; fall back to gzip; negotiate via Accept-Encoding" },
+      { "id": "B", "text": "Compress already-compressed assets (JPEG/MP4) for a little extra gain" },
+      { "id": "C", "text": "Set Vary: Accept-Encoding and cache by encoding" },
+      { "id": "D", "text": "Precompress static assets and let the CDN auto-select encodings" }
+    ],
+    "correct": ["A", "C", "D"],
+    "explanation": ["Brotli+gzip with proper Vary and precompression improves latency and cacheability across clients."],
+    "explanationIncorrect": [
+      "Recompressing JPEG/MP4: Wastes CPU and often increases size."
+    ],
+    "source": "MDN: Content-Encoding/Accept-Encoding; CDN static compression guidance",
+    "category": "Edge & Protocols"
+  },
+  {
+    "id": "data-&-delivery-013",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Connection reuse and coalescing",
+    "options": [
+      { "id": "A", "text": "With H2/H3, a single connection can multiplex many requests to the same origin" },
+      { "id": "B", "text": "Connection coalescing allows reuse across hostnames that share certificate SANs and IPs (subject to TLS rules)" },
+      { "id": "C", "text": "Always shard domains to increase parallelism on H2/H3" },
+      { "id": "D", "text": "Preconnect to critical origins to hide handshake latency" }
+    ],
+    "correct": ["A", "B", "D"],
+    "explanation": ["Multiplexing/coalescing reduce setup cost; preconnect warms DNS/TCP/TLS for key origins."],
+    "explanationIncorrect": [
+      "Domain sharding: H1-era workaround that harms H2/H3 benefits."
+    ],
+    "source": "HTTP/2 & HTTP/3 performance best practices; MDN: preconnect, connection coalescing",
+    "category": "Edge & Protocols"
+  },
+  {
+    "id": "data-&-delivery-014",
+    "version": 1,
+    "type": "single",
+    "prompt": "Predictive navigation with minimal risk",
+    "options": [
+      { "id": "A", "text": "Use Speculation Rules to prefetch likely next-route documents based on heuristics (e.g., in-viewport links), and prerender only on strong intent (hover/mousedown)" },
+      { "id": "B", "text": "Preload all routes’ JS and CSS at TTFB to avoid any future network waits" },
+      { "id": "C", "text": "Use <link rel=\"prefetch\"> for the current route’s LCP image" },
+      { "id": "D", "text": "Always prerender cross-origin targets; the destination accepts it by default" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Speculative document prefetch is cheap; reserve prerender for high-confidence intent to avoid waste and side effects."],
+    "explanationIncorrect": [
+      "Mass preload: Hurts LCP/TTI.",
+      "Prefetch LCP: Current-route LCP should be preload/fetchpriority, not prefetch.",
+      "Cross-origin prerender: Requires explicit opt-in by the destination."
+    ],
+    "source": "web.dev: Speculation Rules (prefetch/prerender); Priority Hints; Chrome docs on cross-origin prerender",
+    "category": "Speculation & Loading Priorities"
+  },
+  {
+    "id": "data-&-delivery-015",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Preload vs prefetch vs preconnect (pick the right tool)",
+    "options": [
+      { "id": "A", "text": "preload = fetch now for this navigation; render-critical dependency" },
+      { "id": "B", "text": "prefetch = fetch soon for a future navigation at low priority; may be evicted" },
+      { "id": "C", "text": "preconnect = open TCP/TLS (and optionally DNS) early to a critical origin" },
+      { "id": "D", "text": "dns-prefetch = resolve names early when you can’t preconnect" }
+    ],
+    "correct": ["A", "B", "C", "D"],
+    "explanation": ["These definitions reflect the canonical intent and correct usage of each hint."],
+    "explanationIncorrect": [],
+    "source": "MDN: preload, prefetch, preconnect, dns-prefetch; web.dev: Resource hints",
+    "category": "Speculation & Loading Priorities"
+  },
+  {
+    "id": "data-&-delivery-016",
+    "version": 1,
+    "type": "single",
+    "prompt": "Priority hints on LCP images",
+    "options": [
+      { "id": "A", "text": "Set fetchpriority=\"high\" on the hero <img>; pair with decoding=\"async\" and explicit dimensions" },
+      { "id": "B", "text": "Use loading=\"lazy\" on the hero image to save bandwidth" },
+      { "id": "C", "text": "Set importance=\"high\" on a non-critical below-the-fold image" },
+      { "id": "D", "text": "Rely on the browser to always guess correctly without hints" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Boosting the LCP resource and providing dimensions reduces delays and layout shift risk."],
+    "explanationIncorrect": [
+      "Lazy LCP: Delays rendering of the most important image.",
+      "Mislabel priority: Steals bandwidth from critical assets.",
+      "No hints: Heuristics can be wrong; hints improve consistency."
+    ],
+    "source": "web.dev: Priority Hints, LCP guidance; MDN: loading, decoding, fetchpriority",
+    "category": "Speculation & Loading Priorities"
+  },
+  {
+    "id": "data-&-delivery-017",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Speculation Rules and cancellation semantics",
+    "options": [
+      { "id": "A", "text": "Prerendered pages run hidden; activation is instantaneous if not canceled" },
+      { "id": "B", "text": "Side effects (e.g., analytics with credentials) should be gated or deferred to activation" },
+      { "id": "C", "text": "The browser may cancel prerenders under memory/CPU pressure" },
+      { "id": "D", "text": "A canceled prerender must not leave user-visible side effects" }
+    ],
+    "correct": ["A", "B", "C", "D"],
+    "explanation": ["Hidden execution, possible cancellation, and strict side-effect discipline are core invariants of prerendering."],
+    "explanationIncorrect": [],
+    "source": "web.dev: Prerendering & activation; Chrome prerender restrictions",
+    "category": "Speculation & Loading Priorities"
+  },
+  {
+    "id": "data-&-delivery-018",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Avoiding double-downloads and cache misses during speculation",
+    "options": [
+      { "id": "A", "text": "Ensure prefetched documents/assets are cacheable so the navigation can reuse them" },
+      { "id": "B", "text": "Avoid no-store on navigations you intend to prefetch" },
+      { "id": "C", "text": "For authenticated areas, prefer prerender (credentialed) over generic prefetch where appropriate" },
+      { "id": "D", "text": "Strip tracking params from predicted URLs to improve key reuse" }
+    ],
+    "correct": ["A", "B", "C", "D"],
+    "explanation": ["Cacheable prefetches, credential alignment, and clean keys enable reuse and prevent duplicate fetches."],
+    "explanationIncorrect": [],
+    "source": "RFC 9111 (HTTP caching); web.dev: Prefetching best practices",
+    "category": "Speculation & Loading Priorities"
+  },
+  {
+    "id": "data-&-delivery-019",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Loading JS without harming LCP",
+    "options": [
+      { "id": "A", "text": "Mark non-critical scripts as defer; split route-level code; prefetch likely-next chunks" },
+      { "id": "B", "text": "Inline a tiny critical bootstrap; keep heavy logic async" },
+      { "id": "C", "text": "Use async on scripts that don’t depend on DOM order" },
+      { "id": "D", "text": "Inline large libraries to reduce requests on first paint" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": ["Defer/async and code splitting preserve render; a minimal inline bootstrap avoids parser blocking."],
+    "explanationIncorrect": [
+      "Inline large libraries: Bloats HTML and degrades LCP."
+    ],
+    "source": "web.dev: Optimize JS loading; MDN: defer vs async",
+    "category": "Speculation & Loading Priorities"
+  },
+  {
+    "id": "data-&-delivery-020",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Diagnosing misprioritized requests",
+    "options": [
+      { "id": "A", "text": "Use the Priority pane/waterfall in DevTools to verify computed priorities and hint effects" },
+      { "id": "B", "text": "Confirm the LCP element via PerformanceObserver and correlate with request timing" },
+      { "id": "C", "text": "Check for accidental immutable/no-transform mismatches on critical assets" },
+      { "id": "D", "text": "Assume priorities are correct if Lighthouse passes once" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": ["Combine DevTools and PerformanceObserver with header audits to validate prioritization and its effects."],
+    "explanationIncorrect": [
+      "Single lab run: Can miss field regressions and priority inversions."
+    ],
+    "source": "Chrome DevTools (Priority/Network panes); MDN: PerformanceObserver (LCP)",
+    "category": "Speculation & Loading (Deep Diagnostics & Edge)"
+  },
+  {
+    "id": "data-&-delivery-021",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Edge/CDN interplay with hints",
+    "options": [
+      { "id": "A", "text": "Respect and propagate 103 Early Hints with Link: rel=preload for critical resources" },
+      { "id": "B", "text": "Normalize cache keys to avoid fragmenting prefetched/prerendered variants" },
+      { "id": "C", "text": "Ensure the CDN honors Vary on Accept-Language/Accept-Encoding for predicted navigations" },
+      { "id": "D", "text": "Strip all Vary headers to boost hit rate" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": ["Propagating Early Hints and correct Vary handling with normalized keys preserves both speed and correctness."],
+    "explanationIncorrect": [
+      "Strip Vary: Risks serving incorrect variants and breaking negotiation."
+    ],
+    "source": "RFC 8297 (Early Hints); RFC 9111 (Vary, cache keys); CDN docs",
+    "category": "Speculation & Loading (Deep Diagnostics & Edge)"
+  },
+  {
+    "id": "data-&-delivery-022",
+    "version": 1,
+    "type": "multi",
+    "prompt": "When not to prerender",
+    "options": [
+      { "id": "A", "text": "Pages with sensitive side effects (e.g., logout, destructive GET-on-load)" },
+      { "id": "B", "text": "Heavily personalized dashboards with high cross-user leakage risk" },
+      { "id": "C", "text": "Pages with large memory footprints on constrained devices" },
+      { "id": "D", "text": "Static, content-heavy articles likely to be read next" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": ["Avoid prerender where activation or cancellation could leak state or waste significant resources."],
+    "explanationIncorrect": [
+      "Static articles: Often good candidates for prefetch/prerender with care."
+    ],
+    "source": "web.dev: Prerendering caveats and best practices",
+    "category": "Speculation & Loading (Deep Diagnostics & Edge)"
+  },
+  {
+    "id": "data-&-delivery-023",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Prefetching data APIs vs documents",
+    "options": [
+      { "id": "A", "text": "Prefer document prefetch for navigations; for SPA data, warm SW/Query cache keyed by the next route’s query" },
+      { "id": "B", "text": "Ensure same-origin credentials mode matches eventual use (include vs same-origin)" },
+      { "id": "C", "text": "Avoid prefetching volatile APIs with short TTL unless you can revalidate cheaply" },
+      { "id": "D", "text": "Use immutable for API JSON to prevent revalidation" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": ["Document prefetch aligns with navigation reuse; API warming must respect credentials and volatility."],
+    "explanationIncorrect": [
+      "immutable on APIs: Risks stale data for frequently changing resources."
+    ],
+    "source": "RFC 9111 caching directives; SPA data-layer caching (e.g., TanStack Query) guidance",
+    "category": "Speculation & Loading (Deep Diagnostics & Edge)"
+  },
+  {
+    "id": "data-&-delivery-024",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Speculation Rules targeting",
+    "options": [
+      { "id": "A", "text": "Target links in viewport or matching patterns; combine with interaction signals (hover/mousedown) for prerender" },
+      { "id": "B", "text": "Limit concurrency and total budget to avoid network contention" },
+      { "id": "C", "text": "Add allowlists/denylists (e.g., avoid ?logout=true)" },
+      { "id": "D", "text": "Apply rules indiscriminately to every anchor" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": ["Tight targeting, budgets, and guardrails control cost and risk of speculation."],
+    "explanationIncorrect": [
+      "Indiscriminate application: Wastes bandwidth and can trigger unsafe routes."
+    ],
+    "source": "web.dev: Speculation Rules API (selectors, budgets)",
+    "category": "Speculation & Loading (Deep Diagnostics & Edge)"
+  },
+  {
+    "id": "data-&-delivery-025",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Measuring value from speculation",
+    "options": [
+      { "id": "A", "text": "Compare p75 TTI/First Interaction Latency and nav-start→first paint deltas for predicted vs non-predicted flows" },
+      { "id": "B", "text": "Track speculation hit rate and cancel rate; prune rules with low activation" },
+      { "id": "C", "text": "Attribute wins to individual rules (rule id) in telemetry" },
+      { "id": "D", "text": "Rely on Lighthouse score changes to validate" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": ["Field KPIs with hit/cancel rates and rule-level attribution demonstrate ROI and guide rule tuning."],
+    "explanationIncorrect": [
+      "Lab-only score: Doesn’t reflect predictive behavior across real journeys."
+    ],
+    "source": "RUM best practices; web.dev: measuring navigation performance; custom telemetry attribution patterns",
+    "category": "Speculation & Loading (Deep Diagnostics & Edge)"
+  },
+  {
+    "id": "data-&-delivery-026",
+    "version": 1,
+    "type": "single",
+    "prompt": "Transport for low-latency, bidirectional peer-to-peer collaboration behind NATs",
+    "options": [
+      { "id": "A", "text": "WebRTC DataChannels with STUN/TURN; optional SFU/relay for groups" },
+      { "id": "B", "text": "WebSocket over TLS with server fan-out" },
+      { "id": "C", "text": "Server-Sent Events with POST back to server" },
+      { "id": "D", "text": "WebTransport unidirectional streams" }
+    ],
+    "correct": ["A"],
+    "explanation": ["WebRTC DataChannels provide low-latency P2P with NAT traversal; SFU/relay helps scale groups."],
+    "explanationIncorrect": [
+      "WebSocket: Client–server only; not P2P.",
+      "SSE + POST: Uni-directional server→client; needs separate backchannel.",
+      "WebTransport: Client–server over QUIC, not P2P."
+    ],
+    "source": "MDN: WebRTC DataChannel, STUN/TURN; WebTransport overview",
+    "category": "Real-Time UX"
+  },
+  {
+    "id": "data-&-delivery-027",
+    "version": 1,
+    "type": "single",
+    "prompt": "Designing reconnect/backoff without stampeding",
+    "options": [
+      { "id": "A", "text": "Exponential backoff with full jitter; cap maximum delay; reset after successful connectivity" },
+      { "id": "B", "text": "Linear backoff with no jitter" },
+      { "id": "C", "text": "Immediate tight-loop retries until success" },
+      { "id": "D", "text": "Fixed 5s delay every time, regardless of error type" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Exponential backoff with jitter avoids herd effects and congestion; caps and reset provide responsiveness on recovery."],
+    "explanationIncorrect": [
+      "Linear/fixed delays: Synchronize clients and can cause load spikes.",
+      "Tight-loop: Hammers servers and drains batteries."
+    ],
+    "source": "AWS Architecture Blog on backoff + jitter; IETF congestion control patterns",
+    "category": "Real-Time UX"
+  },
+  {
+    "id": "data-&-delivery-028",
+    "version": 1,
+    "type": "single",
+    "prompt": "Exactly-once semantics on at-least-once streams (the practical approach)",
+    "options": [
+      { "id": "A", "text": "Attach a monotonic eventId/cursor; dedupe idempotently client-side; allow replay from last acknowledged id" },
+      { "id": "B", "text": "Depend on TCP to guarantee no duplicates" },
+      { "id": "C", "text": "Use timestamps as ids and drop older ones" },
+      { "id": "D", "text": "Accept duplicates and let the UI double-render" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Idempotency keys/cursors with client dedupe and replay build effective exactly-once atop at-least-once delivery."],
+    "explanationIncorrect": [
+      "TCP-only: Guarantees ordering per connection, not cross-reconnect dedupe.",
+      "Timestamps: Collisions and reordering break correctness.",
+      "Accept duplicates: Corrupts UI/state."
+    ],
+    "source": "SSE Last-Event-ID; stream idempotency patterns; Kafka-style concepts",
+    "category": "Real-Time UX"
+  },
+  {
+    "id": "data-&-delivery-029",
+    "version": 1,
+    "type": "single",
+    "prompt": "Presence and ephemeral state at scale",
+    "options": [
+      { "id": "A", "text": "Model presence as heartbeats with TTL; accept eventual consistency; use a shared store (e.g., Redis) for fan-out/sticky sessions" },
+      { "id": "B", "text": "Treat presence as strongly consistent; block UI until exact counts are known" },
+      { "id": "C", "text": "Send one update per user action to all subscribers immediately" },
+      { "id": "D", "text": "Collapse presence to a fixed polling interval only" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Heartbeat + TTL suits ephemeral state; eventual consistency is acceptable; centralized pub/sub scales fan-out."],
+    "explanationIncorrect": [
+      "Strong consistency: Expensive and harms UX.",
+      "Per-action broadcast: Chatter-heavy and unscalable.",
+      "Fixed polling only: Wastes cycles and loses responsiveness."
+    ],
+    "source": "Realtime system patterns (pub/sub, Redis); Slack/Discord engineering posts",
+    "category": "Real-Time UX"
+  },
+  {
+    "id": "data-&-delivery-030",
+    "version": 1,
+    "type": "single",
+    "prompt": "Ordering and causality in collaborative edits",
+    "options": [
+      { "id": "A", "text": "Use CRDTs/OT to reconcile concurrent edits; attach lamport/vector clocks or causal metadata" },
+      { "id": "B", "text": "Assume server arrival order equals causality" },
+      { "id": "C", "text": "Always drop late events; last-writer-wins" },
+      { "id": "D", "text": "Lock the document so only one editor can type at a time" }
+    ],
+    "correct": ["A"],
+    "explanation": ["CRDT/OT plus causal metadata merge concurrent edits without locking, preserving intent."],
+    "explanationIncorrect": [
+      "Arrival order: Not a reliable proxy for causality.",
+      "LWW everywhere: Loses information and edits.",
+      "Global lock: Destroys collaborative experience."
+    ],
+    "source": "CRDT literature (Shapiro et al.); OT references; Lamport clocks",
+    "category": "Real-Time UX"
+  },
+  {
+    "id": "data-&-delivery-031",
+    "version": 1,
+    "type": "single",
+    "prompt": "Resource/battery-friendly live typing indicators",
+    "options": [
+      { "id": "A", "text": "Locally coalesce keystrokes; send “is typing” start/stop with inactivity timeouts; rate-limit updates" },
+      { "id": "B", "text": "Send every keystroke as a presence update" },
+      { "id": "C", "text": "Use a fixed 5s interval regardless of activity" },
+      { "id": "D", "text": "Compute on the server by polling clients" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Coalescing and idle timeouts minimize chatter while remaining responsive."],
+    "explanationIncorrect": [
+      "Per-keystroke: Noisy and wasteful.",
+      "Fixed interval: Ignores actual activity patterns.",
+      "Server polling: Adds load and latency."
+    ],
+    "source": "Realtime UX design patterns; general rate limiting/backoff guidance",
+    "category": "Real-Time UX"
+  },
+  {
+    "id": "data-&-delivery-032",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Making a CSR-heavy app discoverable",
+    "options": [
+      { "id": "A", "text": "Provide SSR/SSG for primary routes (or a crawl-capable pre-render) so HTML contains content and meta on first fetch" },
+      { "id": "B", "text": "Rely on client-side rendering only; search engines will always execute JS reliably" },
+      { "id": "C", "text": "Ensure each route has unique <title>, meta description, and canonical in the server HTML" },
+      { "id": "D", "text": "Use #! hashbang URLs; crawlers treat them specially in 2025" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": ["Server-delivered content/meta is most reliable for crawling; unique titles/canonicals prevent duplication."],
+    "explanationIncorrect": [
+      "JS-only indexing: Inconsistent across bots and slow for discovery.",
+      "Hashbang: Deprecated; avoid."
+    ],
+    "source": "Google/Search Central: JavaScript SEO; web.dev: Rendering on the Web",
+    "category": "SEO & Discovery for Modern Apps"
+  },
+  {
+    "id": "data-&-delivery-033",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Product page structured data",
+    "options": [
+      { "id": "A", "text": "Use JSON-LD with @type: Product; include name, image, description, sku, and offers (price, priceCurrency, availability)" },
+      { "id": "B", "text": "Include aggregateRating/review only if you truly show them to users" },
+      { "id": "C", "text": "Duplicate the same structured data in JSON-LD and Microdata with different values" },
+      { "id": "D", "text": "Give each product a stable @id URL matching the canonical URL" }
+    ],
+    "correct": ["A", "B", "D"],
+    "explanation": ["Proper JSON-LD with truthful fields and stable identifiers aligns rich results with on-page content."],
+    "explanationIncorrect": [
+      "Conflicting markup: Causes suppression or errors."
+    ],
+    "source": "Google: Product structured data guidelines; Schema.org Product",
+    "category": "SEO & Discovery for Modern Apps"
+  },
+  {
+    "id": "data-&-delivery-034",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Internationalization & alternate discovery",
+    "options": [
+      { "id": "A", "text": "Use hreflang pairs (including self-referential) across language/region variants; include x-default for the generic page" },
+      { "id": "B", "text": "Auto-redirect by IP/Accept-Language without offering a switcher" },
+      { "id": "C", "text": "Keep canonical pointing to the page’s own URL, not to a single language’s canonical" },
+      { "id": "D", "text": "Generate locale-specific sitemaps and/or include hreflang in sitemaps" }
+    ],
+    "correct": ["A", "C", "D"],
+    "explanation": ["Correct hreflang mapping and per-locale sitemaps aid geo/language targeting while keeping canonicals stable."],
+    "explanationIncorrect": [
+      "Forced redirects: Can trap crawlers/users and harm indexing."
+    ],
+    "source": "Google: hreflang guidelines; sitemaps with hreflang",
+    "category": "SEO & Discovery for Modern Apps"
+  },
+  {
+    "id": "data-&-delivery-035",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Facets, parameters, and crawl budget",
+    "options": [
+      { "id": "A", "text": "Canonicalize filtered/sorted variants to a clean canonical when content is substantially the same" },
+      { "id": "B", "text": "Use robots meta noindex, follow on infinite/facet pages you don’t want indexed" },
+      { "id": "C", "text": "Strip tracking params (utm_*) at the edge and exclude them from cache and canonical" },
+      { "id": "D", "text": "Rely only on robots.txt Disallow for already-indexed parameter pages" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": ["Canonicals and selective noindex with parameter hygiene protect crawl budget and avoid duplicates."],
+    "explanationIncorrect": [
+      "robots.txt only: Blocks crawling but doesn’t de-index existing pages."
+    ],
+    "source": "Google: Canonicalization & parameter handling; robots vs noindex guidance",
+    "category": "SEO & Discovery for Modern Apps"
+  },
+  {
+    "id": "data-&-delivery-036",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Sitemaps that scale",
+    "options": [
+      { "id": "A", "text": "Keep ≤50,000 URLs per sitemap (≤50 MB uncompressed); use a sitemap index; include lastmod and only 200-canonical URLs" },
+      { "id": "B", "text": "Regenerate the entire sitemap daily regardless of changes" },
+      { "id": "C", "text": "Include both HTTP and HTTPS variants for completeness" },
+      { "id": "D", "text": "Place sitemaps at a stable URL and ping/search console on major updates" }
+    ],
+    "correct": ["A", "D"],
+    "explanation": ["Respect protocol limits, include only canonicals, and update/ping on material changes with stable hosting."],
+    "explanationIncorrect": [
+      "Full daily regen: Wasteful; incremental updates suffice.",
+      "Duplicate protocols: Confuses canonicalization."
+    ],
+    "source": "Sitemaps.org protocol; Google Search Central: Sitemaps best practices",
+    "category": "SEO & Discovery for Modern Apps"
+  },
+  {
+    "id": "data-&-delivery-037",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Social sharing (OG/Twitter) for SPA routes",
+    "options": [
+      { "id": "A", "text": "Ensure server-rendered HTML provides route-specific Open Graph/Twitter meta; most scrapers don’t execute JS" },
+      { "id": "B", "text": "Use client-side meta tag updates only; scrapers will pick them up" },
+      { "id": "C", "text": "Pre-generate social images and serve per-route via a stable URL referenced in og:image" },
+      { "id": "D", "text": "Use a single generic og:* for all pages to simplify" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": ["Most scrapers fetch initial HTML only; route-specific meta and stable OG images improve previews and CTR."],
+    "explanationIncorrect": [
+      "Client-only meta: Often ignored by scrapers.",
+      "Generic tags: Hurt differentiation and discovery."
+    ],
+    "source": "Facebook/Twitter crawler docs; SSR-for-sharing guidance",
+    "category": "SEO & Discovery for Modern Apps"
+  }
+]

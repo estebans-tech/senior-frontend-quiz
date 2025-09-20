@@ -13,7 +13,7 @@ export interface Question {
   lockOptionOrder?: boolean
 }
 export interface QuestionOut extends Question {
-  category: Category
+  pillar: Category
 }
 
 /** Normalisera språk. Just nu bara 'en'. Andra språk loggas och faller tillbaka till 'en'. */
@@ -49,7 +49,7 @@ export async function loadCategoryFile(lang: 'en', cat: Category): Promise<Quest
     const raw = await storage.getItemRaw(key)             // Buffer | null
     if (raw) {
       const arr = JSON.parse(raw.toString('utf-8')) as Question[]
-      return arr.map(q => ({ ...q, category: cat }))
+      return arr.map(q => ({ ...q, pillar: cat }))
     }
   } catch (e) {
     // Om det här kastar är det troligen ett packningsproblem; vi faller vidare.

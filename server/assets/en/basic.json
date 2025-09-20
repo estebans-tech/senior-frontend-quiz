@@ -425,111 +425,6 @@
     "id": "basic-021",
     "version": 7,
     "type": "single",
-    "prompt": "Which JavaScript method joins all elements in an array into a string?",
-    "options": [
-      { "id": "A", "text": "concat()" },
-      { "id": "B", "text": "toString()" },
-      { "id": "C", "text": "combine()" },
-      { "id": "D", "text": "join()" }
-    ],
-    "correct": ["D"],
-    "explanation": [
-      "join(): Produces a string by concatenating elements with a chosen separator."
-    ],
-    "explanationIncorrect": [
-      "concat(): Concatenates arrays, not elements into a single delimited string.",
-      "toString(): Uses default comma separator; no custom delimiter.",
-      "combine(): Not a standard Array method."
-    ]
-  },
-  {
-    "id": "basic-022",
-    "version": 7,
-    "type": "single",
-    "prompt": "Which CSS property controls the space inside an element?",
-    "options": [
-      { "id": "A", "text": "margin" },
-      { "id": "B", "text": "border-spacing" },
-      { "id": "C", "text": "gap" },
-      { "id": "D", "text": "padding" }
-    ],
-    "correct": ["D"],
-    "explanation": [
-      "padding: Controls the inner spacing between content and border."
-    ],
-    "explanationIncorrect": [
-      "margin: Controls outer spacing around the element.",
-      "border-spacing: A table-specific property for cell spacing.",
-      "gap: Spacing between flex/grid children, not internal content."
-    ]
-  },
-  {
-    "id": "basic-023",
-    "version": 7,
-    "type": "single",
-    "prompt": "Which JavaScript method returns the index of the first match in an array?",
-    "options": [
-      { "id": "A", "text": "find()" },
-      { "id": "B", "text": "includes()" },
-      { "id": "C", "text": "search()" },
-      { "id": "D", "text": "indexOf()" }
-    ],
-    "correct": ["D"],
-    "explanation": [
-      "indexOf(): Returns the position of the first occurrence, or -1 if absent."
-    ],
-    "explanationIncorrect": [
-      "find(): Returns the first matching value, not the index.",
-      "includes(): Boolean membership test; no index.",
-      "search(): String method, not for arrays."
-    ]
-  },
-  {
-    "id": "basic-024",
-    "version": 7,
-    "type": "single",
-    "prompt": "Which HTML element defines a table row?",
-    "options": [
-      { "id": "A", "text": "<td>" },
-      { "id": "B", "text": "<th>" },
-      { "id": "C", "text": "<table>" },
-      { "id": "D", "text": "<tr>" }
-    ],
-    "correct": ["D"],
-    "explanation": [
-      "<tr>: Container for a table row that holds cells."
-    ],
-    "explanationIncorrect": [
-      "<td>: Table data cell.",
-      "<th>: Table header cell.",
-      "<table>: The table wrapper element."
-    ]
-  },
-  {
-    "id": "basic-025",
-    "version": 7,
-    "type": "single",
-    "prompt": "Which Git command sends local commits to the remote?",
-    "options": [
-      { "id": "A", "text": "git clone" },
-      { "id": "B", "text": "git pull" },
-      { "id": "C", "text": "git commit" },
-      { "id": "D", "text": "git push" }
-    ],
-    "correct": ["D"],
-    "explanation": [
-      "git push: Publishes local commits to the configured remote."
-    ],
-    "explanationIncorrect": [
-      "git clone: Creates a local copy of a remote repository.",
-      "git pull: Fetches and merges from remote into the current branch.",
-      "git commit: Creates a local commit; no network transfer."
-    ]
-  },
-  {
-    "id": "basic-026",
-    "version": 7,
-    "type": "single",
     "prompt": "Which CSS declaration makes an element’s width relative to its parent’s width?",
     "options": [
       { "id": "A", "text": "width: auto" },
@@ -548,7 +443,7 @@
     ]
   },
   {
-    "id": "basic-027",
+    "id": "basic-022",
     "version": 7,
     "type": "single",
     "prompt": "Which function schedules code to run after a delay?",
@@ -569,7 +464,7 @@
     ]
   },
   {
-    "id": "basic-028",
+    "id": "basic-023",
     "version": 7,
     "type": "single",
     "prompt": "Which HTML element groups related form controls with a caption?",
@@ -590,7 +485,7 @@
     ]
   },
   {
-    "id": "basic-029",
+    "id": "basic-024",
     "version": 7,
     "type": "single",
     "prompt": "Which HTTP response header specifies allowed origins for CORS?",
@@ -611,7 +506,7 @@
     ]
   },
   {
-    "id": "basic-030",
+    "id": "basic-025",
     "version": 7,
     "type": "single",
     "prompt": "Which array method creates a new array by transforming each element?",

@@ -1,0 +1,703 @@
+[
+  {
+    "id": "platform-&-rendering-001",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Given the code below on a blank tab, what is the log order?\n\n```js\nconsole.log('sync-1');\nPromise.resolve().then(() => console.log('micro'));\nrequestAnimationFrame(() => console.log('raf'));\nsetTimeout(() => console.log('timeout'), 0);\nconsole.log('sync-2');\n```",
+    "options": [
+      { "id": "A", "text": "sync-1, sync-2, micro, raf, timeout" },
+      { "id": "B", "text": "sync-1, micro, raf, sync-2, timeout" },
+      { "id": "C", "text": "sync-1, sync-2, timeout, micro, raf" },
+      { "id": "D", "text": "sync-1, sync-2, raf, micro, timeout" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Synchronous logs run first (sync-1, sync-2), then microtasks (Promise.then), then rAF before the next paint, then timers (setTimeout)."],
+    "explanationIncorrect": [
+      "Microtasks-before-sync: Microtasks never run before all synchronous work completes.",
+      "Timeout-before-micro/rAF: Macrotask timers run after rAF and after microtasks have been flushed.",
+      "rAF-before-micro: Microtasks flush before the next rAF callback."
+    ],
+    "source": "MDN: Event loop; HTML Standard (tasks/microtasks); MDN: requestAnimationFrame, setTimeout.",
+    "category": "Web Platform & Browser Internals"
+  },
+  {
+    "id": "platform-&-rendering-002",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Which style change is typically composited on the GPU without causing layout or repaint of content?",
+    "options": [
+      { "id": "A", "text": "element.style.borderWidth = '2px'" },
+      { "id": "B", "text": "element.textContent = element.textContent + '!'" },
+      { "id": "C", "text": "element.style.transform = 'translateZ(0)'" },
+      { "id": "D", "text": "element.style.top = '10px'" }
+    ],
+    "correct": ["C"],
+    "explanation": ["Transforms (and often opacity) can be handled in the compositor without layout/paint, often on a separate layer."],
+    "explanationIncorrect": [
+      "Border change: Border affects paint and often layout.",
+      "Text mutation: Changing text requires layout and paint.",
+      "Top/left: Position changes affect layout and trigger reflow."
+    ],
+    "source": "MDN: CSS transforms & compositing; Google Web Fundamentals: Rendering performance.",
+    "category": "Web Platform & Browser Internals"
+  },
+  {
+    "id": "platform-&-rendering-003",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Which of the following are reasonable candidates to move off the main thread?",
+    "options": [
+      { "id": "A", "text": "DOM manipulation of an element tree via a Web Worker" },
+      { "id": "B", "text": "Heavy data aggregation/computation on large arrays in a Web Worker" },
+      { "id": "C", "text": "Custom paint via the CSS Paint API (PaintWorklet)" },
+      { "id": "D", "text": "Canvas 2D/WebGL rendering via OffscreenCanvas in a Worker" }
+    ],
+    "correct": ["B", "C", "D"],
+    "explanation": ["Heavy computation, PaintWorklet, and OffscreenCanvas are designed to offload work from the main thread."],
+    "explanationIncorrect": [
+      "DOM access: Workers have no direct DOM access; DOM updates must occur on the main thread."
+    ],
+    "source": "MDN: Web Workers; OffscreenCanvas; CSS Painting API (Houdini).",
+    "category": "Web Platform & Browser Internals"
+  },
+  {
+    "id": "platform-&-rendering-004",
+    "version": 1,
+    "type": "multi",
+    "prompt": "What is most accurate about scheduler.postTask(...)?",
+    "options": [
+      { "id": "A", "text": "It integrates with the UA scheduler and supports priorities like user-blocking/user-visible/background" },
+      { "id": "B", "text": "It schedules a microtask that always runs before rAF" },
+      { "id": "C", "text": "It guarantees running in the same frame before paint" },
+      { "id": "D", "text": "It is stable in all major browsers in 2025" }
+    ],
+    "correct": ["A"],
+    "explanation": ["postTask is a task scheduler with priorities/abort, separate from the microtask queue."],
+    "explanationIncorrect": [
+      "Microtask claim: postTask enqueues tasks, not microtasks.",
+      "Same-frame guarantee: There is no guarantee a task runs in the same frame.",
+      "Universal support: Support/implementation parity is mixed."
+    ],
+    "source": "MDN: scheduler.postTask; WICG Cooperative Scheduling API explainer.",
+    "category": "Web Platform & Browser Internals"
+  },
+  {
+    "id": "platform-&-rendering-005",
+    "version": 1,
+    "type": "multi",
+    "prompt": "You need to (1) react to DOM changes, (2) lazy-load images when they become visible, (3) observe LCP candidates. Which combo fits best?",
+    "options": [
+      { "id": "A", "text": "DOM ⇒ MutationObserver; Lazyload ⇒ IntersectionObserver; LCP ⇒ PerformanceObserver" },
+      { "id": "B", "text": "DOM ⇒ IntersectionObserver; Lazyload ⇒ MutationObserver; LCP ⇒ PerformanceObserver" },
+      { "id": "C", "text": "DOM ⇒ PerformanceObserver; Lazyload ⇒ IntersectionObserver; LCP ⇒ MutationObserver" },
+      { "id": "D", "text": "DOM ⇒ MutationObserver; Lazyload ⇒ ResizeObserver; LCP ⇒ IntersectionObserver" }
+    ],
+    "correct": ["A"],
+    "explanation": ["MutationObserver catches DOM changes; IntersectionObserver watches viewport visibility; PerformanceObserver captures LCP/INP/FCP entries."],
+    "explanationIncorrect": [
+      "Observer mismatch: IntersectionObserver is for visibility, not DOM mutations.",
+      "Observer mismatch: MutationObserver does not report LCP; PerformanceObserver does.",
+      "Resize misuse: ResizeObserver measures size, not visibility."
+    ],
+    "source": "MDN: MutationObserver, IntersectionObserver, PerformanceObserver; web.dev: LCP measurement.",
+    "category": "Web Platform & Browser Internals"
+  },
+  {
+    "id": "platform-&-rendering-006",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Which API should you primarily use to animate DOM updates synchronized with the display refresh rate?",
+    "options": [
+      { "id": "A", "text": "requestAnimationFrame(fn)" },
+      { "id": "B", "text": "requestIdleCallback(fn)" },
+      { "id": "C", "text": "queueMicrotask(fn)" },
+      { "id": "D", "text": "setTimeout(fn, 16)" }
+    ],
+    "correct": ["A"],
+    "explanation": ["requestAnimationFrame runs just before the next paint and syncs with the refresh rate for smooth animation."],
+    "explanationIncorrect": [
+      "Idle callback: requestIdleCallback is not for animation timing.",
+      "Microtasks: queueMicrotask is not frame-aligned.",
+      "Timer jitter: setTimeout cannot reliably align with frames and can cause jank."
+    ],
+    "source": "MDN: requestAnimationFrame; requestIdleCallback; Timers & event loop.",
+    "category": "Web Platform & Browser Internals"
+  },
+  {
+    "id": "platform-&-rendering-007",
+    "version": 1,
+    "type": "multi",
+    "prompt": "SSR/SSG/ISR for a 3M-product catalog with webhooks on change. You need fast cold starts, SEO, and freshness within minutes without per-request SSR—what do you choose?",
+    "options": [
+      { "id": "A", "text": "SSG + ISR with on-demand revalidation per product via webhooks" },
+      { "id": "B", "text": "SSR for every request + proxy cache with short TTL" },
+      { "id": "C", "text": "SSG all pages once per day" },
+      { "id": "D", "text": "Client-side rendering after hydration (CSR)" }
+    ],
+    "correct": ["A"],
+    "explanation": ["On-demand ISR delivers static TTFB/SEO and revalidates only the changed product—no global rebuilds or expensive per-request SSR."],
+    "explanationIncorrect": [
+      "Daily rebuild: Leads to staleness until the next build.",
+      "Per-request SSR: Expensive and scales poorly for cold starts.",
+      "Pure CSR: Hurts initial SEO and LCP."
+    ],
+    "source": "Next.js ISR and on-demand revalidation docs; web.dev: SSR/SSG/CSR trade-offs.",
+    "category": "Rendering-paradigm & Runtimes"
+  },
+  {
+    "id": "platform-&-rendering-008",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Which statements are true for modern server components (RSC-like)?",
+    "options": [
+      { "id": "A", "text": "They can read server secrets or talk directly to the database" },
+      { "id": "B", "text": "They can use window/document" },
+      { "id": "C", "text": "They can stream markup progressively with Suspense boundaries" },
+      { "id": "D", "text": "They can use useEffect on the server" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": ["Server components can access server resources and leverage streaming with Suspense for progressive responses."],
+    "explanationIncorrect": [
+      "Browser APIs: window/document are not available on the server.",
+      "Client-only hooks: useEffect runs on the client, not in server components."
+    ],
+    "source": "React docs: Server Components & Streaming SSR; Next.js RSC boundaries.",
+    "category": "Rendering-paradigm & Runtimes"
+  },
+  {
+    "id": "platform-&-rendering-009",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Hydration, islands, and resumability: a static page with three small widgets—minimize shipped JS while preserving interactivity. What fits best?",
+    "options": [
+      { "id": "A", "text": "Islands architecture: hydrate only the widget islands" },
+      { "id": "B", "text": "Resumable hydration: resume without global init until interaction" },
+      { "id": "C", "text": "Full SSR and hydrate the entire app" },
+      { "id": "D", "text": "Static HTML plus iframes for the widgets" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": ["Islands and/or resumability minimize JS by selective/lazy hydration or deferring execution until needed."],
+    "explanationIncorrect": [
+      "Hydrate-all: Hydrating the whole app ships unnecessary JS.",
+      "Iframes: Isolation is costly in resources/SEO and often overkill."
+    ],
+    "source": "Astro (islands); Qwik (resumability); web.dev: partial hydration.",
+    "category": "Rendering-paradigm & Runtimes"
+  },
+  {
+    "id": "platform-&-rendering-010",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Edge runtimes: which limitations are typical versus a Node server?",
+    "options": [
+      { "id": "A", "text": "No fs/net modules and no arbitrary sockets" },
+      { "id": "B", "text": "Short execution time, no shared mutable process state; use KV/Cache for shared data" },
+      { "id": "C", "text": "Long-lived processes with safe in-memory state across requests" },
+      { "id": "D", "text": "HTTP/3 is mandatory and HTTP/1 is forbidden" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": ["Edge environments resemble workers: web-standard APIs, constrained compute, no local disk/sockets; shared state must be externalized."],
+    "explanationIncorrect": [
+      "Process state: In-memory state is not guaranteed across requests at the edge.",
+      "Protocol mandate: Protocol support varies; HTTP/1 is not universally forbidden."
+    ],
+    "source": "Cloudflare Workers/Vercel/Deno Deploy Edge Runtime documentation.",
+    "category": "Rendering-paradigm & Runtimes"
+  },
+  {
+    "id": "platform-&-rendering-011",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Streaming SSR & SEO: you stream an article with Suspense; shell first, content fills in. What should you consider?",
+    "options": [
+      { "id": "A", "text": "Streaming can improve perceived performance via early flush of the HTML shell" },
+      { "id": "B", "text": "Put <title>, critical <meta>, and structured data in the first chunk" },
+      { "id": "C", "text": "Search engines cannot index streamed HTML at all" },
+      { "id": "D", "text": "Streaming makes the HTML invalid until the last chunk" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": ["Early flush helps UX; SEO-critical metadata must be sent early in the stream."],
+    "explanationIncorrect": [
+      "Crawler ability: Major search engines can handle streamed responses.",
+      "Validity: Properly chunked streaming maintains progressive, valid HTML."
+    ],
+    "source": "React Streaming SSR guides; web.dev: streaming & SEO.",
+    "category": "Rendering-paradigm & Runtimes"
+  },
+  {
+    "id": "platform-&-rendering-012",
+    "version": 1,
+    "type": "multi",
+    "prompt": "ISR pitfalls: what concretely leads to stale content?",
+    "options": [
+      { "id": "A", "text": "Long revalidate windows or missing on-demand triggers when data changes" },
+      { "id": "B", "text": "Cache-Control: no-cache at the CDN" },
+      { "id": "C", "text": "Missing/unclear cache tagging on writes → no targeted purge" },
+      { "id": "D", "text": "Using SWR on the client" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": ["Overlong revalidate windows or failed invalidation/retagging keep outdated snapshots alive."],
+    "explanationIncorrect": [
+      "no-cache: Forces validation and reduces staleness risk.",
+      "Client SWR: Client-side SWR is separate from ISR snapshot freshness."
+    ],
+    "source": "Next.js ISR docs; HTTP caching principles (MDN).",
+    "category": "Rendering-paradigm & Runtimes"
+  },
+  {
+    "id": "platform-&-rendering-013",
+    "version": 1,
+    "type": "multi",
+    "prompt": "What counts as an LCP candidate on a typical marketing page?",
+    "options": [
+      { "id": "A", "text": "<img> hero image" },
+      { "id": "B", "text": "<svg><image href=\"...\" /></svg>" },
+      { "id": "C", "text": "<video> playing frames (not the poster)" },
+      { "id": "D", "text": "A block element with background-image: url(...)" },
+      { "id": "E", "text": "<canvas> drawing after script runs" }
+    ],
+    "correct": ["A", "B", "D"],
+    "explanation": ["LCP considers <img>, elements with CSS background images, and SVG <image> elements (plus video poster images and large text)."],
+    "explanationIncorrect": [
+      "Canvas rendering: Canvas pixels are not LCP candidates.",
+      "Video frames: The poster may be a candidate, not the playing frames."
+    ],
+    "source": "web.dev: Largest Contentful Paint; MDN: LCP eligible elements.",
+    "category": "Performance & Web Vitals"
+  },
+  {
+    "id": "platform-&-rendering-014",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Which practices most directly reduce CLS on content-heavy pages?",
+    "options": [
+      { "id": "A", "text": "Set explicit width/height or aspect-ratio for images/iframes" },
+      { "id": "B", "text": "Reserve space for ad/embed slots with fixed min-heights/placeholders" },
+      { "id": "C", "text": "Animate position with top/left instead of transforms" },
+      { "id": "D", "text": "Use font-display: swap/optional with font metric adjustments (size-adjust / metric override descriptors)" }
+    ],
+    "correct": ["A", "B", "D"],
+    "explanation": ["Declaring dimensions/aspect and reserving space prevents layout jumps; font metric alignment reduces shifts on font swap."],
+    "explanationIncorrect": [
+      "Layout animation: Animating layout properties triggers reflow and can cause shifts; prefer transforms/opacity."
+    ],
+    "source": "web.dev: Cumulative Layout Shift; MDN: aspect-ratio, font metric overrides.",
+    "category": "Performance & Web Vitals"
+  },
+  {
+    "id": "platform-&-rendering-015",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Your click handler performs a heavy sort (150 ms) and JSON parsing (120 ms). INP p75 is 260 ms. What’s the most robust way to improve INP?",
+    "options": [
+      { "id": "A", "text": "Split work into smaller chunks across frames (rAF/scheduler.postTask) before DOM updates" },
+      { "id": "B", "text": "Move compute to a Web Worker; show optimistic UI and reconcile results" },
+      { "id": "C", "text": "Debounce the click by 500 ms" },
+      { "id": "D", "text": "Mark the handler as { passive: true }" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": ["Offloading to a Worker removes main-thread contention; chunking/yielding avoids long tasks so the UI can respond and paint sooner."],
+    "explanationIncorrect": [
+      "Debounce: Delays responsiveness without reducing per-action work.",
+      "Passive: Helps for scroll/touch listeners, not heavy click compute."
+    ],
+    "source": "web.dev: INP guidance; MDN: Web Workers; requestAnimationFrame and yielding long tasks.",
+    "category": "Performance & Web Vitals"
+  },
+  {
+    "id": "platform-&-rendering-016",
+    "version": 1,
+    "type": "multi",
+    "prompt": "You want to prioritize above-the-fold rendering and the hero image. Which tactics are appropriate?",
+    "options": [
+      { "id": "A", "text": "<link rel=\"preconnect\" href=\"https://cdn.example.com\">" },
+      { "id": "B", "text": "<img src=\"/hero.jpg\" fetchpriority=\"high\" decoding=\"async\">" },
+      { "id": "C", "text": "<link rel=\"preload\" href=\"/critical.css\" as=\"style\">" },
+      { "id": "D", "text": "Use <link rel=\"prefetch\"> for the critical CSS of the current route" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": ["Preconnect reduces handshake latency; priority hints elevate the LCP image; preloading critical CSS prevents render-blocking waterfalls."],
+    "explanationIncorrect": [
+      "Prefetch misuse: Prefetch is low priority for future navigations, not critical current-route assets."
+    ],
+    "source": "web.dev: Resource prioritization & Priority Hints; MDN: preload, preconnect, decoding.",
+    "category": "Performance & Web Vitals"
+  },
+  {
+    "id": "platform-&-rendering-017",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Which budgets best reflect user-perceived performance and are actionable?",
+    "options": [
+      { "id": "A", "text": "Web Vitals p75 (LCP, INP, CLS) with per-route JS transfer/execution budgets and image byte budgets" },
+      { "id": "B", "text": "Average page load time and total requests count only" },
+      { "id": "C", "text": "CPU time in CI only; ignore field data" },
+      { "id": "D", "text": "Lighthouse score ≥ 90 as the sole KPI" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Field-based p75 Web Vitals plus concrete JS/image budgets align with real UX and are enforceable."],
+    "explanationIncorrect": [
+      "Averages-only: Averages hide tail regressions.",
+      "Lab-only: Lab data misses real networks/devices.",
+      "Single score: A composite score obscures causes and can be gamed."
+    ],
+    "source": "web.dev: Core Web Vitals (field p75); performance budget guidance.",
+    "category": "Performance & Web Vitals"
+  },
+  {
+    "id": "platform-&-rendering-018",
+    "version": 1,
+    "type": "multi",
+    "prompt": "You suspect an LCP regression caused by a late-loading hero image. What helps pinpoint the cause?",
+    "options": [
+      { "id": "A", "text": "Use a PerformanceObserver for 'largest-contentful-paint' to log the element/size (ensure Timing-Allow-Origin so cross-origin URLs are visible)" },
+      { "id": "B", "text": "Add Server-Timing to expose backend phases (e.g., DB) and correlate with LCP" },
+      { "id": "C", "text": "Use the Long Tasks API to find >50 ms main-thread blocks near LCP" },
+      { "id": "D", "text": "Add <link rel=\"preload\" as=\"image\" href=\"/hero.jpg\"> and assume the problem is solved" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": ["LCP entries reveal the candidate; Server-Timing separates backend from frontend delay; Long Tasks identify main-thread contention delaying render."],
+    "explanationIncorrect": [
+      "Preload assumption: Preload may help but is not a diagnosis—collect evidence first."
+    ],
+    "source": "MDN: PerformanceObserver (LCP); MDN: Long Tasks API; W3C/WHATWG: Server-Timing.",
+    "category": "Performance & Web Vitals"
+  },
+  {
+    "id": "platform-&-rendering-019",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Service worker updates without breaking open tabs—what is the safest pattern?",
+    "options": [
+      { "id": "A", "text": "Let the new SW wait; version assets; show 'update available'; activate on navigation/user-approved reload; migrate caches" },
+      { "id": "B", "text": "Call self.skipWaiting() and clients.claim() and immediately force-reload all tabs" },
+      { "id": "C", "text": "Mark app-shell assets Cache-Control: no-store so users always fetch fresh code" },
+      { "id": "D", "text": "Use importScripts() at runtime to hot-reload the running service worker" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Controlled activation with versioned assets avoids clobbering in-flight sessions with app-shell/data mismatches."],
+    "explanationIncorrect": [
+      "Forced activation: Can break open tabs due to mismatched shells/data.",
+      "no-store shell: Kills PWA value and hurts performance.",
+      "Hot-reload myth: SW code isn't hot-reloadable after install."
+    ],
+    "source": "MDN: Service Worker lifecycle; web.dev: Managing Service Worker updates.",
+    "category": "PWA & Offline Resilience"
+  },
+  {
+    "id": "platform-&-rendering-020",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Choosing cache strategies for shell, API, and POSTs",
+    "options": [
+      { "id": "A", "text": "App shell: cache-first with stale-while-revalidate; API: network-first with cache fallback; POSTs queued with Background Sync" },
+      { "id": "B", "text": "App shell: network-first; API: cache-first indefinitely; POSTs fail offline" },
+      { "id": "C", "text": "No caching for shell; prefetch every API page at install" },
+      { "id": "D", "text": "App shell: stale-only; API: stale-while-revalidate" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Shell benefits from cache-first + SWR; APIs need freshness with resilience; Background Sync enables offline outbox for POSTs."],
+    "explanationIncorrect": [
+      "Network-first shell: Slower UX and fragile offline behavior.",
+      "Cache-first APIs forever: Risks serving stale data indefinitely.",
+      "Mass prefetch: Bloats install time and storage; stale-only shells drift."
+    ],
+    "source": "web.dev: Offline strategies; Workbox recipes; MDN: Background Sync.",
+    "category": "PWA & Offline Resilience"
+  },
+  {
+    "id": "platform-&-rendering-021",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Storage quotas, persistence, and eviction",
+    "options": [
+      { "id": "A", "text": "navigator.storage.persist() can request persistent storage (often behind a user gesture) to reduce eviction risk" },
+      { "id": "B", "text": "All browsers grant a uniform 50% of disk per-origin quota" },
+      { "id": "C", "text": "StorageManager.estimate() and persistence behave identically across engines, including Safari" },
+      { "id": "D", "text": "Quotas/eviction apply to the origin’s overall site data (IDB, Cache Storage, etc.) and eviction can clear an origin wholesale" }
+    ],
+    "correct": ["A", "D"],
+    "explanation": ["Persistence reduces eviction likelihood; quotas and eviction are origin-scoped across storage types."],
+    "explanationIncorrect": [
+      "Fixed quota myth: Quotas vary by UA/device; not a fixed percent.",
+      "Uniform support myth: Support and behavior differ; Safari diverges."
+    ],
+    "source": "MDN: Storage API (estimate, persist); web.dev: Storage for the web; Chrome docs: Quota & eviction.",
+    "category": "PWA & Offline Resilience"
+  },
+  {
+    "id": "platform-&-rendering-022",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Background Sync realities",
+    "options": [
+      { "id": "A", "text": "One-off Background Sync can queue failed POSTs and replay when connectivity returns" },
+      { "id": "B", "text": "Periodic Background Sync is universally supported and runs at exact intervals" },
+      { "id": "C", "text": "Sync timing is opportunistic and not guaranteed; power/network heuristics apply" },
+      { "id": "D", "text": "Requires HTTPS and a registered service worker" }
+    ],
+    "correct": ["A", "C", "D"],
+    "explanation": ["One-off sync outboxes writes; periodic sync is best-effort; SW + HTTPS are prerequisites."],
+    "explanationIncorrect": [
+      "Universal periodic myth: Support is limited and timing is not exact."
+    ],
+    "source": "MDN: Background Sync & Periodic Background Sync; web.dev: Reliable background sync patterns.",
+    "category": "PWA & Offline Resilience"
+  },
+  {
+    "id": "platform-&-rendering-023",
+    "version": 1,
+    "type": "multi",
+    "prompt": "End-to-end requirements for Web Push",
+    "options": [
+      { "id": "A", "text": "User grants permission; PushManager.subscribe() returns endpoint and keys" },
+      { "id": "B", "text": "App server authenticates with VAPID and encrypts payload per the Web Push protocol" },
+      { "id": "C", "text": "Push works without a service worker; a page-level handler is enough" },
+      { "id": "D", "text": "On Apple platforms, Web Push requires permission and is delivered to installed web apps (PWAs)" }
+    ],
+    "correct": ["A", "B", "D"],
+    "explanation": ["Permission + subscription + VAPID + encryption are required; platform nuances apply for delivery."],
+    "explanationIncorrect": [
+      "Page-only handler: Push events are delivered to the service worker, not page JS."
+    ],
+    "source": "MDN: Web Push API, VAPID, push encryption; platform docs on Web Push support.",
+    "category": "PWA & Offline Resilience"
+  },
+  {
+    "id": "platform-&-rendering-024",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Conflict handling for offline edits",
+    "options": [
+      { "id": "A", "text": "Include a server version/ETag and send conditional updates; on conflict, surface a merge or apply policy (e.g., last-write-wins)" },
+      { "id": "B", "text": "Resolve conflicts by trusting the client’s wall-clock timestamp" },
+      { "id": "C", "text": "Auto-merge strings by concatenation to avoid user prompts" },
+      { "id": "D", "text": "Use durable client-generated IDs (e.g., UUID) for offline-created records" }
+    ],
+    "correct": ["A", "D"],
+    "explanation": ["Conditional updates detect conflicts; durable client IDs make offline creates reconcilable."],
+    "explanationIncorrect": [
+      "Clock trust: Clocks drift; timestamps aren’t authoritative.",
+      "Concatenation merge: Naïve merges corrupt data."
+    ],
+    "source": "HTTP Conditional Requests (ETag/If-Match); offline-first conflict resolution patterns.",
+    "category": "PWA & Offline Resilience"
+  },
+  {
+    "id": "platform-&-rendering-025",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Choosing a rendering stack for ~50k animated particles",
+    "options": [
+      { "id": "A", "text": "WebGL with instanced rendering; simulation in a Worker; render via OffscreenCanvas" },
+      { "id": "B", "text": "SVG with one <circle> per particle, animated via SMIL/CSS" },
+      { "id": "C", "text": "Canvas 2D on the main thread with a per-frame loop" },
+      { "id": "D", "text": "Absolutely positioned DOM nodes with CSS transitions" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Instancing leverages the GPU and OffscreenCanvas + Worker removes main-thread pressure; WebGL scales far better than DOM/SVG/Canvas 2D for tens of thousands of sprites."],
+    "explanationIncorrect": [
+      "DOM/SVG: Per-node overhead incurs style/layout/paint work.",
+      "Canvas 2D main: Long tasks on the main thread cause jank."
+    ],
+    "source": "MDN: WebGL fundamentals & instancing; MDN: OffscreenCanvas; web.dev: High-performance graphics.",
+    "category": "Web Graphics & Media"
+  },
+  {
+    "id": "platform-&-rendering-026",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Low-latency video effects pipeline",
+    "options": [
+      { "id": "A", "text": "Use WebCodecs to decode to VideoFrame, process in Worker/WASM, then present via Canvas/WebGL without re-encoding" },
+      { "id": "B", "text": "Use MSE to buffer 30–60s and apply effects with CSS filters on <video>" },
+      { "id": "C", "text": "Draw each frame to <canvas> and call canvas.toDataURL() for display" },
+      { "id": "D", "text": "Re-encode processed frames with WebCodecs VideoEncoder and immediately play back via MSE" }
+    ],
+    "correct": ["A"],
+    "explanation": ["WebCodecs gives decoded frames with minimal overhead; zero-copy processing and presentation keep latency low."],
+    "explanationIncorrect": [
+      "Large MSE buffer: High buffering adds playback latency; CSS filters are limited for per-pixel effects.",
+      "toDataURL: Base64 serialization is slow and memory-heavy.",
+      "Re-encode: Adds significant latency and complexity."
+    ],
+    "source": "WebCodecs spec/MDN; web.dev: WebCodecs for low-latency processing.",
+    "category": "Web Graphics & Media"
+  },
+  {
+    "id": "platform-&-rendering-027",
+    "version": 1,
+    "type": "multi",
+    "prompt": "OffscreenCanvas realities",
+    "options": [
+      { "id": "A", "text": "Transfer a main-thread <canvas> to a Worker via transferControlToOffscreen() and render there" },
+      { "id": "B", "text": "Workers can’t access the DOM, but can render 2D/WebGL to OffscreenCanvas and post frames back" },
+      { "id": "C", "text": "OffscreenCanvas requires readback to the main thread every frame to be visible" },
+      { "id": "D", "text": "Moving rendering to a Worker can reduce input jank by removing main-thread contention" }
+    ],
+    "correct": ["A", "B", "D"],
+    "explanation": ["Control can be transferred; rendering off the main thread removes contention with input/JS; workers cannot touch the DOM directly."],
+    "explanationIncorrect": [
+      "Per-frame readback: No per-frame readback to the main thread is required for visibility."
+    ],
+    "source": "MDN: OffscreenCanvas; HTML Canvas specification (OffscreenCanvas).",
+    "category": "Web Graphics & Media"
+  },
+  {
+    "id": "platform-&-rendering-028",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Picking the right animation tech",
+    "options": [
+      { "id": "A", "text": "Animate transform/opacity via CSS or WAAPI to run on the compositor when no layout/paint is needed" },
+      { "id": "B", "text": "Prefer top/left/height for smoother perception" },
+      { "id": "C", "text": "Use requestAnimationFrame when you need JS-driven choreography or coordination" },
+      { "id": "D", "text": "Set will-change permanently on many elements to keep them promoted" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": ["Compositor-friendly properties avoid layout/paint; rAF gives precise JS timing and frame alignment."],
+    "explanationIncorrect": [
+      "Layout animation: Animating layout properties triggers reflow → jank.",
+      "Permanent will-change: Wastes memory/GPU; should be used sparingly."
+    ],
+    "source": "web.dev: Animation performance; MDN: WAAPI, will-change.",
+    "category": "Web Graphics & Media"
+  },
+  {
+    "id": "platform-&-rendering-029",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Color management & wide gamut delivery",
+    "options": [
+      { "id": "A", "text": "Serve tagged wide-gamut assets and gate CSS color usage with @media (color-gamut: p3); provide sRGB fallbacks" },
+      { "id": "B", "text": "Use CSS Color 4 functions like color(display-p3 …) for UIs that opt into wide gamut, with sRGB fallback tokens" },
+      { "id": "C", "text": "Use untagged P3 images; browsers will figure it out" },
+      { "id": "D", "text": "Rely on <meta name=\"color-scheme\"> to enable wide-gamut rendering" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": ["Proper tagging/fallbacks avoid oversaturation; CSS Color 4 enables explicit wide-gamut with graceful degradation."],
+    "explanationIncorrect": [
+      "Untagged images: Lead to inconsistent rendering across devices.",
+      "Color-scheme: Controls dark/light UI, not color gamut."
+    ],
+    "source": "CSS Color 4 spec; MDN: color-gamut media query; image color profile guidance.",
+    "category": "Web Graphics & Media"
+  },
+  {
+    "id": "platform-&-rendering-030",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Managing GPU resources in WebGL",
+    "options": [
+      { "id": "A", "text": "Explicitly delete textures/buffers/programs when no longer needed (gl.delete*)" },
+      { "id": "B", "text": "Rely solely on GC; WebGL will free VRAM deterministically" },
+      { "id": "C", "text": "Use smaller texture formats/atlases; avoid unnecessary readPixels" },
+      { "id": "D", "text": "Test lifecycle by forcing context loss via WEBGL_lose_context in development" }
+    ],
+    "correct": ["A", "C", "D"],
+    "explanation": ["WebGL is explicit: free objects, optimize formats and readbacks, and validate context-loss handling."],
+    "explanationIncorrect": [
+      "Deterministic GC myth: GC is nondeterministic and not tied to VRAM pressure."
+    ],
+    "source": "MDN: WebGL best practices; WEBGL_lose_context extension; GPU memory tips.",
+    "category": "Web Graphics & Media"
+  },
+  {
+    "id": "platform-&-rendering-031",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Picking an inference backend in the browser",
+    "options": [
+      { "id": "A", "text": "WebGPU for modern GPUs; fallback to WASM+SIMD+Threads; avoid WebGL hacks for general ML when possible" },
+      { "id": "B", "text": "Always use WebGL via fragment shaders; it's universally optimal" },
+      { "id": "C", "text": "ONNX Runtime Web / TensorFlow.js with WebGPU backend when available; auto-select WASM when not" },
+      { "id": "D", "text": "Rely on server inference exclusively; browsers can’t handle real models" }
+    ],
+    "correct": ["A", "C"],
+    "explanation": ["WebGPU + WASM (SIMD/Threads) is the current best path; ORT Web/TF.js can abstract backend selection for portability."],
+    "explanationIncorrect": [
+      "WebGL-only: WebGL compute is a workaround with limitations for general ML.",
+      "Server-only: Ignores on-device cases where privacy/latency make local inference viable."
+    ],
+    "source": "MDN: WebGPU; ONNX Runtime Web docs; TensorFlow.js WebGPU backend docs.",
+    "category": "AI & On-device ML for the Web"
+  },
+  {
+    "id": "platform-&-rendering-032",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Enabling high-performance WASM in the browser",
+    "options": [
+      { "id": "A", "text": "Cross-origin isolate (COOP+COEP) to enable SharedArrayBuffer and WASM threads" },
+      { "id": "B", "text": "Compile with SIMD and threads; chunk work to avoid long main-thread tasks" },
+      { "id": "C", "text": "Use a single-threaded WASM build; threads don’t help" },
+      { "id": "D", "text": "Keep model weights in JS arrays; WASM memory offers no benefit" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": ["COOP+COEP plus SIMD and threads unlock parallel inference and faster kernels; chunking maintains responsiveness."],
+    "explanationIncorrect": [
+      "No-threads: Ignoring threads/SIMD leaves large performance on the table.",
+      "JS arrays: JS arrays are slower and memory-inefficient versus WASM memory."
+    ],
+    "source": "MDN: Cross-origin isolation; Emscripten docs (SIMD/threads); WebAssembly threads/SIMD specs.",
+    "category": "AI & On-device ML for the Web"
+  },
+  {
+    "id": "platform-&-rendering-033",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Reducing download size and latency for model assets",
+    "options": [
+      { "id": "A", "text": "Quantize to int8/float16 where accuracy allows; split weights into range-requestable chunks; enable HTTP caching with stale-while-revalidate" },
+      { "id": "B", "text": "Preload critical layers; lazy-load optional adapters/LoRA after first interaction" },
+      { "id": "C", "text": "Store models in Cache Storage/IndexedDB with versioned keys; evict old versions on update" },
+      { "id": "D", "text": "Ship one giant uncompressed .bin and rely on the CDN to compress on the fly" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": ["Quantization + chunking + proper caching, progressive/lazy layer loading, and versioned persistent storage minimize first-use latency and repeat costs."],
+    "explanationIncorrect": [
+      "Single giant asset: Increases TTFB, blocks interactivity, and hampers caching."
+    ],
+    "source": "web.dev: performance & HTTP caching; ML deployment best practices (quantization); MDN: Cache Storage/IDB.",
+    "category": "AI & On-device ML for the Web"
+  },
+  {
+    "id": "platform-&-rendering-034",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Privacy and safety considerations for on-device inference",
+    "options": [
+      { "id": "A", "text": "Keep inference local for sensitive inputs; avoid sending raw data off device; log only aggregated metrics" },
+      { "id": "B", "text": "Document model/data provenance; disclose limitations/bias; provide a kill switch/flag to disable ML features" },
+      { "id": "C", "text": "Run safety filters on-device before any optional server calls" },
+      { "id": "D", "text": "Capture full prompts/images and upload for debugging by default" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": ["Local inference + minimal telemetry, provenance/limitations, kill switches, and on-device safety checks respect privacy and reduce risk."],
+    "explanationIncorrect": [
+      "Default full-data logging: Violates privacy expectations and may breach policy/compliance."
+    ],
+    "source": "Privacy by design principles; platform privacy guidelines; general ML safety/filtering practices.",
+    "category": "AI & On-device ML for the Web"
+  },
+  {
+    "id": "platform-&-rendering-035",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Coordinating ML work with UI responsiveness",
+    "options": [
+      { "id": "A", "text": "Offload heavy preprocessing/postprocessing to Workers; use scheduler.postTask with priorities for main-thread tasks; yield between frames" },
+      { "id": "B", "text": "Stream partial results/tokens to the UI to keep users engaged; cancel with AbortController on navigation" },
+      { "id": "C", "text": "Drive all inference on the main thread to simplify code paths" },
+      { "id": "D", "text": "Use a single global mutex so only one ML task can run anywhere in the app" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": ["Workers + prioritized scheduling + streamed partial results + cancellability keep INP/LCP healthy and UX responsive during ML tasks."],
+    "explanationIncorrect": [
+      "Main-thread compute: Causes jank and blocks input/paint.",
+      "Global mutex: Overly coarse; harms concurrency without real benefit."
+    ],
+    "source": "MDN: Web Workers, AbortController; WICG scheduler.postTask; web.dev: streaming UX patterns.",
+    "category": "AI & On-device ML for the Web"
+  }
+]
