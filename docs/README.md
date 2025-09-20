@@ -1,137 +1,133 @@
-# Question Parsing & QA Checklist (v4)
+# Parsing Spec v7
 
-This document defines how to parse raw question blocks into the JSON format used by the app and how to perform quality checks while doing so.
+## Object shape (per question)
 
----
+- `id` (string): `<prefix>-NNN`  
+  3-digit, zero-padded; sequential within the prefix.
+- `version` (number): **7**.
+- `type` (string): `"single"` or `"multi"`.
+- `prompt` (string): Full question text **translated to English**.  
+  Keep instructional suffixes (e.g., “(choose the best answer)”). Strip leading markers like `->` / `—>`.
+- `options` (array): Answer choices in **original order**. Each item:
+  ```json
+  { "id": "A", "text": "..." }
+  ```
+  - `text` is **translated to English**.
+  - Remove any leading `A)`, `B)` (including following spaces) from the source text.
+- `correct` (string[]): The option IDs that are correct (array even for single-answer questions).
+- `explanation` (string | string[], English): Why the correct option(s) is/are right.  
+  - Use an **array** when there are multiple points.  
+  - For multi-point items, **prefix** each point with a keyword from the referenced option where natural (e.g., `JSON.parse(): Parses JSON…`).
+- `explanationIncorrect` (string | string[], English): Why the **incorrect** options are wrong (aggregated list, not per-ID).  
+  - Use an **array** when there are multiple points.  
+  - When helpful, prefix each point with a keyword from the incorrect option (e.g., function name).
+- `source` (string, optional): Verbatim citation if a “Source:” line was provided.
+- `sourceNote` (string, optional): Brief **English** paraphrase/clarification of the source.
+- `lockOptionOrder` (boolean, optional):  
+  - **true** for True/False items.  
+  - Omit otherwise unless you explicitly want to lock order.
 
-## Input format & cleaning
+## Type rules
 
-- Each **question block** is separated by one or more blank lines.
-- Remove these lines if present:
-  - Lines starting with `->`
-  - Headings like `Scrum.org - …`
-  - `Question X of Y`
-  - The label `Feedback`
-- Normalize whitespace:
-  - Replace NO-BREAK SPACE (U+00A0) with a regular space.
-  - Trim leading/trailing whitespace on all captured strings.
+- If the stem contains “Choose the best answer” → `type: "single"`.
+- If the stem contains “Choose the best two/three…” or “Select all that apply” → `type: "multi"`.
+- True/False questions → `type: "single"` + `lockOptionOrder: true`, and options must be exactly:
+  ```json
+  [{ "id": "A", "text": "True" }, { "id": "B", "text": "False" }]
+  ```
 
----
+## Cleaning & normalization
 
-## Type, prompt, and instructions
+- **Translate everything to English** (prompt, options, explanations).
+- Remove checkbox syntax from the source (`- [ ]`, `- [x]`); keep raw option text.
+- Keep the original option order (T/F also locked).
+- Keep instructional suffixes in the prompt.
+- Remove “Your Answer” lines or stray labels.
+- Remove leading `—>`/`->` markers in prompts (keep the content).
+- If the prompt refers to “option A/B/etc.”, normalize such references to the **option text** (since letter markers are stripped from the option strings).
 
-- **`type`**
-  - If the first line explicitly says `single` or `multi`: **use it as-is**.
-  - Otherwise infer:
-    - Exactly a **True/False** pair → `single`.
-    - Contains **“Choose the best answer”** → `single`.
-    - Contains **“Choose the best N answers”**, **“Select the best N answers”**, or **“Choose/Select all that apply”** → `multi`.
-    - If none of the above: `single` if exactly one `[x]`, else `multi` if two or more `[x]`.
+## De-duplication
 
-- **`prompt`**
-  - The question text on the second line (after an explicit `single`/`multi`) or the first non-empty line otherwise.
-  - If selection instructions (e.g., “Choose the best **two** answers”, “Select all that apply”) appear on their own line, **append them to the prompt**.
-  - **Do not** alter the wording (beyond whitespace normalization).
+- **Within a batch:** If `prompt` is identical **and** the **set of options** is identical (order may differ), keep only one item. In your turn, state what was dropped/kept.
+- **Across batches:** Perform dedupe only when explicitly requested (IDs from prior files are not retroactively changed).
 
----
+## IDs & numbering
 
-## Options & correctness
+- IDs are `<prefix>-NNN` (e.g., `basic-001`).  
+- Start index is whatever you specify (“start from 001”, “continue after 017”, etc.).  
+- Each batch uses a single shared prefix.
 
-- Collect every line starting with `- [ ]` or `- [x]` **in input order**.
-- Assign IDs alphabetically: `A, B, C, …`.
-- `text` = everything after the checkbox marker; normalize whitespace (incl. U+00A0 → space).
-- `correct` = array of the IDs whose options had `[x]`.
+## Special options
 
-**Validation**
-- `single` must have **exactly 1** correct option.
-- `multi` must have **≥ 1** correct option. (Flag a warning if 0.)
-
----
-
-## Explanation & source
-
-- `explanation` = the **last non-empty paragraph after the options**, after removing:
-  - `Great! That is correct.` (standalone line or as a leading phrase)
-  - `Good try, but that is incorrect.`
-- If the resulting explanation is **empty**:
-  - **Strategy A (default):** leave `explanation` empty and omit `source`.
-  - **Strategy B (on request or when we correct an obvious mistake):** provide a concise `explanation` and set `source` (e.g., `Scrum Guide 2020 — <section>`).
-
-**If we correct clearly wrong `[x]` markings**
-- Update `correct`.
-- Add a brief rationale in `explanation`.
-- Set an appropriate `source`.
-
----
-
-## IDs & metadata
-
-- `id` = `<prefix>-###` (three digits), starting at **001 per prefix** (e.g., `q-teams-001`).
-- `version` = `1`.
-- Omit `shuffle` unless specified elsewhere.
-- `lockOptionOrder: true` if:
-  - The block contains the literal line `lockOptionOrder`, **or**
-  - The options are a **True/False** pair (any order).
+- “All of the above” / “None of the above”: treat as normal options.  
+  In `explanation`/`explanationIncorrect`, you may use the full phrase as the keyword prefix (e.g., `All of the above:`).  
+  If logical conflicts arise (e.g., multiple correct + “All of the above”), align `correct` with intended truth and explain the conflict explicitly.
 
 ---
 
-## Spelling & small fixes
+## Examples
 
-- Normalize obvious typos in **options** and **explanation** (but **never** in the **prompt**).
-- Preserve original punctuation in options (beyond whitespace cleanup).
+### Example 1 (single-answer)
 
----
-
-## Deduplication (on request)
-
-- If two items have the **same prompt** and the **same set of option texts** (order may differ):
-  - Keep the **first** occurrence and drop subsequent duplicates.
-
----
-
-## Quality review (critical reading)
-
-Pay special attention to common pitfalls:
-
-- **Events & timeboxes** (Daily 15m; Review ≤4h; Retrospective ≤3h; Planning ≤8h for 1-month Sprints).
-- **Artifacts vs. Commitments**  
-  - Artifacts: Product Backlog, Sprint Backlog, Increment.  
-  - Commitments: Product Goal (for Product Backlog), Sprint Goal (for Sprint Backlog), Definition of Done (for Increment).
-- **Accountabilities**
-  - Product Owner: orders the Product Backlog; maximizes value; tracks progress toward the **Product Goal**.
-  - Developers: own the **Sprint Backlog**; update it; estimate the work; attend Daily Scrum.
-  - Scrum Master: ensures events occur and are effective; coaches on empiricism and self-management; serves PO, team, and organization.
-- **Sprint rules**
-  - Sprint is cancelled only if the **Sprint Goal** becomes obsolete (by PO).
-  - Scope may be clarified/re-negotiated with PO; **do not** endanger the Sprint Goal.
-- **Single vs. Multi**
-  - “Choose the best answer” → `single`.
-  - “Choose the best N answers” / “Select … all that apply” → `multi`.
-  - True/False pair → `single` **and** `lockOptionOrder: true`.
-
----
-
-## JSON shape (for reference)
-
-```ts
-export type QuestionType = 'single' | 'multi';
-export type QType = 'mcq' | 'msq';
-
-export interface QuestionOption {
-  id: string;      // 'A', 'B', ...
-  text: string;
-  explanation?: string;
+```json
+{
+  "id": "basic-001",
+  "version": 7,
+  "type": "single",
+  "prompt": "Which HTTP header is used to prevent clickjacking?",
+  "options": [
+    { "id": "A", "text": "Content-Type" },
+    { "id": "B", "text": "Cache-Control" },
+    { "id": "C", "text": "Strict-Transport-Security" },
+    { "id": "D", "text": "X-Frame-Options" }
+  ],
+  "correct": ["D"],
+  "explanation": [
+    "X-Frame-Options: Protects against clickjacking by blocking embedding in iframes.",
+    "Best practice: Prefer Content-Security-Policy 'frame-ancestors' for finer control and flexibility."
+  ],
+  "explanationIncorrect": [
+    "Content-Type: Declares the media type; does not mitigate clickjacking.",
+    "Cache-Control: Controls caching; unrelated to framing/embedding.",
+    "Strict-Transport-Security: Enforces HTTPS; does not control iframe embedding."
+  ]
 }
+```
 
-export interface Question {
-  id: string;                    // <prefix>-###
-  type: QuestionType;            // 'single' | 'multi'
-  prompt: string;
-  options: QuestionOption[];     // IDs A..Z in input order
-  correct: string[];             // always an array
-  explanation?: string;          // last paragraph after options (cleaned)
-  source?: string;               // e.g., 'Scrum Guide 2020 — <section>'
-  shuffle?: boolean;             // omitted by default
-  version: number;               // 1
-  lockOptionOrder?: boolean;     // see rules above
+### Example 2 (single-answer, aggregated incorrect reasons)
+
+```json
+{
+  "id": "basic-002",
+  "version": 7,
+  "type": "single",
+  "prompt": "Which method converts a JSON string into a JavaScript object?",
+  "options": [
+    { "id": "A", "text": "JSON.stringify()" },
+    { "id": "B", "text": "Object.assign()" },
+    { "id": "C", "text": "eval()" },
+    { "id": "D", "text": "JSON.parse()" }
+  ],
+  "correct": ["D"],
+  "explanation": [
+    "JSON.parse(): Parses JSON strings into JavaScript values/objects.",
+    "Safety: JSON.parse() validates JSON; eval() executes arbitrary code."
+  ],
+  "explanationIncorrect": [
+    "JSON.stringify(): Converts a value/object into a JSON string; it does not parse JSON.",
+    "Object.assign(): Copies properties between objects; unrelated to parsing JSON.",
+    "eval(): Executes arbitrary code; unsafe and unnecessary for JSON parsing."
+  ]
 }
+```
+
+---
+
+## Notes & conventions
+
+- **Keyword prefixing** in `explanation`/`explanationIncorrect` (e.g., `JSON.parse(): …`) is **recommended** to improve clarity, but optional when no natural keyword exists (e.g., True/False).
+- Keep citations in `source` **verbatim** for searchability; use `sourceNote` to add a short English clarification if needed.
+
+--- 
+
+*If you later need per-option incorrect rationales for targeted UI feedback, consider adding an additional (optional) field like `explanationIncorrectById` alongside this v7 spec.*

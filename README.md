@@ -1,75 +1,97 @@
-# Nuxt Minimal Starter
+# Question Items – Frontend (QBank)
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This repository contains maintainable, parseable question items for senior frontend engineering interviews and quizzes.
 
-## Setup
+- **Spec version:** v7 (see [`docs/README.md`](docs/README.md) for the full Parsing Spec)
+- **Language policy:** Author in any language; the parser will **normalize everything to English** in the exported JSON (per v7).
+- **IDs:** `<prefix>-NNN` (zero-padded). You control the `prefix` and starting index per batch.
+- **Versioning:** Each question object uses `version: 7`. Bump only when the schema changes.
+- **Types:** `single` or `multi`. True/False is `single` with locked order.
+- **Order:** Keep original option order in source. The app may shuffle later (except T/F).
 
-Make sure to install dependencies:
+---
 
+## Getting started (app)
+
+> If your app stack differs, adjust accordingly.
+
+### Using npm
 ```bash
-# npm
 npm install
+npm run dev   # start local dev server
+# optional
+npm test      # run tests
+npm run build # production build
+```
 
-# pnpm
+### Using pnpm
+```bash
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
 pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
+pnpm test
 pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
-Locally preview production build:
-
+### Using yarn
 ```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
+yarn install
+yarn dev
+yarn test
+yarn build
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+---
+
+## How to contribute items
+
+1) **Write the stem and options** (checkbox syntax like `- [ ]` / `- [x]` is fine in drafts).
+2) **Mark the correct option(s)** in your draft.
+3) **Add concise feedback** blocks (optional but recommended):  
+   - “Why [letter] is correct:” → becomes **`explanation`**.  
+   - “Why the others are wrong:” → becomes **`explanationIncorrect`** (aggregated list).  
+4) **Submit as a batch** with a **prefix** and **start index** (e.g., `basic` starting at 001).
+
+> The parser cleans: removes checkbox syntax and letter prefixes (`A)`, `B)`), keeps instruction suffixes, and translates to English.
+
+---
+
+## JSON output shape (summary)
+
+Each question becomes a JSON object with:
+
+- `id`, `version`, `type`, `prompt`, `options[]`, `correct[]`
+- `explanation` *(string | string[])* – why the correct option(s) is/are right
+- `explanationIncorrect` *(string | string[])* – why incorrect options are wrong (aggregated)
+- Optional: `source`, `sourceNote`, `lockOptionOrder`
+
+See the **full spec and examples** in [`docs/README.md`](docs/README.md).
+
+---
+
+## Repository layout
+
+```
+docs/README.md     # Full Parsing Spec v7 (authoritative)
+items/             # JSON batches (one file per batch)
+scripts/           # Helpers/validation (optional)
+```
+
+---
+
+## Validation (optional)
+
+If you add a validator, ensure it checks:
+- `id` format and sequential numbering within a batch prefix
+- `version === 7`
+- options are `A`, `B`, `C`, … and texts are non-empty
+- `correct[]` references existing option IDs
+- `explanation` / `explanationIncorrect` are string or string[]
+
+---
+
+## Changelog
+
+- **v7** – `explanationIncorrect` changed to aggregated `string | string[]` (no per-ID map). `explanation` kept symmetric. Minor clarifications to language normalization.
+- **v6** – Introduced `explanationIncorrect` (per-ID object) and added `sourceNote`; recommended keyword prefixing; clarified T/F behavior.
+- **v5** – Added full-English normalization, removal of letter prefixes in options, mapping of “Varför …” blocks to explanations, and keyword-prefixed multi-point explanations.
+- **v4** – Baseline schema: `id`, `version`, `type`, `prompt`, `options`, `correct`, `explanation`, optional `source`, and `lockOptionOrder` for T/F.
