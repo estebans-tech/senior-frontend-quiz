@@ -210,5 +210,425 @@
       "font-style: Controls italic/oblique styles, not weight.",
       "text-weight: Not a valid CSS property."
     ]
+  },
+  {
+    "id": "basic-011",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which JavaScript keyword is used to declare a block-scoped variable?",
+    "options": [
+      { "id": "A", "text": "var" },
+      { "id": "B", "text": "let" },
+      { "id": "C", "text": "define" },
+      { "id": "D", "text": "const" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "const: Declares a block-scoped binding that cannot be reassigned."
+    ],
+    "explanationIncorrect": [
+      "var: Function-scoped, not block-scoped.",
+      "let: Block-scoped but allows reassignment.",
+      "define: Not a standard JavaScript declaration keyword."
+    ]
+  },
+  {
+    "id": "basic-012",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which HTTP status code means “Not Found”?",
+    "options": [
+      { "id": "A", "text": "200" },
+      { "id": "B", "text": "301" },
+      { "id": "C", "text": "500" },
+      { "id": "D", "text": "404" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "404: The requested resource was not found on the server."
+    ],
+    "explanationIncorrect": [
+      "200: OK (success).",
+      "301: Moved Permanently (redirect).",
+      "500: Internal Server Error."
+    ]
+  },
+  {
+    "id": "basic-013",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which JavaScript method joins array elements into a string?",
+    "options": [
+      { "id": "A", "text": "concat()" },
+      { "id": "B", "text": "toString()" },
+      { "id": "C", "text": "combine()" },
+      { "id": "D", "text": "join()" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "join(): Concatenates elements using an optional separator to produce a string."
+    ],
+    "explanationIncorrect": [
+      "concat(): Merges arrays; does not join elements into a single string with a custom separator.",
+      "toString(): Converts array to a comma-separated string; no custom separator control.",
+      "combine(): Not a standard Array method."
+    ]
+  },
+  {
+    "id": "basic-014",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which CSS property controls the space inside an element’s border?",
+    "options": [
+      { "id": "A", "text": "margin" },
+      { "id": "B", "text": "border-spacing" },
+      { "id": "C", "text": "gap" },
+      { "id": "D", "text": "padding" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "padding: Controls the inner space between the content and the border."
+    ],
+    "explanationIncorrect": [
+      "margin: Controls outer space outside the border.",
+      "border-spacing: Applies to table cells, not generic box inner spacing.",
+      "gap: Controls spacing between flex/grid children, not inner content spacing."
+    ]
+  },
+  {
+    "id": "basic-015",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which JavaScript method returns the index of the first matching value in an array?",
+    "options": [
+      { "id": "A", "text": "find()" },
+      { "id": "B", "text": "includes()" },
+      { "id": "C", "text": "search()" },
+      { "id": "D", "text": "indexOf()" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "indexOf(): Returns the index of the first occurrence, or -1 if not found."
+    ],
+    "explanationIncorrect": [
+      "find(): Returns the matched value, not its index.",
+      "includes(): Returns a boolean indicating presence, not an index.",
+      "search(): String method, not an Array method."
+    ]
+  },
+  {
+    "id": "basic-016",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which HTML element defines a table row?",
+    "options": [
+      { "id": "A", "text": "<td>" },
+      { "id": "B", "text": "<th>" },
+      { "id": "C", "text": "<table>" },
+      { "id": "D", "text": "<tr>" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "<tr>: Defines a table row that contains cells."
+    ],
+    "explanationIncorrect": [
+      "<td>: Table data cell, not a row.",
+      "<th>: Table header cell, not a row.",
+      "<table>: The table container, not an individual row."
+    ]
+  },
+  {
+    "id": "basic-017",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which Git command uploads local changes to a remote repository?",
+    "options": [
+      { "id": "A", "text": "git clone" },
+      { "id": "B", "text": "git pull" },
+      { "id": "C", "text": "git commit" },
+      { "id": "D", "text": "git push" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "git push: Sends local commits to the remote repository."
+    ],
+    "explanationIncorrect": [
+      "git clone: Copies a remote repository locally.",
+      "git pull: Fetches from remote and merges into the current branch.",
+      "git commit: Records changes in the local repository; does not upload."
+    ]
+  },
+  {
+    "id": "basic-018",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which method retrieves an HTML element by its ID in JavaScript?",
+    "options": [
+      { "id": "A", "text": "querySelectorAll()" },
+      { "id": "B", "text": "getElementsByClassName()" },
+      { "id": "C", "text": "getElementByName()" },
+      { "id": "D", "text": "getElementById()" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "getElementById(): Returns the element with the given id."
+    ],
+    "explanationIncorrect": [
+      "querySelectorAll(): Returns a NodeList of all matches; not by id specifically.",
+      "getElementsByClassName(): Selects elements by class name.",
+      "getElementByName(): Not a standard DOM API (you might mean getElementsByName())."
+    ]
+  },
+  {
+    "id": "basic-019",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which HTML attribute is used to open a link in a new tab?",
+    "options": [
+      { "id": "A", "text": "rel" },
+      { "id": "B", "text": "href" },
+      { "id": "C", "text": "alt" },
+      { "id": "D", "text": "target" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "target: Using target=\"_blank\" opens the link in a new tab."
+    ],
+    "explanationIncorrect": [
+      "rel: Defines the relationship (e.g., noopener, noreferrer).",
+      "href: Specifies the link destination.",
+      "alt: Alternative text for images; not for links."
+    ]
+  },
+  {
+    "id": "basic-020",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which HTTP method is used to completely replace a resource?",
+    "options": [
+      { "id": "A", "text": "PATCH" },
+      { "id": "B", "text": "POST" },
+      { "id": "C", "text": "GET" },
+      { "id": "D", "text": "PUT" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "PUT: Replaces the resource at the target URI with the provided representation."
+    ],
+    "explanationIncorrect": [
+      "PATCH: Applies a partial update.",
+      "POST: Creates or submits data, semantics vary by endpoint.",
+      "GET: Retrieves a representation; no modification."
+    ]
+  },
+  {
+    "id": "basic-021",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which JavaScript method joins all elements in an array into a string?",
+    "options": [
+      { "id": "A", "text": "concat()" },
+      { "id": "B", "text": "toString()" },
+      { "id": "C", "text": "combine()" },
+      { "id": "D", "text": "join()" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "join(): Produces a string by concatenating elements with a chosen separator."
+    ],
+    "explanationIncorrect": [
+      "concat(): Concatenates arrays, not elements into a single delimited string.",
+      "toString(): Uses default comma separator; no custom delimiter.",
+      "combine(): Not a standard Array method."
+    ]
+  },
+  {
+    "id": "basic-022",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which CSS property controls the space inside an element?",
+    "options": [
+      { "id": "A", "text": "margin" },
+      { "id": "B", "text": "border-spacing" },
+      { "id": "C", "text": "gap" },
+      { "id": "D", "text": "padding" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "padding: Controls the inner spacing between content and border."
+    ],
+    "explanationIncorrect": [
+      "margin: Controls outer spacing around the element.",
+      "border-spacing: A table-specific property for cell spacing.",
+      "gap: Spacing between flex/grid children, not internal content."
+    ]
+  },
+  {
+    "id": "basic-023",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which JavaScript method returns the index of the first match in an array?",
+    "options": [
+      { "id": "A", "text": "find()" },
+      { "id": "B", "text": "includes()" },
+      { "id": "C", "text": "search()" },
+      { "id": "D", "text": "indexOf()" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "indexOf(): Returns the position of the first occurrence, or -1 if absent."
+    ],
+    "explanationIncorrect": [
+      "find(): Returns the first matching value, not the index.",
+      "includes(): Boolean membership test; no index.",
+      "search(): String method, not for arrays."
+    ]
+  },
+  {
+    "id": "basic-024",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which HTML element defines a table row?",
+    "options": [
+      { "id": "A", "text": "<td>" },
+      { "id": "B", "text": "<th>" },
+      { "id": "C", "text": "<table>" },
+      { "id": "D", "text": "<tr>" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "<tr>: Container for a table row that holds cells."
+    ],
+    "explanationIncorrect": [
+      "<td>: Table data cell.",
+      "<th>: Table header cell.",
+      "<table>: The table wrapper element."
+    ]
+  },
+  {
+    "id": "basic-025",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which Git command sends local commits to the remote?",
+    "options": [
+      { "id": "A", "text": "git clone" },
+      { "id": "B", "text": "git pull" },
+      { "id": "C", "text": "git commit" },
+      { "id": "D", "text": "git push" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "git push: Publishes local commits to the configured remote."
+    ],
+    "explanationIncorrect": [
+      "git clone: Creates a local copy of a remote repository.",
+      "git pull: Fetches and merges from remote into the current branch.",
+      "git commit: Creates a local commit; no network transfer."
+    ]
+  },
+  {
+    "id": "basic-026",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which CSS declaration makes an element’s width relative to its parent’s width?",
+    "options": [
+      { "id": "A", "text": "width: auto" },
+      { "id": "B", "text": "max-width: none" },
+      { "id": "C", "text": "min-width: 100vw" },
+      { "id": "D", "text": "width: 100%" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "width: 100%: Sets the element’s width to fill its containing block’s width."
+    ],
+    "explanationIncorrect": [
+      "width: auto: Size is content/intrinsic-based, not explicitly relative to parent width.",
+      "max-width: none: Removes maximum constraint; does not define relative sizing.",
+      "min-width: 100vw: Uses viewport width, not the parent’s width."
+    ]
+  },
+  {
+    "id": "basic-027",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which function schedules code to run after a delay?",
+    "options": [
+      { "id": "A", "text": "requestAnimationFrame()" },
+      { "id": "B", "text": "setImmediate()" },
+      { "id": "C", "text": "setInterval()" },
+      { "id": "D", "text": "setTimeout()" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "setTimeout(): Executes a callback once after the specified delay."
+    ],
+    "explanationIncorrect": [
+      "requestAnimationFrame(): Schedules a callback before the next repaint; frame-timed, not delay-based.",
+      "setImmediate(): Non-standard on the web; environment-specific.",
+      "setInterval(): Repeats execution at a fixed interval."
+    ]
+  },
+  {
+    "id": "basic-028",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which HTML element groups related form controls with a caption?",
+    "options": [
+      { "id": "A", "text": "<legend>" },
+      { "id": "B", "text": "<label>" },
+      { "id": "C", "text": "<section>" },
+      { "id": "D", "text": "<fieldset>" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "<fieldset>: Groups related form fields; improves accessibility."
+    ],
+    "explanationIncorrect": [
+      "<legend>: The caption/label for a fieldset, not the grouping container.",
+      "<label>: Associates text with a specific form control.",
+      "<section>: Generic sectioning element; not form-specific grouping."
+    ]
+  },
+  {
+    "id": "basic-029",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which HTTP response header specifies allowed origins for CORS?",
+    "options": [
+      { "id": "A", "text": "Origin" },
+      { "id": "B", "text": "Referrer-Policy" },
+      { "id": "C", "text": "Content-Security-Policy" },
+      { "id": "D", "text": "Access-Control-Allow-Origin" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "Access-Control-Allow-Origin: Indicates which origins may access the resource cross-origin."
+    ],
+    "explanationIncorrect": [
+      "Origin: Sent by the client to indicate the request origin; not a server policy.",
+      "Referrer-Policy: Controls referrer information behavior.",
+      "Content-Security-Policy: Restricts resource loading; separate from CORS allowlist."
+    ]
+  },
+  {
+    "id": "basic-030",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which array method creates a new array by transforming each element?",
+    "options": [
+      { "id": "A", "text": "filter()" },
+      { "id": "B", "text": "reduce()" },
+      { "id": "C", "text": "slice()" },
+      { "id": "D", "text": "map()" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "map(): Applies a transformation to each element and returns a new array."
+    ],
+    "explanationIncorrect": [
+      "filter(): Selects a subset of elements based on a predicate.",
+      "reduce(): Aggregates values into a single result.",
+      "slice(): Copies a subarray without transforming elements."
+    ]
   }
 ]
