@@ -1,7 +1,7 @@
 [
   {
     "id": "basic-001",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which HTTP header is used to prevent clickjacking?",
     "options": [
@@ -23,7 +23,7 @@
   },
   {
     "id": "basic-002",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which method converts a JSON string into a JavaScript object?",
     "options": [
@@ -45,7 +45,7 @@
   },
   {
     "id": "basic-003",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which layout method provides two-dimensional control over rows and columns?",
     "options": [
@@ -66,7 +66,7 @@
   },
   {
     "id": "basic-004",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which JavaScript method stops an event from bubbling up the DOM tree?",
     "options": [
@@ -87,7 +87,7 @@
   },
   {
     "id": "basic-005",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which tool bundles JavaScript modules for production?",
     "options": [
@@ -108,7 +108,7 @@
   },
   {
     "id": "basic-006",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which HTML element denotes the main content of a page?",
     "options": [
@@ -129,7 +129,7 @@
   },
   {
     "id": "basic-007",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which CSS property controls the stacking order of elements?",
     "options": [
@@ -150,7 +150,7 @@
   },
   {
     "id": "basic-008",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which JavaScript method creates a new array with elements that pass a test?",
     "options": [
@@ -171,7 +171,7 @@
   },
   {
     "id": "basic-009",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which HTML element is used to embed external web pages or videos?",
     "options": [
@@ -192,7 +192,7 @@
   },
   {
     "id": "basic-010",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which CSS property is used to make text bold?",
     "options": [
@@ -213,7 +213,7 @@
   },
   {
     "id": "basic-011",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which JavaScript keyword is used to declare a block-scoped variable?",
     "options": [
@@ -234,7 +234,7 @@
   },
   {
     "id": "basic-012",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which HTTP status code means “Not Found”?",
     "options": [
@@ -255,7 +255,7 @@
   },
   {
     "id": "basic-013",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which JavaScript method joins array elements into a string?",
     "options": [
@@ -276,7 +276,7 @@
   },
   {
     "id": "basic-014",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which CSS property controls the space inside an element’s border?",
     "options": [
@@ -297,7 +297,7 @@
   },
   {
     "id": "basic-015",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which JavaScript method returns the index of the first matching value in an array?",
     "options": [
@@ -318,7 +318,7 @@
   },
   {
     "id": "basic-016",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which HTML element defines a table row?",
     "options": [
@@ -339,7 +339,7 @@
   },
   {
     "id": "basic-017",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which Git command uploads local changes to a remote repository?",
     "options": [
@@ -360,7 +360,7 @@
   },
   {
     "id": "basic-018",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which method retrieves an HTML element by its ID in JavaScript?",
     "options": [
@@ -381,7 +381,7 @@
   },
   {
     "id": "basic-019",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which HTML attribute is used to open a link in a new tab?",
     "options": [
@@ -402,7 +402,7 @@
   },
   {
     "id": "basic-020",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which HTTP method is used to completely replace a resource?",
     "options": [
@@ -423,7 +423,7 @@
   },
   {
     "id": "basic-021",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which CSS declaration makes an element’s width relative to its parent’s width?",
     "options": [
@@ -444,7 +444,7 @@
   },
   {
     "id": "basic-022",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which function schedules code to run after a delay?",
     "options": [
@@ -465,7 +465,7 @@
   },
   {
     "id": "basic-023",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which HTML element groups related form controls with a caption?",
     "options": [
@@ -486,7 +486,7 @@
   },
   {
     "id": "basic-024",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which HTTP response header specifies allowed origins for CORS?",
     "options": [
@@ -507,7 +507,7 @@
   },
   {
     "id": "basic-025",
-    "version": 7,
+    "version": 1,
     "type": "single",
     "prompt": "Which array method creates a new array by transforming each element?",
     "options": [
