@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
+import MarkdownIt from 'markdown-it'
 import type { Question } from '~/types/question'
 import OptionItem from '~/components/OptionItem.vue'
 import AnswerCard from '~/components/AnswerCard.vue'
@@ -40,6 +41,48 @@ const safeCurrent = computed(() => Math.max(1, Math.min(props.current!, safeTota
 const ariaNow = safeCurrent
 const ariaValueText = computed(() => `Question ${safeCurrent.value} of ${safeTotal.value}`)
 const progressPct = computed(() => Math.round((ariaNow.value / safeTotal.value) * 100))
+
+// Hämta alla js-kodblock
+const md = new MarkdownIt({ html: false, breaks: true })
+type CodeBlock = {
+  lang: 'js' | 'javascript'
+  meta: string
+  code: string
+}
+
+const codeBlocks = computed(() => {
+  const s = props.question?.prompt ?? ''
+  const tokens = md.parse(s, {}) // tokeniserar markdown till en AST-lik lista
+  const blocks: CodeBlock[] = []
+
+  for (const t of tokens) {
+    if (t.type !== 'fence') continue
+    const info = (t.info || '').trim()
+    const [langRaw, ...rest] = info.split(/\s+/)
+    const lang = (langRaw || '').toLowerCase()
+    if (lang === 'js' || lang === 'javascript') {
+      blocks.push({
+        lang,
+        meta: rest.join(' '),                      // t.ex. title=foo
+        code: t.content.replace(/\r\n/g, '\n'),    // normalisera CRLF → LF, behåll \n
+      })
+    }
+  }
+  return blocks
+})
+
+// Frågetext utan js-kodblock
+const questionWithoutCodeBlock = computed(() => {
+  const s = props.question?.prompt ?? ''
+  const tokens = md.parse(s, {})
+  const out: string[] = []
+  for (const t of tokens) {
+    if (t.type === 'inline') out.push(t.content.replace(/\r\n/g, '\n'))
+    // Vi ignorerar fence-tokens och struktur-tokens
+  }
+
+  return out.join('\n').trim()
+})
 
 // SR-only live announcements (oförändrat i sak)
 const liveMsg = ref('')
@@ -88,22 +131,25 @@ class="absolute inset-y-0 left-0 rounded-full bg-green-600 transition-[width] du
     </div>
 
     <fieldset
-class="space-y-4"
+      class="space-y-3"
       :aria-describedby="question?.type === 'multi' ? hintId : undefined">
       <legend class="text-base md:text-md font-light text-slate-700">
-        {{ question?.prompt || 'Question prompt goes here…' }}
+        {{ questionWithoutCodeBlock || 'Question prompt goes here…' }}
+
+        <!-- Visa varje JS-kodblock, radbrytningar bevaras -->
+        <div v-for="(b, i) in codeBlocks" :key="i" class="mt-2">
+          <pre class="whitespace-pre overflow-x-auto rounded-md border border-slate-200
+                    bg-slate-50 p-3 px-4 font-mono text-sm leading-6 text-slate-800
+                    dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"><code class="language-js scroll">{{ b.code }}</code></pre>
+          <!-- Om du vill kan du visa b.meta (t.ex. titel) här -->
+        </div>
       </legend>
 
       <!-- 🔊 Status för skärmläsare -->
       <div class="sr-only" aria-live="polite" role="status">{{ liveMsg }}</div>
 
-      <!-- Hint endast för multi -->
-      <p v-if="question?.type === 'multi'" :id="hintId" class="text-sm text-gray-600">
-        Select all that apply.
-      </p>
-
       <!-- Alternativ -->
-      <ul v-if="question" class="mt-3 space-y-2">
+      <ul v-if="question" class="mt-3 space-y-1">
         <li v-for="opt in question.options" :key="opt.id">
           <OptionItem
             :option="opt"
@@ -119,8 +165,13 @@ class="space-y-4"
       </ul>
 
 
+      <!-- Kategorirad -->
+      <div class="pb-2" v-if="question.category">
+        <p>{{ question.category }}</p>
+      </div>
+
       <!-- Statusrad (Correct/Incorrect/No selection) -->
-      <div class="mt-3" role="status" aria-live="polite">
+      <div class="my-2 py-2" role="status" aria-live="polite">
         <p v-if="checked" class="text-sm">
           <span v-if="hasSelection"
                 class="inline-flex items-center rounded-full px-2 py-0.5"
@@ -131,8 +182,7 @@ class="space-y-4"
             No selection
           </span>
         </p>
-      </div>
-
+        </div>
     </fieldset>
     <!-- Förklaringsregion som knappen styr -->
     <AnswerCard :revealed="revealed" :explRegionId="explRegionId" :explLabelId="explLabelId" :question="question" />

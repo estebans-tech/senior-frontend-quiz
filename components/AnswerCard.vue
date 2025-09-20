@@ -27,7 +27,7 @@ const showExplanation = computed(() => props.revealed)
       :aria-labelledby="explLabelId"
       class="border border-gray-200 p-2 px-4"
       >
-    <article v-if="question!.explanation" class="mb-4">
+    <article v-if="question!.explanation" class="mb-2">
       <h3 class="font-medium">Explanation:</h3>
       <ul v-if="question!.explanation.length > 0">
           <li class="list-disc list-inside" v-for="explanation in question!.explanation">{{ explanation }}</li>
@@ -37,7 +37,7 @@ const showExplanation = computed(() => props.revealed)
       </p>
     </article>
 
-    <article v-if="question!.explanationIncorrect">
+    <article v-if="question!.explanationIncorrect" class="my-2">
       <h3 class="font-medium">Why others are incorrect:</h3>
       <ul v-if="question!.explanationIncorrect.length > 0">
           <li class="list-disc list-inside" v-for="incorrect in question!.explanationIncorrect">{{ incorrect }}</li>
@@ -47,7 +47,7 @@ const showExplanation = computed(() => props.revealed)
       </p>
     </article>
 
-    <article v-if="question!.source">
+    <article v-if="question!.source" class="my-2">
       <h3 class="font-medium">Source:</h3>
       <p class="text-sm text-gray-700">
         {{ question.source }}
