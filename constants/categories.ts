@@ -1,4 +1,4 @@
-export const ALLOWED_CATEGORIES = ['scrum-org', 'test-example', 'assessment-prep', 'exam-example'] as const
+export const ALLOWED_CATEGORIES = ['basic'] as const
 
 export type Category = (typeof ALLOWED_CATEGORIES)[number]
 

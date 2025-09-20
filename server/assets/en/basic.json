@@ -1,0 +1,214 @@
+[
+  {
+    "id": "basic-001",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which HTTP header is used to prevent clickjacking?",
+    "options": [
+      { "id": "A", "text": "Content-Type" },
+      { "id": "B", "text": "Cache-Control" },
+      { "id": "C", "text": "Strict-Transport-Security" },
+      { "id": "D", "text": "X-Frame-Options" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "X-Frame-Options: Protects against clickjacking by blocking embedding in iframes.",
+      "Best practice: Prefer Content-Security-Policy 'frame-ancestors' for finer control and flexibility."
+    ],
+    "explanationIncorrect": [
+      "Content-Type: Declares the media type; does not mitigate clickjacking.",
+      "Cache-Control: Controls caching; unrelated to framing/embedding.",
+      "Strict-Transport-Security: Enforces HTTPS; does not control iframe embedding."
+    ]
+  },
+  {
+    "id": "basic-002",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which method converts a JSON string into a JavaScript object?",
+    "options": [
+      { "id": "A", "text": "JSON.stringify()" },
+      { "id": "B", "text": "Object.assign()" },
+      { "id": "C", "text": "eval()" },
+      { "id": "D", "text": "JSON.parse()" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "JSON.parse(): Parses JSON strings into JavaScript values/objects.",
+      "Safety: JSON.parse() validates JSON; eval() executes arbitrary code and should not be used for parsing."
+    ],
+    "explanationIncorrect": [
+      "JSON.stringify(): Converts a value/object into a JSON string; it does not parse JSON.",
+      "Object.assign(): Copies properties between objects; unrelated to parsing JSON.",
+      "eval(): Executes arbitrary code; unsafe and unnecessary for JSON parsing."
+    ]
+  },
+  {
+    "id": "basic-003",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which layout method provides two-dimensional control over rows and columns?",
+    "options": [
+      { "id": "A", "text": "Flexbox" },
+      { "id": "B", "text": "Float" },
+      { "id": "C", "text": "Inline-block" },
+      { "id": "D", "text": "CSS Grid" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "CSS Grid: Provides explicit two-dimensional layout with rows and columns."
+    ],
+    "explanationIncorrect": [
+      "Flexbox: Primarily one-dimensional (row or column).",
+      "Float: Legacy layout technique; not suited for complex grids.",
+      "Inline-block: Limited control; spacing quirks make grid layouts awkward."
+    ]
+  },
+  {
+    "id": "basic-004",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which JavaScript method stops an event from bubbling up the DOM tree?",
+    "options": [
+      { "id": "A", "text": "preventDefault()" },
+      { "id": "B", "text": "cancelBubble()" },
+      { "id": "C", "text": "haltEvent()" },
+      { "id": "D", "text": "stopPropagation()" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "stopPropagation(): Prevents the event from bubbling to ancestor elements."
+    ],
+    "explanationIncorrect": [
+      "preventDefault(): Prevents default browser behavior; does not stop bubbling.",
+      "cancelBubble(): Legacy/non-standard alias; discouraged in favor of stopPropagation().",
+      "haltEvent(): Not a standard DOM method."
+    ]
+  },
+  {
+    "id": "basic-005",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which tool bundles JavaScript modules for production?",
+    "options": [
+      { "id": "A", "text": "Babel" },
+      { "id": "B", "text": "ESLint" },
+      { "id": "C", "text": "Prettier" },
+      { "id": "D", "text": "Webpack" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "Webpack: Bundles and optimizes modules; supports loaders, plugins, and code splitting."
+    ],
+    "explanationIncorrect": [
+      "Babel: Transpiles modern JavaScript; it does not bundle by itself.",
+      "ESLint: Lints code; not a bundler.",
+      "Prettier: Formats code; not a bundler."
+    ]
+  },
+  {
+    "id": "basic-006",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which HTML element denotes the main content of a page?",
+    "options": [
+      { "id": "A", "text": "<section>" },
+      { "id": "B", "text": "<article>" },
+      { "id": "C", "text": "<div>" },
+      { "id": "D", "text": "<main>" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "<main>: Semantic container for the primary content; typically one per page."
+    ],
+    "explanationIncorrect": [
+      "<section>: Groups related content; not the overall main content.",
+      "<article>: Self-contained, independent content (e.g., an article).",
+      "<div>: Generic container without semantic meaning."
+    ]
+  },
+  {
+    "id": "basic-007",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which CSS property controls the stacking order of elements?",
+    "options": [
+      { "id": "A", "text": "position" },
+      { "id": "B", "text": "display" },
+      { "id": "C", "text": "order" },
+      { "id": "D", "text": "z-index" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "z-index: Controls stacking order along the z-axis (within the same stacking context)."
+    ],
+    "explanationIncorrect": [
+      "position: Affects positioning and can establish stacking contexts, but does not itself set stacking order.",
+      "display: Defines formatting context; not stacking order.",
+      "order: Changes visual order of flex items; not z-axis stacking."
+    ]
+  },
+  {
+    "id": "basic-008",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which JavaScript method creates a new array with elements that pass a test?",
+    "options": [
+      { "id": "A", "text": "map()" },
+      { "id": "B", "text": "reduce()" },
+      { "id": "C", "text": "forEach()" },
+      { "id": "D", "text": "filter()" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "filter(): Returns a new array containing only elements that satisfy the predicate."
+    ],
+    "explanationIncorrect": [
+      "map(): Transforms every element and returns a new array of the same length.",
+      "reduce(): Accumulates array elements into a single value.",
+      "forEach(): Iterates for side effects; returns undefined."
+    ]
+  },
+  {
+    "id": "basic-009",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which HTML element is used to embed external web pages or videos?",
+    "options": [
+      { "id": "A", "text": "<embed>" },
+      { "id": "B", "text": "<object>" },
+      { "id": "C", "text": "<link>" },
+      { "id": "D", "text": "<iframe>" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "<iframe>: Embeds external pages and services (e.g., maps, video)."
+    ],
+    "explanationIncorrect": [
+      "<embed>: Embeds external content like PDFs or plugins; not general page embedding.",
+      "<object>: Older, less common embedding mechanism with compatibility quirks.",
+      "<link>: Links external resources (e.g., CSS); does not embed content."
+    ]
+  },
+  {
+    "id": "basic-010",
+    "version": 7,
+    "type": "single",
+    "prompt": "Which CSS property is used to make text bold?",
+    "options": [
+      { "id": "A", "text": "text-style" },
+      { "id": "B", "text": "font-style" },
+      { "id": "C", "text": "text-weight" },
+      { "id": "D", "text": "font-weight" }
+    ],
+    "correct": ["D"],
+    "explanation": [
+      "font-weight: Controls text thickness (e.g., normal, bold, numeric values)."
+    ],
+    "explanationIncorrect": [
+      "text-style: Not a valid CSS property.",
+      "font-style: Controls italic/oblique styles, not weight.",
+      "text-weight: Not a valid CSS property."
+    ]
+  }
+]
