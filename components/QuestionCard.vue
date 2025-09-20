@@ -2,6 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import type { Question } from '~/types/question'
 import OptionItem from '~/components/OptionItem.vue'
+import AnswerCard from '~/components/AnswerCard.vue'
 import { isExactMatch } from '~/utils/scoring'
 
 const props = withDefaults(defineProps<{
@@ -132,20 +133,9 @@ class="space-y-4"
         </p>
       </div>
 
-      <!-- Förklaringsregion som knappen styr -->
-      <div
-        v-if="revealed && (question?.explanation ?? '').trim().length > 0"
-        :id="explRegionId"
-        role="region"
-        :aria-labelledby="explLabelId"
-        tabindex="-1"
-        class="mt-3"
-      >
-        <h2 :id="explLabelId" class="sr-only">Answer explanation</h2>
-        <p class="text-sm text-gray-700">
-          {{ question!.explanation }}
-        </p>
-      </div>
     </fieldset>
+    <!-- Förklaringsregion som knappen styr -->
+    <AnswerCard :revealed="revealed" :explRegionId="explRegionId" :explLabelId="explLabelId" :question="question" />
+
   </div>
 </template>

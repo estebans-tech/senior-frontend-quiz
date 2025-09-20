@@ -108,14 +108,9 @@ const isQuestionCorrect = computed(() => {
       <div class="mb-1 font-semibold" role="heading" aria-level="4">
         {{ isQuestionCorrect ? 'Correct!' : 'Incorrect' }}
       </div>
-      <div class="text-[0.95rem]">
-        <span class="ml-1">{{ question.explanation ?? '' }}</span>
-        <template v-if="question.source">
-          <span class="mx-2">•</span>
-          <span class="font-semibold">Source:</span>
-          <span class="ml-1">{{ question.source }}</span>
-        </template>
-      </div>
+
+      <!-- Förklaringsregion som knappen styr -->
+      <AnswerCard :revealed="true" :question="question" />
     </div>
   </article>
 </template>
