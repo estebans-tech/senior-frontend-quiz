@@ -1,0 +1,278 @@
+[
+  {
+    "id": "leadership-&-strategy-001",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Outcome-based quarterly prioritization across three competing initiatives (design system rebuild, checkout performance, speculative AI widget)",
+    "options": [
+      { "id": "A", "text": "Use a lightweight portfolio process: RICE or cost-of-delay scoring, enforce WIP limits, set UX guardrails (p75 LCP/INP/error rate) per initiative, and pre-define kill criteria for the AI bet" },
+      { "id": "B", "text": "Take the HiPPO choice; largest stakeholder decides to “align” the org" },
+      { "id": "C", "text": "Greenlight all three in parallel to keep everyone happy" },
+      { "id": "D", "text": "Pick whatever demos best for the board; velocity optics beat impact" }
+    ],
+    "correct": ["A"],
+    "explanation": [
+      "Portfolio process: Scoring + WIP limits focuses capacity on highest impact, guardrails protect UX, and explicit kill criteria prevent sunk-cost on speculative bets."
+    ],
+    "explanationIncorrect": [
+      "HiPPO bias: Stakeholder preference is not a proxy for impact and invites politicized prioritization.",
+      "No WIP limits: Starting everything creates thrash and lowers throughput.",
+      "Demo optics: Favoring flashy demos over outcomes leads to poor ROI and brittle incentives."
+    ],
+    "source": "RICE / cost-of-delay methods; SRE Workbook (guardrails); Accelerate (DORA) on flow efficiency",
+    "category": "Portfolio & Prioritization"
+  },
+  {
+    "id": "leadership-&-strategy-002",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Roadmapping under uncertainty (12-month horizon)",
+    "options": [
+      { "id": "A", "text": "Publish an outcome-based roadmap with “bets” sized by confidence; tie to north-star metrics and leading indicators; revisit quarterly" },
+      { "id": "B", "text": "Commit to fixed scope and dates for all quarters to create certainty" },
+      { "id": "C", "text": "Replace the roadmap with OKRs only; outcomes will emerge" },
+      { "id": "D", "text": "Track vanity metrics (pageviews, followers) to show progress" }
+    ],
+    "correct": ["A"],
+    "explanation": [
+      "Outcome bets: Confidence-banded bets aligned to north-star metrics keep direction clear while preserving agility; quarterly revisits adapt to learning."
+    ],
+    "explanationIncorrect": [
+      "Rigid scope: Ignores uncertainty and increases failure risk.",
+      "OKRs only: Lacks sequencing and cross-team coordination signal.",
+      "Vanity metrics: Do not reflect user or business value."
+    ],
+    "source": "Product roadmapping best practices; North Star framework; OKR literature",
+    "category": "Strategy & Roadmapping"
+  },
+  {
+    "id": "leadership-&-strategy-003",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Design system adoption is stalling across product teams",
+    "options": [
+      { "id": "A", "text": "Treat platform as a product: versioned contracts, SLAs, published roadmap; embed a DS engineer with key teams; measure adoption/TTM and defect reduction" },
+      { "id": "B", "text": "Centralize as gatekeepers and block merges using non-approved components" },
+      { "id": "C", "text": "Mandate a big-bang migration this quarter" },
+      { "id": "D", "text": "Keep DS as a passive library; allow forks for speed" }
+    ],
+    "correct": ["A"],
+    "explanation": [
+      "Platform-as-a-product: Clear contracts, embedded support, and outcome metrics reduce friction and align incentives for adoption."
+    ],
+    "explanationIncorrect": [
+      "Gatekeeping: Encourages workarounds and erodes trust.",
+      "Big-bang mandate: High risk and likely to stall delivery.",
+      "Passive library/forks: Leads to fragmentation and drift."
+    ],
+    "source": "Team Topologies (platform as a product); design system adoption case studies",
+    "category": "Org Design & Platform Strategy"
+  },
+  {
+    "id": "leadership-&-strategy-004",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Frontend outage caused by a misconfigured feature flag",
+    "options": [
+      { "id": "A", "text": "Run a blameless postmortem: timeline, contributing factors, user impact; create action items with owners/dates; add a pre-flight checklist to rollout playbooks" },
+      { "id": "B", "text": "Identify who flipped the wrong flag and require their changes to be approved going forward" },
+      { "id": "C", "text": "Skip the postmortem; ship a hotfix and move on" },
+      { "id": "D", "text": "Focus the doc on who was paged and how long; skip systemic causes" }
+    ],
+    "correct": ["A"],
+    "explanation": [
+      "Blameless learning: Systemic analysis plus concrete actions (e.g., checklists, validation) reduces recurrence and speeds future mitigation."
+    ],
+    "explanationIncorrect": [
+      "Individual blame: Masks systemic issues and discourages reporting.",
+      "No postmortem: Loses learning and repeats failures.",
+      "Pager metrics only: Omits root causes and prevention."
+    ],
+    "source": "Google SRE Book/Workbook (postmortems); progressive delivery patterns",
+    "category": "Incident Management"
+  },
+  {
+    "id": "leadership-&-strategy-005",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Risk-managed rollouts for a high-impact checkout change",
+    "options": [
+      { "id": "A", "text": "Progressive delivery 1%→5%→25%→50%→100% with automatic rollback on guardrail breach; emit variant in telemetry" },
+      { "id": "B", "text": "Roll to 100% immediately to maximize learning" },
+      { "id": "C", "text": "Hide behind a client-only flag with no server safeguards" },
+      { "id": "D", "text": "Ignore heterogeneity; a single global effect is enough" }
+    ],
+    "correct": ["A"],
+    "explanation": [
+      "Staged ramps: Gradual exposure with guardrails and attribution minimizes blast radius and accelerates safe decisions."
+    ],
+    "explanationIncorrect": [
+      "Big-bang: Maximizes risk and recovery cost.",
+      "Client-only flag: Lacks backend protections for rollback/safety.",
+      "Ignore cohorts: Masks harm to specific devices/regions."
+    ],
+    "source": "Progressive delivery practices; SRE change management",
+    "category": "Change Management"
+  },
+  {
+    "id": "leadership-&-strategy-006",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Executive communication when a critical date will be missed",
+    "options": [
+      { "id": "A", "text": "Communicate early with impact, options, and a recommit plan; show trade-offs (scope, resources, timeline) and guardrail risk; ask for a decision" },
+      { "id": "B", "text": "Delay the message until you have a perfect plan; reduce noise" },
+      { "id": "C", "text": "Overpromise a new aggressive date to recover trust" },
+      { "id": "D", "text": "Blame upstream teams and ask leadership to intervene" }
+    ],
+    "correct": ["A"],
+    "explanation": [
+      "Early options: Clear impact and choices enable informed trade-offs and preserve trust with leadership."
+    ],
+    "explanationIncorrect": [
+      "Delay: Surprises leadership and compresses options.",
+      "Overpromise: Erodes credibility when missed again.",
+      "Blame: Increases conflict without reducing risk."
+    ],
+    "source": "Executive communication best practices; risk management literature",
+    "category": "Stakeholder Management"
+  },
+  {
+    "id": "leadership-&-strategy-007",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Quality gates that preserve speed",
+    "options": [
+      { "id": "A", "text": "Gate merges on risk-weighted metrics: p75 Web Vitals regression, per-route JS transfer/execute budgets, change-affected coverage floors, and sample mutation testing" },
+      { "id": "B", "text": "Require 100% global coverage for all files" },
+      { "id": "C", "text": "Use Lighthouse score ≥ 90 as the sole KPI" },
+      { "id": "D", "text": "Rely on manual QA sign-off for every change" }
+    ],
+    "correct": ["A"],
+    "explanation": [
+      "Risk-weighted gates: Focus on user-perceived performance and changed surfaces to keep flow while catching impactful regressions."
+    ],
+    "explanationIncorrect": [
+      "100% coverage: Incentivizes shallow tests and slows delivery.",
+      "Single KPI: Composite scores can be gamed and lack signal.",
+      "Manual sign-off: Doesn’t scale and delays feedback loops."
+    ],
+    "source": "web.dev (performance budgets, Core Web Vitals); Stryker (mutation testing)",
+    "category": "Engineering Governance"
+  },
+  {
+    "id": "leadership-&-strategy-008",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Measuring design system success",
+    "options": [
+      { "id": "A", "text": "Track adoption (% of UIs using DS primitives), time-to-ship deltas, defect rate in shared components, and cross-platform consistency" },
+      { "id": "B", "text": "Count total components in the library and Storybook pages" },
+      { "id": "C", "text": "Measure PRs opened by the DS team" },
+      { "id": "D", "text": "Use weekly blog posts as the main success artifact" }
+    ],
+    "correct": ["A"],
+    "explanation": [
+      "Outcome metrics: Adoption, speed, quality, and consistency tie DS effort to product impact."
+    ],
+    "explanationIncorrect": [
+      "Component counts: Quantity does not equal value.",
+      "PR activity: Measures effort, not outcomes.",
+      "Blogs: Communication ≠ adoption or quality improvements."
+    ],
+    "source": "Design system metrics case studies; outcome-based product metrics",
+    "category": "Product Impact Metrics"
+  },
+  {
+    "id": "leadership-&-strategy-009",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Hiring signals: Senior vs. Staff Frontend (IC)",
+    "options": [
+      { "id": "A", "text": "Senior: consistently delivers complex features end-to-end, raises quality bars locally, owns a domain; Staff: sets cross-team strategy, designs systems, multiplies others, leads ambiguous initiatives" },
+      { "id": "B", "text": "Use years of experience as the primary signal" },
+      { "id": "C", "text": "Use GitHub stars and conference talks as the primary signal" },
+      { "id": "D", "text": "People management is required for Staff IC" }
+    ],
+    "correct": ["A"],
+    "explanation": [
+      "Scope and impact: Senior vs. Staff IC is differentiated by breadth, ambiguity handling, and org-level influence—not tenure."
+    ],
+    "explanationIncorrect": [
+      "Years: Weak proxy for capability and scope.",
+      "Stars/talks: Popularity signals don’t equal execution impact.",
+      "Management: Staff IC is an individual-contributor track."
+    ],
+    "source": "Industry leveling frameworks (IC tracks); engineering career ladders",
+    "category": "Hiring & Leveling"
+  },
+  {
+    "id": "leadership-&-strategy-010",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Growing a mid-level engineer into Senior",
+    "options": [
+      { "id": "A", "text": "Define outcome goals, assign a scoped stretch project with a safety net, schedule regular feedback, and pair on design and trade-offs" },
+      { "id": "B", "text": "Micro-manage tasks and review only code style" },
+      { "id": "C", "text": "Send to a week-long course and expect immediate Senior performance" },
+      { "id": "D", "text": "Throw them into a critical project alone to “see if they swim”" }
+    ],
+    "correct": ["A"],
+    "explanation": [
+      "Deliberate practice: Structured stretch work with coaching and feedback builds Senior behaviors reliably."
+    ],
+    "explanationIncorrect": [
+      "Micromanagement: Stifles growth and autonomy.",
+      "Training-only: Courses don’t translate to immediate behavior change.",
+      "Sink-or-swim: High risk with poor learning environment."
+    ],
+    "source": "Coaching/mentorship literature; engineering management best practices",
+    "category": "Mentoring & Growth"
+  },
+  {
+    "id": "leadership-&-strategy-011",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Decision making under reversibility (two-way vs one-way doors)",
+    "options": [
+      { "id": "A", "text": "Treat reversible (two-way) decisions as fast/cheap experiments; reserve heavier rigor for one-way doors; bias to action with safe-to-fail guards" },
+      { "id": "B", "text": "Treat all decisions as one-way and require consensus" },
+      { "id": "C", "text": "Delay decisions until perfect information is available" },
+      { "id": "D", "text": "Always A/B test everything regardless of cost and ethics" }
+    ],
+    "correct": ["A"],
+    "explanation": [
+      "Two-way doors: Move fast on reversible choices; invest rigor where reversibility is low to manage irreversible risk."
+    ],
+    "explanationIncorrect": [
+      "One-way everywhere: Slows learning and delivery.",
+      "Perfect information: Rare in practice; delays compound risk.",
+      "Test everything: Impractical, costly, and sometimes unethical."
+    ],
+    "source": "Reversible/irreversible decisions (Bezos memo); decision theory basics",
+    "category": "Decision Frameworks"
+  },
+  {
+    "id": "leadership-&-strategy-012",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Privacy by design in product planning",
+    "options": [
+      { "id": "A", "text": "Apply data minimization, purpose limitation, DPIA where needed; gate non-essential tracking behind consent; log proof of consent and enable easy revocation" },
+      { "id": "B", "text": "Collect everything by default and sort it out later" },
+      { "id": "C", "text": "Defer privacy review until after launch" },
+      { "id": "D", "text": "Use dark patterns to increase opt-ins" }
+    ],
+    "correct": ["A"],
+    "explanation": [
+      "Privacy by design: Minimize data, align to stated purposes, assess risks (DPIA), and enforce consent with revocation to reduce legal and trust risk."
+    ],
+    "explanationIncorrect": [
+      "Collect-first: Creates regulatory and reputational exposure.",
+      "Late review: Expensive rework and compliance risk.",
+      "Dark patterns: Non-compliant and damages user trust."
+    ],
+    "source": "GDPR principles; EDPB guidance; privacy-by-design best practices",
+    "category": "Ethics & Privacy"
+  }
+]

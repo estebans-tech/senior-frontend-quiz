@@ -1,5 +1,5 @@
-export const ALLOWED_CATEGORIES = ['basic', 'contracts-&-tooling', 'data-&-delivery', 'operations-&-impact',
-  'platform-&-rendering', 'security-&integrity', 'ux-&-components'] as const
+export const ALLOWED_CATEGORIES = ['basic', 'contracts-&-tooling', 'data-&-delivery', 'leadership-&-strategy',
+  'operations-&-impact', 'platform-&-rendering', 'security-&integrity', 'ux-&-components'] as const
 
 // export const ALLOWED_CATEGORIES = ['basic', 'ai-&-on-device-ml', 'accessibility-&-semantics', 
 //  'architecture-&-state-management', 'data-&-networking', 'design-systems-&-component-api', 'edge-&-protocols',
