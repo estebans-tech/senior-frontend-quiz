@@ -20,38 +20,38 @@ const showExplanation = computed(() => props.revealed)
 
 <template>
     <!-- Förklaringsregion som knappen styr -->
-  <div
+  <section
       v-if="showExplanation"
       :id="explRegionId"
       role="region"
       :aria-labelledby="explLabelId"
       class="border border-gray-200 p-2 px-4"
       >
-    <article v-if="question!.explanation" class="mb-2">
-      <h3 class="font-medium">Explanation:</h3>
+    <section v-if="question!.explanation" class="mb-2">
+      <h3 class="font-medium">Explanation:</h3><!-- TODO: i18n -->
       <ul v-if="question!.explanation.length > 0">
-          <li class="list-disc list-inside" v-for="explanation in question!.explanation">{{ explanation }}</li>
+          <li class="list-disc list-none" v-for="explanation in question!.explanation">{{ explanation }}</li>
       </ul>
       <p v-else-if="!question!.explanation.length" class="text-sm text-gray-700">
           {{ question!.explanation }}
       </p>
-    </article>
+    </section>
 
-    <article v-if="question!.explanationIncorrect" class="my-2">
-      <h3 class="font-medium">Why others are incorrect:</h3>
+    <section v-if="question!.explanationIncorrect" class="my-2">
+      <h3 class="font-medium">Why others are incorrect:</h3><!-- TODO: i18n -->
       <ul v-if="question!.explanationIncorrect.length > 0">
-          <li class="list-disc list-inside" v-for="incorrect in question!.explanationIncorrect">{{ incorrect }}</li>
+          <li class="list-disc list-none" v-for="incorrect in question!.explanationIncorrect">{{ incorrect }}</li>
       </ul>
       <p v-else class="text-sm text-gray-700">
           {{ question!.explanationIncorrect }}
       </p>
-    </article>
+    </section>
 
-    <article v-if="question!.source" class="my-2">
-      <h3 class="font-medium">Source:</h3>
+    <section v-if="question!.source" class="my-2">
+      <h3 class="font-medium">Source:</h3><!-- TODO: i18n -->
       <p class="text-sm text-gray-700">
         {{ question.source }}
       </p>
-    </article>
-  </div>
+    </section>
+  </section>
 </template>
