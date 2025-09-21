@@ -103,19 +103,19 @@ function backToStart() {
           <button
             class="px-4 py-2 rounded-xl border"
             :class="filter === 'all' ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300'"
-            @click="filter = 'all'">
+            @click="filter = 'all'"><!-- TODO: i18n -->
             All
           </button>
           <button
             class="px-4 py-2 rounded-xl border"
             :class="filter === 'correct' ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300'"
-            @click="filter = 'correct'">
+            @click="filter = 'correct'"><!-- TODO: i18n -->
             Correct
           </button>
           <button
             class="px-4 py-2 rounded-xl border"
             :class="filter === 'incorrect' ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300'"
-            @click="filter = 'incorrect'">
+            @click="filter = 'incorrect'"><!-- TODO: i18n -->
             Incorrect
           </button>
         </div>
@@ -131,7 +131,7 @@ function backToStart() {
     <div class="mx-auto max-w-5xl px-4 py-4 flex items-center justify-between">
       <BuyMeCoffeeButton :slug="app.bmcSlug" variant="subtle" label="Buy me a coffee" />
 
-      <button class="text-sm underline hover:no-underline" @click="backToStart">
+      <button class="text-sm underline hover:no-underline" @click="backToStart"><!-- TODO: i18n -->
         Back to start
       </button>
     </div>

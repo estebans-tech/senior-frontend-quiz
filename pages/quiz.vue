@@ -149,12 +149,12 @@ function finishAndGoResults() {
 
       <div v-else-if="store.error"
            class="rounded-xl border border-red-300 bg-red-50 p-4 text-red-900" role="alert">
-        <div class="font-semibold mb-1">Failed to load</div>
+        <div class="font-semibold mb-1">Failed to load</div><!-- TODO: i18n -->
         <p class="text-sm">{{ store.error }}</p>
         <button class="mt-3 underline" @click="requestBackToStart"> {{ t('quiz.header.nav.backToStart') }}</button>
       </div>
 
-      <div v-else-if="!hasSession" class="text-sm text-gray-600">
+      <div v-else-if="!hasSession" class="text-sm text-gray-600"><!-- TODO: i18n -->
         No questions available for this selection.
         <button class="underline ml-1" @click="requestBackToStart"> {{ t('quiz.header.nav.backToStart') }}</button>
       </div>
@@ -196,7 +196,7 @@ function finishAndGoResults() {
       <div class="mx-auto max-w-5xl px-4 py-4 flex items-center justify-between">
         <BuyMeCoffeeButton :slug="app.bmcSlug" variant="subtle" label="Buy me a coffee" class="hidden" />
 
-        <span class="text-xs text-gray-500">
+        <span class="text-xs text-gray-500"><!-- TODO: i18n -->
           {{ total }} question{{ total === 1 ? '' : 's' }} loaded
         </span>
       </div>

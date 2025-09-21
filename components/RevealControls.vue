@@ -36,7 +36,7 @@ defineEmits<{
     <!-- 🔊 SR-status när sista frågan är nådd -->
     <p v-if="isLast" class="sr-only" role="status" aria-live="polite">
       Last question. Next is disabled. Use Finish to see results.
-    </p>
+    </p><!-- TODO: i18n -->
 
     <!-- Vänster kluster: Prev + Next -->
     <div class="order-1 flex items-center gap-3">
@@ -57,7 +57,7 @@ defineEmits<{
         @click="$emit('next')"
       >
         Next
-      </button>
+      </button><!-- TODO: i18n -->
 
       <!-- PREVIOUS — neutral -->
       <button
@@ -69,7 +69,7 @@ defineEmits<{
         @click="$emit('prev')"
       >
         Previous
-      </button>
+      </button><!-- TODO: i18n -->
     </div>
 
     <!-- Mittenkluster: Reveal + Check -->
@@ -94,7 +94,7 @@ defineEmits<{
         @click="$emit('check')"
       >
         Check Answer
-      </button>
+      </button><!-- TODO: i18n -->
     </div>
 
     <!-- Höger kluster: Finish — tydligt separerad -->
@@ -111,9 +111,9 @@ defineEmits<{
         @click="$emit('finish')"
       >
         Finish
-      </button>
-      <p id="finish-hint" class="sr-only">Ends the session and shows results.</p>
-      <p id="finish-last-hint" class="sr-only">You are on the last question. Finish will submit and show results.</p>
+      </button><!-- TODO: i18n -->
+      <p id="finish-hint" class="sr-only">Ends the session and shows results.</p><!-- TODO: i18n -->
+      <p id="finish-last-hint" class="sr-only">You are on the last question. Finish will submit and show results.</p><!-- TODO: i18n -->
     </div>
   </div>
 </template>

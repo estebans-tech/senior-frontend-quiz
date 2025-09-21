@@ -180,7 +180,7 @@ class="absolute inset-y-0 left-0 rounded-full bg-green-600 transition-[width] du
           </span>
           <span v-else class="inline-flex items-center rounded-full px-2 py-0.5 bg-gray-100 text-gray-800">
             No selection
-          </span>
+          </span><!-- TODO: i18n -->
         </p>
         </div>
     </fieldset>

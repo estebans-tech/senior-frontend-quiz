@@ -73,7 +73,7 @@ const isQuestionCorrect = computed(() => {
               <!-- Inga A/B-prefix -->
               <span :id="labelId(opt.id)">{{ opt.text }}</span>
               <!-- SR-hjälp: markera 'vald' för skärmläsare -->
-              <span v-if="chosenSet.has(opt.id)" class="sr-only">(selected)</span>
+              <span v-if="chosenSet.has(opt.id)" class="sr-only">(selected)</span><!-- TODO: i18n -->
             </div>
 
             <!-- Per-option explanation: alltid synlig (kan vara tom) -->
@@ -94,7 +94,7 @@ const isQuestionCorrect = computed(() => {
               title="Korrekt alternativ"
             >✓</span>
             <!-- SR-text för korrekt-ikon -->
-            <span v-if="correctSet.has(opt.id)" class="sr-only">Correct alternative</span>
+            <span v-if="correctSet.has(opt.id)" class="sr-only">Correct alternative</span><!-- TODO: i18n -->
           </div>
         </div>
       </li>
