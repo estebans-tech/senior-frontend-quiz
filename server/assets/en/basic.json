@@ -525,5 +525,1707 @@
       "reduce(): Aggregates values into a single result.",
       "slice(): Copies a subarray without transforming elements."
     ]
+  },
+  {
+    "id": "basic-026",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the event loop?",
+    "options": [
+    { "id": "A", "text": "A mechanism that coordinates the call stack and task queues, draining microtasks before taking the next macrotask and then rendering." },
+    { "id": "B", "text": "A CSS layout algorithm used to position elements." },
+    { "id": "C", "text": "The JavaScript garbage collector." },
+    { "id": "D", "text": "The HTTP client that schedules network requests." }
+    ],
+    "correct": ["A"],
+    "explanation": ["The browser event loop interleaves synchronous JS, microtasks (e.g., Promise reactions), macrotasks (e.g., timers), and rendering in a defined order."],
+    "explanationIncorrect": ["CSS layout, garbage collection, and HTTP networking are separate subsystems unrelated to the JS event loop’s scheduling model."],
+    "source": "HTML Standard: Event loops; MDN: Concurrency model and the event loop",
+    "category": "JavaScript Fundamentals"
+    },
+    {
+    "id": "basic-027",
+    "version": 1,
+    "type": "single",
+    "prompt": "Which statement best describes the differences between var, let, and const?",
+    "options": [
+    { "id": "A", "text": "A DOM attribute used for accessibility (ARIA)." },
+    { "id": "B", "text": "A CSS layout technique (e.g., Flexbox)." },
+    { "id": "C", "text": "var is function-scoped (or global), hoisted and initialized to undefined, and redeclarable; top-level var creates a global property. let/const are block-scoped, hoisted but in the TDZ until initialization, and not redeclarable; const bindings can’t be reassigned (object contents may still change)." },
+    { "id": "D", "text": "An SQL join type." }
+    ],
+    "correct": ["C"],
+    "explanation": ["The description captures scope, hoisting/TDZ, redeclaration, and reassignment differences between var, let, and const."],
+    "explanationIncorrect": ["ARIA, Flexbox, and SQL joins are unrelated to JavaScript binding semantics."],
+    "source": "ECMAScript Language Spec; MDN: var, let, const; TDZ",
+    "category": "JavaScript Fundamentals"
+    },
+    {
+    "id": "basic-028",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is hoisting?",
+    "options": [
+    { "id": "A", "text": "An SQL join type." },
+    { "id": "B", "text": "An HTTP status code class." },
+    { "id": "C", "text": "A Linux process scheduler." },
+    { "id": "D", "text": "During creation, bindings are set up before execution: var and function declarations are hoisted (with var initialized to undefined, functions with their bodies); let/const are hoisted but uninitialized (TDZ)." }
+    ],
+    "correct": ["D"],
+    "explanation": ["Hoisting is the creation-phase setup of bindings before execution; let/const are hoisted but remain in the temporal dead zone until initialized."],
+    "explanationIncorrect": ["Database joins, HTTP status codes, and OS schedulers are unrelated to JavaScript hoisting semantics."],
+    "source": "ECMAScript Spec (Environment Records); MDN: Hoisting",
+    "category": "JavaScript Fundamentals"
+    },
+    {
+    "id": "basic-029",
+    "version": 1,
+    "type": "single",
+    "prompt": "Which statement correctly describes == vs ===?",
+    "options": [
+    { "id": "A", "text": "== performs type-coercing comparison; === compares type and value without coercion." },
+    { "id": "B", "text": "Both compare without coercion and are interchangeable." },
+    { "id": "C", "text": "=== performs coercion while == does not." },
+    { "id": "D", "text": "They differ only in performance, not behavior." }
+    ],
+    "correct": ["A"],
+    "explanation": ["== uses abstract equality with coercion; === uses strict equality without coercion."],
+    "explanationIncorrect": ["Claiming no coercion, inverting behaviors, or saying the difference is only performance contradicts the specification."],
+    "source": "ECMAScript Spec: Abstract Equality Comparison; Strict Equality Comparison; MDN: Equality comparisons",
+    "category": "JavaScript Fundamentals"
+    },
+    {
+    "id": "basic-030",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Which of the following are primitive types in JavaScript? (Select all that apply)",
+    "options": [
+    { "id": "A", "text": "string" },
+    { "id": "B", "text": "number" },
+    { "id": "C", "text": "boolean" },
+    { "id": "D", "text": "null" },
+    { "id": "E", "text": "undefined" },
+    { "id": "F", "text": "symbol" },
+    { "id": "G", "text": "bigint" },
+    { "id": "H", "text": "object" },
+    { "id": "I", "text": "array" },
+    { "id": "J", "text": "function" }
+    ],
+    "correct": ["A", "B", "C", "D", "E", "F", "G"],
+    "explanation": ["JavaScript has seven primitive types: string, number, boolean, null, undefined, symbol, and bigint."],
+    "explanationIncorrect": ["Objects, arrays, and functions are non-primitive reference types (arrays/functions are specialized objects)."],
+    "source": "ECMAScript Language Types; MDN: Data types",
+    "category": "JavaScript Fundamentals"
+    },
+    {
+    "id": "basic-031",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is a closure?",
+    "options": [
+    { "id": "A", "text": "A function that retains access to its lexical environment even after the outer scope has returned." },
+    { "id": "B", "text": "A block-scoped variable created with let or const." },
+    { "id": "C", "text": "An immediately-invoked function expression (IIFE)." },
+    { "id": "D", "text": "An object that hides its properties using symbols." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Closures form when a function captures variables from its defining lexical scope and can use them later."],
+    "explanationIncorrect": ["Block scope and IIFEs are related but not definitions of closures; symbol use doesn’t define closures."],
+    "source": "MDN: Closures; JavaScript lexical scoping",
+    "category": "JavaScript Fundamentals"
+    },
+    {
+    "id": "basic-032",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is this in JavaScript?",
+    "options": [
+    { "id": "A", "text": "It is determined by how a function is called (implicit/explicit binding, new, or default/global/undefined); arrow functions capture this lexically and cannot be rebound." },
+    { "id": "B", "text": "It always refers to the object on the left of the dot in source code." },
+    { "id": "C", "text": "It always refers to the global object." },
+    { "id": "D", "text": "It is the same as the current lexical scope." }
+    ],
+    "correct": ["A"],
+    "explanation": ["this is bound at call-site (or by new/bind/call/apply); arrow functions capture the surrounding this and can’t be changed."],
+    "explanationIncorrect": ["It isn’t purely lexical, not always the left-hand object, and not always global."],
+    "source": "ECMAScript Spec: ThisBinding; MDN: this",
+    "category": "JavaScript Fundamentals"
+    },
+    {
+    "id": "basic-033",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is a Promise?",
+    "options": [
+    { "id": "A", "text": "An HTTP status code class." },
+    { "id": "B", "text": "A way to style components with CSS-in-JS." },
+    { "id": "C", "text": "An object representing a single eventual result: pending → fulfilled or rejected; handlers (then/catch/finally) queue as microtasks, and resolving with another promise adopts its state." },
+    { "id": "D", "text": "A TLS cipher suite." }
+    ],
+    "correct": ["C"],
+    "explanation": ["Promises model a single eventual outcome and schedule reactions as microtasks; resolution adopts the state of thenables/promises."],
+    "explanationIncorrect": ["HTTP status classes, styling approaches, and TLS ciphers are unrelated."],
+    "source": "ECMAScript Spec: Promises; MDN: Promise",
+    "category": "JavaScript Fundamentals"
+    },
+    {
+    "id": "basic-034",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Which tasks are queued as microtasks in browsers? (Select all that apply)",
+    "options": [
+    { "id": "A", "text": "Promise reactions (then/catch/finally)" },
+    { "id": "B", "text": "queueMicrotask" },
+    { "id": "C", "text": "MutationObserver callbacks" },
+    { "id": "D", "text": "setTimeout" },
+    { "id": "E", "text": "setInterval" },
+    { "id": "F", "text": "requestAnimationFrame" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": ["Promise reactions, queueMicrotask, and MutationObserver callbacks run in the microtask checkpoint after the current stack and before the next macrotask."],
+    "explanationIncorrect": ["Timers (setTimeout/setInterval) are macrotasks; requestAnimationFrame runs in the animation frame phase before paint, not as a microtask."],
+    "source": "HTML Standard: Microtask checkpoint; MDN: Microtasks and macrotasks",
+    "category": "JavaScript Fundamentals"
+    },
+    {
+    "id": "basic-035",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is async/await?",
+    "options": [
+    { "id": "A", "text": "Syntax over promises where an async function returns a promise and await pauses within that function until the awaited value settles (throwing on rejection)." },
+    { "id": "B", "text": "A CSS feature for non-blocking layout." },
+    { "id": "C", "text": "A Node.js package manager." },
+    { "id": "D", "text": "A JSON extension for streaming." }
+    ],
+    "correct": ["A"],
+    "explanation": ["async functions always return promises; await suspends within them until the awaited promise settles, propagating rejections as throws."],
+    "explanationIncorrect": ["CSS features, package managers, and JSON formats are unrelated to async/await semantics."],
+    "source": "ECMAScript Spec: Async Functions; MDN: async function; await",
+    "category": "JavaScript Fundamentals"
+    },
+    {
+    "id": "basic-036",
+    "version": 1,
+    "type": "single",
+    "prompt": "What are pure functions?",
+    "options": [
+    { "id": "A", "text": "Deterministic functions that return the same output for the same inputs and produce no side effects." },
+    { "id": "B", "text": "Functions that only use const declarations." },
+    { "id": "C", "text": "Functions that never allocate memory." },
+    { "id": "D", "text": "Functions written without curly braces." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Purity combines determinism with the absence of observable side effects."],
+    "explanationIncorrect": ["Const usage, allocation patterns, or syntax style do not define functional purity."],
+    "source": "Functional programming basics; MDN: Side effects",
+    "category": "JavaScript Fundamentals"
+    },
+    {
+    "id": "basic-037",
+    "version": 1,
+    "type": "single",
+    "prompt": "What does immutability mean in JavaScript?",
+    "options": [
+    { "id": "A", "text": "Prefer producing new values instead of mutating existing ones; primitives are immutable, while objects/arrays change only if you mutate them." },
+    { "id": "B", "text": "All JavaScript values are immutable." },
+    { "id": "C", "text": "Only arrays are immutable." },
+    { "id": "D", "text": "Immutability means using Object.freeze everywhere." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Primitives are immutable; for objects/arrays, immutability is a discipline of making new copies rather than mutating."],
+    "explanationIncorrect": ["Not all values are immutable by default; arrays are mutable; Object.freeze is optional, shallow, and not required to practice immutability."],
+    "source": "MDN: Primitive vs object types; Immutability patterns",
+    "category": "JavaScript Fundamentals"
+    },
+    {
+    "id": "basic-038",
+    "version": 1,
+    "type": "single",
+    "prompt": "Which statement accurately contrasts shallow copy and deep copy?",
+    "options": [
+    { "id": "A", "text": "Shallow copies only top-level references; deep copies recursively copy nested structures. structuredClone handles most serializable data (not functions/DOM nodes)." },
+    { "id": "B", "text": "A color space used in Canvas." },
+    { "id": "C", "text": "A GPU shader stage." },
+    { "id": "D", "text": "A Git branching strategy." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Shallow copies duplicate references; deep copies traverse recursively. structuredClone is the built-in for deep-copying structured data with limitations."],
+    "explanationIncorrect": ["Canvas color spaces, GPU stages, and Git strategies are unrelated to copying semantics."],
+    "source": "HTML Living Standard: structuredClone; MDN: Deep and shallow copies",
+    "category": "JavaScript Fundamentals"
+    },
+    {
+    "id": "basic-039",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is prototypal inheritance?",
+    "options": [
+    { "id": "A", "text": "A Node.js package manager." },
+    { "id": "B", "text": "Objects delegate lookups through their [[Prototype]] chain; constructors set prototype; Object.create creates with a chosen prototype." },
+    { "id": "C", "text": "An SQL join type." },
+    { "id": "D", "text": "An HTTP status code class." }
+    ],
+    "correct": ["B"],
+    "explanation": ["Objects inherit via the prototype chain; constructors establish prototypes; Object.create builds objects with a specified prototype."],
+    "explanationIncorrect": ["Package managers, database joins, and HTTP status classes don’t describe JavaScript inheritance."],
+    "source": "ECMAScript Spec: Object internal methods; MDN: Prototypal inheritance",
+    "category": "JavaScript Fundamentals"
+    },
+    {
+    "id": "basic-040",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the difference between null and undefined?",
+    "options": [
+    { "id": "A", "text": "undefined indicates a missing/unprovided value (or absent property); null is an explicit “no value” set intentionally." },
+    { "id": "B", "text": "They are identical in all comparisons." },
+    { "id": "C", "text": "null is the default value of all variables." },
+    { "id": "D", "text": "undefined is a string type." }
+    ],
+    "correct": ["A"],
+    "explanation": ["undefined generally means ‘not provided’ or ‘absent’; null is an explicit sentinel meaning ‘no value’."],
+    "explanationIncorrect": ["They are not identical; variables are not defaulted to null; undefined is not a string type."],
+    "source": "ECMAScript Spec: null and undefined; MDN: null; undefined",
+    "category": "JavaScript Fundamentals"
+    },
+    {
+    "id": "basic-041",
+    "version": 1,
+    "type": "single",
+    "prompt": "Which statement about the Virtual DOM is accurate?",
+    "options": [
+    { "id": "A", "text": "It is a framework-level, in-memory tree used to diff and batch DOM updates; it is not a web standard and is not inherently always faster." },
+    { "id": "B", "text": "It is a W3C standard that is always faster than direct DOM updates." },
+    { "id": "C", "text": "It is the browser’s event loop." },
+    { "id": "D", "text": "It is an HTTP feature for caching." }
+    ],
+    "correct": ["A"],
+    "explanation": ["VDOM is a technique used by frameworks to compute minimal updates; it’s not standardized and its performance depends on context."],
+    "explanationIncorrect": ["It’s not a W3C standard, not the event loop, and not an HTTP feature."],
+    "source": "React/Preact documentation; General VDOM literature",
+    "category": "JavaScript Fundamentals"
+    },
+    {
+    "id": "basic-042",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the difference between an SPA and an MPA?",
+    "options": [
+    { "id": "A", "text": "SPA: a single document with client-side routing/state; MPA: multi-document navigation. Either can mix SSR and CSR." },
+    { "id": "B", "text": "An HTTP status code class." },
+    { "id": "C", "text": "A TLS cipher suite." },
+    { "id": "D", "text": "A CSS layout technique." }
+    ],
+    "correct": ["A"],
+    "explanation": ["SPAs maintain a single document and route on the client; MPAs navigate between documents. Both can use SSR and CSR in combinations."],
+    "explanationIncorrect": ["HTTP status codes, TLS ciphers, and CSS layouts are unrelated to app architecture types."],
+    "source": "web.dev: Rendering on the Web; SPA vs MPA overviews",
+    "category": "JavaScript Fundamentals"
+    },
+    {
+    "id": "basic-043",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the difference between SSR and CSR?",
+    "options": [
+    { "id": "A", "text": "SSR renders HTML on the server (or pre-renders via SSG), improving first-paint and crawlability; CSR renders in the browser after JS loads; many apps combine both." },
+    { "id": "B", "text": "A browser UI feature unrelated to JavaScript semantics." },
+    { "id": "C", "text": "A NoSQL indexing strategy." },
+    { "id": "D", "text": "A Linux process scheduler." }
+    ],
+    "correct": ["A"],
+    "explanation": ["SSR/SSG produce HTML on the server or at build; CSR relies on client-side JS to render. Hybrids are common for performance and SEO."],
+    "explanationIncorrect": ["UI features, indexing strategies, and OS schedulers don’t define rendering strategies."],
+    "source": "web.dev: Rendering on the Web; Next.js/Nuxt docs on SSR/CSR/SSG",
+    "category": "JavaScript Fundamentals"
+    },
+    {
+    "id": "basic-044",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is tree shaking?",
+    "options": [
+    { "id": "A", "text": "Static analysis (typically of ESM) that removes unused exports; side-effectful modules must be marked to avoid incorrect removal." },
+    { "id": "B", "text": "A CSS animation technique." },
+    { "id": "C", "text": "A Node.js thread scheduler." },
+    { "id": "D", "text": "A JSON compression format." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Bundlers analyze import/export graphs (often ESM) to drop dead code; accurate sideEffects metadata prevents unsafe removal."],
+    "explanationIncorrect": ["Animations, schedulers, and compression formats don’t describe dead-code elimination."],
+    "source": "Webpack/Rollup docs: Tree shaking; Terser annotations",
+    "category": "JavaScript Fundamentals"
+    },
+    {
+    "id": "basic-045",
+    "version": 1,
+    "type": "single",
+    "prompt": "What are Web Components?",
+    "options": [
+    { "id": "A", "text": "A Git branching strategy." },
+    { "id": "B", "text": "Standards: Custom Elements, Shadow DOM, and HTML Templates (with style scoping). Framework-agnostic, reusable components." },
+    { "id": "C", "text": "A JSON serialization format." },
+    { "id": "D", "text": "A TLS cipher suite." }
+    ],
+    "correct": ["B"],
+    "explanation": ["Web Components are defined by Custom Elements, Shadow DOM, and HTML Templates to build encapsulated, reusable elements."],
+    "explanationIncorrect": ["Branching strategies, data formats, and cipher suites are unrelated to component standards."],
+    "source": "MDN: Web Components; W3C/WHATWG specs for Custom Elements, Shadow DOM, HTML Templates",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-046",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the difference between debounce and throttle?\n```js\n// Debounce: wait for inactivity\nconst onInput = debounce(handleSearch, 300);\n\n// Throttle: limit call rate\nconst onScroll = throttle(handleScroll, 200);\n```",
+    "options": [
+      { "id": "A", "text": "Debounce delays execution until input activity stops; throttle guarantees at most one execution within a given time interval." },
+      { "id": "B", "text": "Debounce executes immediately on every event; throttle waits until all events finish." },
+      { "id": "C", "text": "Debounce and throttle are identical timing strategies." },
+      { "id": "D", "text": "Debounce schedules work on the GPU; throttle schedules on the CPU." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Debounce collapses bursts by waiting for quiet; throttle limits call frequency to at most once per window."],
+    "explanationIncorrect": ["Immediate-on-every-event is the opposite of debouncing; debounce ≠ throttle; GPU/CPU scheduling is unrelated."],
+    "source": "UI performance patterns and scheduler concepts (debounce vs throttle) in web engineering literature",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-047",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the difference between call, apply, and bind?\n```js\nfn.call(ctx, a, b);\nfn.apply(ctx, [a, b]);\nconst g = fn.bind(ctx, a); g(b);\nconst arrow = () => this; // arrow `this` is lexical and cannot be rebound\n```",
+    "options": [
+      { "id": "A", "text": "call and apply invoke a function immediately with an explicit this (call takes args separately, apply takes an array); bind returns a new function with this and leading args fixed. Arrow functions’ this cannot be rebound." },
+      { "id": "B", "text": "They are CSS properties for responsive layouts." },
+      { "id": "C", "text": "They are Node.js package managers." },
+      { "id": "D", "text": "They are JSON parsing strategies." }
+    ],
+    "correct": ["A"],
+    "explanation": ["call/apply perform immediate invocation with explicit this; bind creates a new function with a fixed this/partials; arrow functions capture this lexically."],
+    "explanationIncorrect": ["CSS properties, package managers, and JSON parsing are unrelated to JavaScript function invocation utilities."],
+    "source": "ECMAScript Language Specification; MDN: Function.prototype.call/apply/bind; Arrow function this",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-048",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is a generator function in JavaScript?\n```js\nfunction* gen() {\n  const x = yield 1; // pause\n  return x * 2;\n}\nconst it = gen();\nit.next();      // { value: 1, done: false }\nit.next(10);    // { value: 20, done: true }\n```",
+    "options": [
+      { "id": "A", "text": "A function* that returns an iterator; yield pauses execution; next(value), return, and throw control the iterator. Async generators integrate with for await...of." },
+      { "id": "B", "text": "A function that always returns a Promise." },
+      { "id": "C", "text": "A function compiled to WebAssembly." },
+      { "id": "D", "text": "A function that cannot be paused after it starts." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Generators return iterators and can pause/resume via yield; async generators work with async iteration protocols."],
+    "explanationIncorrect": ["Always-returning Promises, WASM compilation, and non-pausable semantics contradict generator behavior."],
+    "source": "ECMAScript: Generators and Iteration; MDN: function* and yield; Async generators",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-049",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is a Proxy in JavaScript?\n```js\nconst target = { x: 1 };\nconst p = new Proxy(target, {\n  get(t, k, r) { console.log(\"get\", k); return Reflect.get(t, k, r); },\n  set(t, k, v, r) { console.log(\"set\", k, v); return Reflect.set(t, k, v, r); }\n});\np.x; p.y = 2;\n```",
+    "options": [
+      { "id": "A", "text": "A wrapper that intercepts operations (e.g., get, set, has) via traps; Reflect provides default forwarding behavior." },
+      { "id": "B", "text": "A network HTTP cache server." },
+      { "id": "C", "text": "A CSS feature for variable substitution." },
+      { "id": "D", "text": "A JSON schema validator." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Proxy intercepts fundamental operations via traps, and Reflect mirrors default semantics for forwarding."],
+    "explanationIncorrect": ["HTTP caches, CSS features, and JSON validation are different technologies."],
+    "source": "ECMAScript: Proxy and Reflect; MDN: Proxy",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-050",
+    "version": 1,
+    "type": "single",
+    "prompt": "What do map, forEach, filter, and reduce do?\n```js\n[1,2,3].map(x => x*2);          // [2,4,6]\n[1,2,3].forEach(console.log);   // undefined\n[1,2,3].filter(x => x%2);       // [1,3]\n[1,2,3].reduce((a,b)=>a+b, 0);  // 6\n```",
+    "options": [
+      { "id": "A", "text": "map transforms into a new array, forEach iterates (returns undefined), filter selects items, and reduce accumulates to a single value." },
+      { "id": "B", "text": "They are four HTTP methods." },
+      { "id": "C", "text": "They are four CSS layout modes." },
+      { "id": "D", "text": "They are four JSON MIME types." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Array.prototype methods: map returns a new array, forEach performs iteration without return, filter narrows items, reduce folds to a value."],
+    "explanationIncorrect": ["HTTP methods, CSS modes, and MIME types are unrelated to array method semantics."],
+    "source": "ECMAScript: Array.prototype APIs; MDN: map/forEach/filter/reduce",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-051",
+    "version": 1,
+    "type": "single",
+    "prompt": "What are JavaScript modules (ESM vs. CommonJS)?\n```js\n// ESM\nimport { foo } from \"pkg\";\nexport function bar() {}\n\n// CommonJS\nconst { fooCjs } = require(\"pkg\");\nmodule.exports = { barCjs() {} };\n```",
+    "options": [
+      { "id": "A", "text": "ESM uses static import/export, has its own top-level scope, and loads asynchronously in browsers; CommonJS uses require/module.exports and loads synchronously in Node. Interop (default vs. named exports) needs care." },
+      { "id": "B", "text": "They are CSS preprocessors." },
+      { "id": "C", "text": "They are SQL migration tools." },
+      { "id": "D", "text": "They are Git hooks." }
+    ],
+    "correct": ["A"],
+    "explanation": ["ESM offers static analysis and async loading in browsers; CommonJS is synchronous and Node-first; interop details matter."],
+    "explanationIncorrect": ["Preprocessors, migrations, and Git hooks are unrelated to module systems."],
+    "source": "Node.js docs on ESM/CJS; MDN: JavaScript modules",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-052",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the difference between mutable and immutable data?",
+    "options": [
+      { "id": "A", "text": "Mutable values can be changed in place (affecting all references); immutable updates return new values. Primitives behave immutably." },
+      { "id": "B", "text": "Mutable values never change; immutable values always change." },
+      { "id": "C", "text": "Everything in JavaScript is immutable by default." },
+      { "id": "D", "text": "Only arrays are immutable; objects are always mutable." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Mutability implies in-place change; immutability implies producing new values; primitives are inherently immutable."],
+    "explanationIncorrect": ["Absolute statements about never/always change and broad claims about arrays/objects are incorrect."],
+    "source": "MDN: Primitive vs. object types; Immutability patterns",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-053",
+    "version": 1,
+    "type": "single",
+    "prompt": "What are WeakMap and WeakSet?\n```js\nconst wm = new WeakMap();\nconst ws = new WeakSet();\nlet k = {};\nwm.set(k, 123);\nws.add(k);\nk = null; // objects can be GC'd; collections hold weak references\n```",
+    "options": [
+      { "id": "A", "text": "Collections with weak references (WeakMap keys, WeakSet values) that don’t prevent garbage collection; they are non-iterable and have no size." },
+      { "id": "B", "text": "Faster versions of Map and Set with full iteration APIs." },
+      { "id": "C", "text": "Immutable maps and sets with structural sharing." },
+      { "id": "D", "text": "Browser APIs for network proxies." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Weak collections hold weak references (keys for WeakMap, values for WeakSet); no iteration or size due to GC semantics."],
+    "explanationIncorrect": ["Full iteration, immutability features, and networking concerns are not characteristics of WeakMap/WeakSet."],
+    "source": "ECMAScript: WeakMap/WeakSet; MDN: WeakMap; WeakSet",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-054",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is memoization?\n```js\nconst memo = fn => {\n  const cache = new Map();\n  return x => cache.has(x) ? cache.get(x) : (cache.set(x, fn(x)), cache.get(x));\n};\n```",
+    "options": [
+      { "id": "A", "text": "Caching function outputs keyed by inputs (best for pure functions), to avoid recomputation at the cost of memory." },
+      { "id": "B", "text": "Converting a function to an async version." },
+      { "id": "C", "text": "Minifying JavaScript bundles." },
+      { "id": "D", "text": "Turning objects into immutable records." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Memoization trades memory for speed by reusing results for identical inputs; pairs best with pure functions."],
+    "explanationIncorrect": ["Async conversion, code minification, and immutability are separate concerns."],
+    "source": "Computer science caching patterns; MDN: Memoization examples",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-055",
+    "version": 1,
+    "type": "single",
+    "prompt": "What are service workers?\n```js\nnavigator.serviceWorker.register(\"/sw.js\");\n// lifecycle: install → activate → fetch\nself.addEventListener(\"fetch\", e => { /* respond with cache/network */ });\n```",
+    "options": [
+      { "id": "A", "text": "HTTPS-only, event-driven scripts that sit between the app and the network, enabling offline caching, push notifications, and background sync; lifecycle: install → activate → fetch." },
+      { "id": "B", "text": "A CSS feature for offline styles." },
+      { "id": "C", "text": "A Node.js cluster manager." },
+      { "id": "D", "text": "A JSON streaming protocol." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Service workers proxy requests, enable offline, and react to events; they require HTTPS and follow an install/activate/fetch lifecycle."],
+    "explanationIncorrect": ["CSS features, clustering, and streaming protocols are unrelated to service workers."],
+    "source": "MDN: Service Workers; web.dev: Service worker lifecycle",
+    "category": "Web Platform & Browser Internals"
+  },
+  {
+    "id": "basic-056",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the critical rendering path?",
+    "options": [
+      { "id": "A", "text": "The pipeline: HTML → DOM, CSS → CSSOM, combine into a render tree, then layout, paint, and composite; render-blocking CSS/JS can delay these steps." },
+      { "id": "B", "text": "A GPU shading algorithm used by WebGL." },
+      { "id": "C", "text": "A JSON parsing path in V8." },
+      { "id": "D", "text": "A network routing strategy for CDNs." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Rendering stages include DOM/CSSOM construction, render tree, layout, paint, and compositing; blocking resources delay progress."],
+    "explanationIncorrect": ["GPU shaders, JSON parsing, and CDN routing are separate domains."],
+    "source": "web.dev: Critical rendering path; MDN: Rendering performance",
+    "category": "Web Platform & Browser Internals"
+  },
+  {
+    "id": "basic-057",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the difference between reflow and repaint?",
+    "options": [
+      { "id": "A", "text": "Reflow recalculates layout; repaint draws pixels without layout changes. Some properties (e.g., transforms/opacity) can be compositor-only, avoiding layout and often paint." },
+      { "id": "B", "text": "Reflow draws pixels; repaint recalculates layout." },
+      { "id": "C", "text": "Both only affect the GPU and never the CPU." },
+      { "id": "D", "text": "They are HTTP cache strategies." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Reflow changes geometry/layout; repaint updates visuals without layout; transform/opacity often stay in the compositor layer."],
+    "explanationIncorrect": ["Role inversion, GPU-only claims, and HTTP caching references are incorrect."],
+    "source": "Google Web Fundamentals: Rendering performance; MDN: Reflow and repaint",
+    "category": "Web Platform & Browser Internals"
+  },
+  {
+    "id": "basic-058",
+    "version": 1,
+    "type": "single",
+    "prompt": "Which practices improve frontend performance?",
+    "options": [
+      { "id": "A", "text": "Measure first (Web Vitals/Lighthouse), then apply code-splitting, lazy loading, prefetch/preload, image optimization, caching/CDNs, eliminate render-blocking resources, minify/compress, and avoid layout thrashing (batch DOM ops, prefer transforms). HTTP/2/3 can help." },
+      { "id": "B", "text": "Always bundle everything into a single large file." },
+      { "id": "C", "text": "Disable HTTP caching." },
+      { "id": "D", "text": "Render everything on the client with no server assistance regardless of context." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Evidence-driven optimization with splitting, lazy strategies, resource hints, image/asset tuning, and avoiding layout thrash aligns with Core Web Vitals."],
+    "explanationIncorrect": ["Monolithic bundles, disabled caching, and dogmatic CSR harm user-perceived performance."],
+    "source": "web.dev: Performance fundamentals; Core Web Vitals; Lighthouse docs",
+    "category": "Performance & Web Vitals"
+  },
+  {
+    "id": "basic-059",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is CORS?\n```js\n// Browser-enforced: server must opt-in\nfetch(\"https://api.other.com/data\", { credentials: \"include\" })\n  .then(r => r.json());\n// Server adds CORS headers (e.g., Access-Control-Allow-Origin)\n```",
+    "options": [
+      { "id": "A", "text": "A browser security policy that blocks JavaScript from reading cross-origin responses unless the server opts in via CORS headers (sometimes with a preflight). It does not restrict server-to-server requests." },
+      { "id": "B", "text": "A TLS cipher suite." },
+      { "id": "C", "text": "A CSS feature for cross-origin fonts that always works without headers." },
+      { "id": "D", "text": "A Git branching workflow." }
+    ],
+    "correct": ["A"],
+    "explanation": ["CORS is enforced by browsers for cross-origin XHR/fetch; servers opt-in via headers; server-to-server requests are unaffected."],
+    "explanationIncorrect": ["TLS ciphers, CSS behaviors without headers, and Git workflows are not CORS."],
+    "source": "MDN: CORS; Fetch standard preflight and CORs",
+    "category": "Web Platform & Networking"
+  },
+  {
+    "id": "basic-060",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Which statements about web storage and cookies are true? (Select all that apply)",
+    "options": [
+      { "id": "A", "text": "localStorage is persistent and not sent with HTTP requests." },
+      { "id": "B", "text": "sessionStorage is scoped to a tab/session." },
+      { "id": "C", "text": "Cookies are automatically sent with matching HTTP requests." },
+      { "id": "D", "text": "localStorage is asynchronous and non-blocking." },
+      { "id": "E", "text": "Cookies typically allow ~4 KB per cookie." }
+    ],
+    "correct": ["A", "B", "C", "E"],
+    "explanation": ["localStorage persists and is not transmitted with requests; sessionStorage is per-tab/session; cookies attach to matching requests; common cookie size limits are about 4 KB."],
+    "explanationIncorrect": ["localStorage is synchronous and can block; it is not an async, non-blocking API."],
+    "source": "MDN: Web Storage API (localStorage/sessionStorage); MDN: HTTP Cookies",
+    "category": "Web Platform & Networking"
+  },
+  {
+    "id": "basic-061",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Which statements about HTTP versions are accurate? (Select all that apply)",
+    "options": [
+      { "id": "A", "text": "HTTP/2 uses multiplexing and header compression over a single connection." },
+      { "id": "B", "text": "HTTP/3 runs over QUIC (UDP) to mitigate TCP head-of-line blocking." },
+      { "id": "C", "text": "HTTP/1.1 provides true request multiplexing by default." }
+    ],
+    "correct": ["A", "B"],
+    "explanation": ["HTTP/2 introduces binary framing, multiplexing, and HPACK; HTTP/3 moves to QUIC over UDP to avoid TCP head-of-line."],
+    "explanationIncorrect": ["HTTP/1.1 lacks true multiplexing; pipelining was rarely used and suffers from head-of-line blocking."],
+    "source": "RFC 7540 (HTTP/2); RFC 9114 (HTTP/3); RFC 9000 (QUIC)",
+    "category": "Web Platform & Networking"
+  },
+  {
+    "id": "basic-062",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is lazy loading?\n```js\n// Images\n<img src=\"/img.jpg\" loading=\"lazy\">\n\n// Code\nconst Page = defineAsyncComponent(() => import(\"./Page.js\"));\n\n// Data/visibility\nconst io = new IntersectionObserver(/* ... */);\n```",
+    "options": [
+      { "id": "A", "text": "Deferring the loading of code or assets until they are needed (e.g., `loading=\"lazy\"`, `IntersectionObserver`, dynamic `import()`)." },
+      { "id": "B", "text": "Loading everything at once on first paint." },
+      { "id": "C", "text": "A GPU-only rendering mode in browsers." },
+      { "id": "D", "text": "A JSON parser optimization." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Lazy loading defers fetching/executing resources until demand; common tools are loading attributes, observers, and dynamic imports."],
+    "explanationIncorrect": ["Eager loading, GPU modes, and JSON parsing optimizations are unrelated."],
+    "source": "web.dev: Lazy loading images and video; MDN: loading attribute; Dynamic import()",
+    "category": "Performance & Web Vitals"
+  },
+  {
+    "id": "basic-063",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is a Content Security Policy (CSP)?\n```http\nContent-Security-Policy: default-src 'self'; script-src 'self' 'nonce-abc' 'strict-dynamic'; object-src 'none'; base-uri 'self'\n```",
+    "options": [
+      { "id": "A", "text": "A header/meta policy that whitelists sources and behaviors (using nonces/hashes for inline) to mitigate XSS and related attacks." },
+      { "id": "B", "text": "A cookie flag that disables JavaScript." },
+      { "id": "C", "text": "A TLS setting that enforces HSTS." },
+      { "id": "D", "text": "A CSS property to block external styles." }
+    ],
+    "correct": ["A"],
+    "explanation": ["CSP controls where resources can load/execute from, often using nonces/hashes to restrict inline scripts and reduce XSS risk."],
+    "explanationIncorrect": ["Cookies, TLS HSTS, and CSS properties are different mechanisms and do not describe CSP."],
+    "source": "W3C CSP Level 3; MDN: Content Security Policy (CSP)",
+    "category": "Web Security"
+  },
+  {
+    "id": "basic-064",
+    "version": 1,
+    "type": "single",
+    "prompt": "Which statement accurately describes WebSockets?\n```js\nconst ws = new WebSocket(\"wss://example.com/socket\");\nws.onmessage = e => console.log(e.data);\nws.send(\"hello\");\n// Validate Origin header server-side; CORS does not apply to WS\n```",
+    "options": [
+      { "id": "A", "text": "A full-duplex, persistent channel established via an HTTP(S) upgrade over TCP; not governed by CORS, though the Origin header is sent and should be validated server-side." },
+      { "id": "B", "text": "A one-way server-to-client stream over HTTP with auto-reconnect." },
+      { "id": "C", "text": "Periodic client polling of a REST endpoint." },
+      { "id": "D", "text": "A UDP-only transport protocol." }
+    ],
+    "correct": ["A"],
+    "explanation": ["WebSockets upgrade an HTTP(S) connection to a persistent, bidirectional TCP channel; servers should validate the Origin header."],
+    "explanationIncorrect": ["SSE is one-way, polling is not persistent duplex, and WebSockets are TCP-based—not UDP."],
+    "source": "RFC 6455 (The WebSocket Protocol); MDN: WebSockets",
+    "category": "Web Platform & Networking"
+  },
+  {
+    "id": "basic-065",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the difference between HTTP polling, Server-Sent Events (SSE), and WebSockets?\n```js\n// Polling\nsetInterval(() => fetch('/updates').then(r => r.json()), 5000);\n\n// SSE\nconst es = new EventSource('/events');\nes.onmessage = e => console.log(e.data);\n\n// WebSocket\nconst ws = new WebSocket('wss://example.com');\nws.onmessage = e => console.log(e.data);\nws.send('hi');\n```",
+    "options": [
+      { "id": "A", "text": "Polling: periodic client requests; SSE: one-way server→client events over HTTP with auto-reconnect; WebSockets: bidirectional messages over a persistent connection with low latency." },
+      { "id": "B", "text": "Polling and SSE are both bidirectional; WebSockets are request/response only." },
+      { "id": "C", "text": "SSE uses UDP; WebSockets use HTTP/3 exclusively." },
+      { "id": "D", "text": "Polling always streams data without additional requests." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Polling periodically re-requests; SSE provides unidirectional event streams with reconnection; WebSockets offer low-latency bidirectional messaging."],
+    "explanationIncorrect": ["SSE is not bidirectional; neither SSE nor polling use UDP; polling requires repeated requests rather than a single stream."],
+    "source": "MDN: Server-sent events; WebSockets; Real-time communication patterns",
+    "category": "Web Platform & Networking"
+  },
+  {
+    "id": "basic-066",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the scope chain?",
+    "options": [
+      { "id": "A", "text": "The chain of lexical environments used to resolve identifiers at runtime." },
+      { "id": "B", "text": "The order of CSS selectors overriding each other." },
+      { "id": "C", "text": "A list of event listeners attached to an element." },
+      { "id": "D", "text": "The list of modules imported into a file." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Identifier lookup walks nested lexical environments outward until a binding is found."],
+    "explanationIncorrect": [
+      "CSS specificity is unrelated to JavaScript name resolution.",
+      "Event listeners are not part of lexical name lookup.",
+      "Imported modules are separate from lexical environment chains."
+    ],
+    "source": "ECMAScript Language Specification (Environment Records, Lexical Environments); MDN: Scope",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-067",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the difference between an execution context and scope?",
+    "options": [
+      { "id": "A", "text": "An execution context packages the lexical/variable environments and this for a running function; scope is the set of bindings visible at a code location determined lexically." },
+      { "id": "B", "text": "Execution context equals the call stack, scope equals the heap." },
+      { "id": "C", "text": "Execution context is only for async code; scope is only for sync code." },
+      { "id": "D", "text": "They are the same concept." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Execution context is the runtime container (environments, this, etc.); scope is the lexical visibility of bindings."],
+    "explanationIncorrect": [
+      "Call stack vs heap is a memory model, not the definition here.",
+      "Execution contexts exist for all calls, not just async.",
+      "Scope and execution context are related but distinct concepts."
+    ],
+    "source": "ECMAScript Spec: Execution Contexts and Lexical Environments; MDN: Closures and Scope",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-068",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the Temporal Dead Zone (TDZ)?",
+    "options": [
+      { "id": "A", "text": "The period from block start until let/const initialization during which accesses throw ReferenceError (even typeof)." },
+      { "id": "B", "text": "The time when var variables are uninitialized but usable." },
+      { "id": "C", "text": "The time between microtasks and macrotasks." },
+      { "id": "D", "text": "A browser optimization to delay scripts." }
+    ],
+    "correct": ["A"],
+    "explanation": ["let/const are hoisted but uninitialized; accesses before initialization are in the TDZ and throw."],
+    "explanationIncorrect": [
+      "var is initialized to undefined, not TDZ-protected.",
+      "Microtask/macrotask phases are unrelated to TDZ.",
+      "TDZ is a language semantic, not an optimization pass."
+    ],
+    "source": "ECMAScript Spec: Let and Const Declarations; MDN: Temporal Dead Zone",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-069",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is strict mode in JavaScript?\n```js\n'use strict';\nfunction f(){\n  // this === undefined in functions called without an object\n}\n```",
+    "options": [
+      { "id": "A", "text": "'use strict' opt-in that tightens semantics: forbids silent failures, disallows with, changes this for unbound calls to undefined, etc." },
+      { "id": "B", "text": "A CSS setting for strict layout." },
+      { "id": "C", "text": "A Node flag that compiles to bytecode." },
+      { "id": "D", "text": "A JSON parser mode that allows comments." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Strict mode removes some silent errors, changes this-binding defaults, and disallows certain syntax."],
+    "explanationIncorrect": [
+      "CSS layout settings are unrelated.",
+      "Node compilation flags don’t define strict mode semantics.",
+      "JSON disallows comments; this is not a JSON feature."
+    ],
+    "source": "ECMAScript Spec: Strict Mode; MDN: Strict mode",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-070",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is event delegation?",
+    "options": [
+      { "id": "A", "text": "Attaching a single handler on an ancestor and handling descendant events via event propagation (event.target), instead of per-child handlers." },
+      { "id": "B", "text": "Binding events directly on each child node." },
+      { "id": "C", "text": "Stopping propagation at the target." },
+      { "id": "D", "text": "A server-side event queue." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Delegation leverages bubbling to manage many child interactions with a single ancestor listener."],
+    "explanationIncorrect": [
+      "Per-element handlers increase overhead and aren’t delegation.",
+      "Stopping propagation prevents delegation.",
+      "Server queues are unrelated to DOM event handling."
+    ],
+    "source": "MDN: Event delegation and Event bubbling",
+    "category": "Web Platform & Browser Internals"
+  },
+  {
+    "id": "basic-071",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the difference between event capturing and bubbling?",
+    "options": [
+      { "id": "A", "text": "Capturing travels from the document down to the target; bubbling travels from the target back up. Listener phase can be chosen with addEventListener options." },
+      { "id": "B", "text": "Capturing happens only for keyboard events; bubbling only for mouse events." },
+      { "id": "C", "text": "Capturing and bubbling are deprecated." },
+      { "id": "D", "text": "Capturing and bubbling occur only in Node.js." }
+    ],
+    "correct": ["A"],
+    "explanation": ["DOM events have two phases around the target; listeners can opt into capture or bubble."],
+    "explanationIncorrect": [
+      "Phases are not limited to specific event types.",
+      "These phases are standard, not deprecated.",
+      "They are browser DOM concepts, not Node-only."
+    ],
+    "source": "DOM Standard: Event flow; MDN: Event order, capture and bubble",
+    "category": "Web Platform & Browser Internals"
+  },
+  {
+    "id": "basic-072",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is a polyfill?",
+    "options": [
+      { "id": "A", "text": "A script that implements a newer API in older environments, typically enabled via feature detection." },
+      { "id": "B", "text": "A transpiler that converts ES6+ to ES5." },
+      { "id": "C", "text": "A minifier that reduces bundle size." },
+      { "id": "D", "text": "A CSS preprocessor." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Polyfills provide missing runtime APIs and are conditionally applied through feature detection."],
+    "explanationIncorrect": [
+      "Transpilers convert syntax, not runtime APIs.",
+      "Minifiers reduce size, not API availability.",
+      "Preprocessors compile CSS dialects; not polyfills."
+    ],
+    "source": "MDN: Polyfill; HTML5 Boilerplate feature detection patterns",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-073",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is destructuring?\n```js\nconst {a: x = 1, b, ...rest} = obj;\nconst [first, , third = 0, ...tail] = arr;\n```",
+    "options": [
+      { "id": "A", "text": "Binding syntax to unpack object properties or array elements into distinct variables (with defaults, renaming, and rest)." },
+      { "id": "B", "text": "A way to destroy objects to aid garbage collection." },
+      { "id": "C", "text": "A JSON parsing technique." },
+      { "id": "D", "text": "A DOM API for removing nodes." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Destructuring is ES binding syntax to extract values with defaults, renaming, and rest patterns."],
+    "explanationIncorrect": [
+      "Destructuring doesn’t delete objects.",
+      "JSON parsing is separate from binding syntax.",
+      "DOM node removal is unrelated."
+    ],
+    "source": "ECMAScript Spec: Destructuring Binding Patterns; MDN: Destructuring assignment",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-074",
+    "version": 1,
+    "type": "single",
+    "prompt": "What are template literals?\n```js\nconst who = 'world';\nconst msg = `Hello, ${who}!`;\n```",
+    "options": [
+      { "id": "A", "text": "Backtick-quoted strings supporting ${...} interpolation, multiline text, and tag functions for custom processing." },
+      { "id": "B", "text": "Strings that must be compiled by Babel." },
+      { "id": "C", "text": "A CSS templating language." },
+      { "id": "D", "text": "A JSON template syntax standardized by ECMA." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Template literals provide interpolation, multi-line support, and taggable processing hooks."],
+    "explanationIncorrect": [
+      "They are part of the language, not Babel-specific.",
+      "They are not a CSS language.",
+      "ECMA does not define a JSON templating syntax."
+    ],
+    "source": "ECMAScript Spec: Template Literals; MDN: Template literals",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-075",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the difference between a function declaration and a function expression?",
+    "options": [
+      { "id": "A", "text": "Declarations are hoisted and initialized before execution; expressions are values assigned to variables (only the variable binding is hoisted). Named expressions aid debugging." },
+      { "id": "B", "text": "Declarations are always anonymous; expressions must be named." },
+      { "id": "C", "text": "Declarations cannot be exported; expressions can be exported." },
+      { "id": "D", "text": "There is no difference." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Declarations are initialized at creation; expressions depend on the variable’s initialization point."],
+    "explanationIncorrect": [
+      "Declarations can be named; expressions can be anonymous or named.",
+      "Both declarations and expressions can be exported.",
+      "They differ in hoisting and initialization."
+    ],
+    "source": "ECMAScript Spec: Function Definitions; MDN: Function declarations vs expressions",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-076",
+    "version": 1,
+    "type": "single",
+    "prompt": "Which statement accurately describes arrow functions?",
+    "options": [
+      { "id": "A", "text": "Arrow functions have lexical this/arguments/super, are not constructible, and have no prototype; avoid them when you need dynamic this." },
+      { "id": "B", "text": "Arrow functions are identical to regular functions in all semantics." },
+      { "id": "C", "text": "Arrow functions always run faster than regular functions." },
+      { "id": "D", "text": "Arrow functions implicitly return undefined in expression bodies." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Arrows capture this/arguments lexically, cannot be used with new, and lack a prototype property."],
+    "explanationIncorrect": [
+      "They differ on this/arguments/prototype/constructibility.",
+      "Performance depends on context; no blanket guarantee.",
+      "Expression bodies return the expression value, not implicitly undefined."
+    ],
+    "source": "ECMAScript Spec: ArrowFunction; MDN: Arrow functions",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-077",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Which statements about optional chaining (?.) and nullish coalescing (??) are accurate? (Select all that apply)\n```js\nconst v = obj?.a?.b;\nconst x = a ?? fallback;\nconst y = a || fallback; // treats 0, '', false as falsy\n```",
+    "options": [
+      { "id": "A", "text": "Optional chaining (?.) short-circuits on null or undefined and yields undefined without throwing." },
+      { "id": "B", "text": "a ?? b returns b only if a is null or undefined, otherwise returns a." },
+      { "id": "C", "text": "a || b treats 0, '', and false as missing values, unlike ??." },
+      { "id": "D", "text": "Optional chaining throws a TypeError when a property is missing." }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": [
+      "Optional chaining returns undefined on nullish links rather than throwing.",
+      "Nullish coalescing only falls back for null/undefined.",
+      "Logical OR treats many falsy values as triggers, unlike ??."
+    ],
+    "explanationIncorrect": [
+      "Optional chaining avoids TypeError by returning undefined when the chain breaks."
+    ],
+    "source": "ECMAScript: Optional Chaining and Nullish Coalescing; MDN: Optional chaining; Nullish coalescing",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-078",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the difference between arguments and rest parameters?",
+    "options": [
+      { "id": "A", "text": "arguments is array-like of passed arguments (not in arrow functions; mapped to params only in non-strict), while rest ...args is a real array collecting remaining args." },
+      { "id": "B", "text": "Both are identical and interchangeable." },
+      { "id": "C", "text": "arguments works only in arrow functions." },
+      { "id": "D", "text": "Rest parameters capture only numbers." }
+    ],
+    "correct": ["A"],
+    "explanation": ["arguments lacks array methods and is unavailable in arrows; rest parameters produce true arrays."],
+    "explanationIncorrect": [
+      "They differ in availability and structure.",
+      "arguments is not available in arrow functions.",
+      "Rest parameters are not type-restricted."
+    ],
+    "source": "ECMAScript Spec: Arguments object; MDN: Rest parameters; arguments",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-079",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the difference between setTimeout(fn, 0) and Promise.then(...)?",
+    "options": [
+      { "id": "A", "text": "Promise reactions are queued as microtasks and run before timers (macrotasks) like setTimeout(0); nested timers may be clamped to ≥4 ms." },
+      { "id": "B", "text": "They are identical and run at the same time." },
+      { "id": "C", "text": "setTimeout(0) runs before all microtasks." },
+      { "id": "D", "text": "Promise.then is a macrotask while timers are microtasks." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Microtasks (Promises) flush after the current stack and before the next macrotask; timers are macrotasks and may be clamped."],
+    "explanationIncorrect": [
+      "They have different task-queue priorities.",
+      "Timers do not precede microtasks.",
+      "Promises are not macrotasks."
+    ],
+    "source": "HTML Standard: Event loop; MDN: Concurrency model and the event loop",
+    "category": "Web Platform & Browser Internals"
+  },
+  {
+    "id": "basic-080",
+    "version": 1,
+    "type": "single",
+    "prompt": "What does the JavaScript garbage collector do?",
+    "options": [
+      { "id": "A", "text": "Automatically reclaims memory for objects that are no longer reachable (typically mark-and-sweep); you can’t force GC, but dropping references makes objects collectible." },
+      { "id": "B", "text": "Manually frees memory when you call delete." },
+      { "id": "C", "text": "Clears all caches on every tick." },
+      { "id": "D", "text": "Moves objects to disk when memory is low." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Reachability determines liveness; garbage collectors reclaim unreachable objects automatically."],
+    "explanationIncorrect": [
+      "delete removes object properties; it does not free heap memory directly.",
+      "Cache behavior is unrelated to GC.",
+      "JavaScript engines don’t page objects to disk."
+    ],
+    "source": "MDN: Memory management; V8 blog: Garbage collection basics",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-081",
+    "version": 1,
+    "type": "single",
+    "prompt": "What are Symbols in JavaScript?\n```js\nconst k = Symbol('key');\nconst registryKey = Symbol.for('shared');\n```",
+    "options": [
+      { "id": "A", "text": "Unique, immutable primitive values often used as non-colliding property keys; not enumerated by most reflection methods; global registry via Symbol.for." },
+      { "id": "B", "text": "Special strings that start with @." },
+      { "id": "C", "text": "JSON keys that are faster to parse." },
+      { "id": "D", "text": "A CSS feature for icons." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Symbols are primitives providing unique keys and have special enumeration behavior; the registry enables shared symbols."],
+    "explanationIncorrect": [
+      "Symbols are not strings.",
+      "JSON parsing does not use symbols for keys.",
+      "CSS icon features are unrelated."
+    ],
+    "source": "ECMAScript Spec: Symbols; MDN: Symbol",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-082",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the difference between shallow equality and deep equality?",
+    "options": [
+      { "id": "A", "text": "Shallow equality compares top-level properties (or object identity), while deep equality recursively compares nested values; be careful with NaN and +0/-0 and cycles." },
+      { "id": "B", "text": "They are the same as ===." },
+      { "id": "C", "text": "Deep equality compares only references." },
+      { "id": "D", "text": "Shallow equality requires JSON serialization." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Shallow checks don’t traverse nested structures; deep checks recurse and must handle edge cases like NaN equality and cycles."],
+    "explanationIncorrect": [
+      "=== compares references/primitives, not structural deep equality.",
+      "Deep equality is about value structure, not mere references.",
+      "Serialization is neither required nor sufficient for equality."
+    ],
+    "source": "JavaScript equality discussions (MDN, libraries like fast-deep-equal); ECMAScript SameValue semantics",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-083",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is currying?",
+    "options": [
+      { "id": "A", "text": "Transforming a function of multiple arguments f(a,b,c) into a sequence f(a)(b)(c); distinct from partial application (pre-filling some arguments)." },
+      { "id": "B", "text": "Converting a function into a generator." },
+      { "id": "C", "text": "Converting a function into a Promise." },
+      { "id": "D", "text": "A CSS animation technique." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Currying turns multi-argument functions into unary chains; partial application fixes some arguments without changing arity."],
+    "explanationIncorrect": [
+      "Generators provide pausable iteration, not currying.",
+      "Promises represent async results, not function arity changes.",
+      "CSS animations are unrelated."
+    ],
+    "source": "Functional programming texts; MDN: Arrow functions and currying examples",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-084",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is an IIFE (Immediately-Invoked Function Expression)?\n```js\n(function(){ /* private scope */ })();\n(() => { /* private scope */ })();\n```",
+    "options": [
+      { "id": "A", "text": "A function expression that is executed immediately after it is defined, typically to create a private scope: (function(){ ... })().." },
+      { "id": "B", "text": "A function that is compiled only at runtime." },
+      { "id": "C", "text": "A special ES module import." },
+      { "id": "D", "text": "A Node.js CLI option." }
+    ],
+    "correct": ["A"],
+    "explanation": ["IIFEs create a new scope immediately, useful for encapsulation before modules were standard."],
+    "explanationIncorrect": [
+      "Compilation timing is unrelated to IIFEs.",
+      "Modules are a different mechanism for scoping.",
+      "CLI options are unrelated."
+    ],
+    "source": "MDN: IIFE; JavaScript patterns (revealing module/IIFE)",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-085",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the module pattern?",
+    "options": [
+      { "id": "A", "text": "Encapsulating private state inside a closure and exposing a public API (the “revealing module pattern”)." },
+      { "id": "B", "text": "A CSS methodology for naming classes." },
+      { "id": "C", "text": "A database sharding strategy." },
+      { "id": "D", "text": "An ES build step." }
+    ],
+    "correct": ["A"],
+    "explanation": ["The module pattern hides internals within a closure and returns only the public surface."],
+    "explanationIncorrect": [
+      "CSS methodologies (e.g., BEM) are unrelated.",
+      "Sharding strategies are backend/database topics.",
+      "Build steps don’t define the module pattern."
+    ],
+    "source": "JavaScript patterns literature (revealing module); MDN: Modules and patterns",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-086",
+    "version": 1,
+    "type": "single",
+    "prompt": "What does [] + [] evaluate to in JavaScript?",
+    "options": [
+      { "id": "A", "text": "\"\" (empty string)" },
+      { "id": "B", "text": "0" },
+      { "id": "C", "text": "\"[object Object]\"" },
+      { "id": "D", "text": "\"[]\"" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Arrays are coerced to primitives via ToPrimitive → ToString: \"\" + \"\" → \"\"."],
+    "explanationIncorrect": [
+      "0 comes from +[], not from [] + [].",
+      "\"[object Object]\" arises with [] + {} due to object stringification.",
+      "\"[]\" is not the result of array-to-string in this concatenation context."
+    ],
+    "source": "ECMAScript Language Specification: ToPrimitive/ToString; MDN: Type coercion",
+    "category": "JavaScript Quirks & Coercion"
+  },
+  {
+    "id": "basic-087",
+    "version": 1,
+    "type": "single",
+    "prompt": "In a normal expression context (not special REPL parsing), what do [] + {} and {} + [] evaluate to?",
+    "options": [
+      { "id": "A", "text": "Both evaluate to \"[object Object]\"" },
+      { "id": "B", "text": "[] + {} → \"[object Object]\", {} + [] → 0" },
+      { "id": "C", "text": "[] + {} → \"\", {} + [] → \"[]\"" },
+      { "id": "D", "text": "Both throw a TypeError" }
+    ],
+    "correct": ["A"],
+    "explanation": ["[] stringifies to \"\" and {} stringifies to \"[object Object]\"; concatenation yields \"[object Object]\" in both orders."],
+    "explanationIncorrect": [
+      "A leading {} parsed as an empty block is a REPL/statement quirk, not normal expression evaluation.",
+      "Empty string or \"[]\" results do not match the specified coercion rules here.",
+      "Concatenation and stringification do not throw."
+    ],
+    "source": "ECMAScript: ToString; MDN: JavaScript quirks (objects to primitives)",
+    "category": "JavaScript Quirks & Coercion"
+  },
+  {
+    "id": "basic-088",
+    "version": 1,
+    "type": "single",
+    "prompt": "What does typeof null return?",
+    "options": [
+      { "id": "A", "text": "\"object\"" },
+      { "id": "B", "text": "\"null\"" },
+      { "id": "C", "text": "\"undefined\"" },
+      { "id": "D", "text": "\"number\"" }
+    ],
+    "correct": ["A"],
+    "explanation": ["typeof null is the historical \"object\" quirk in JavaScript."],
+    "explanationIncorrect": [
+      "There is no \"null\" typeof result.",
+      "null is not undefined.",
+      "null is not the number type."
+    ],
+    "source": "MDN: typeof; JavaScript historical quirks",
+    "category": "JavaScript Quirks & Coercion"
+  },
+  {
+    "id": "basic-089",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the result of NaN === NaN?",
+    "options": [
+      { "id": "A", "text": "false" },
+      { "id": "B", "text": "true" },
+      { "id": "C", "text": "Throws a TypeError" },
+      { "id": "D", "text": "undefined" }
+    ],
+    "correct": ["A"],
+    "explanation": ["NaN is not equal to anything, including itself. Use Number.isNaN or Object.is."],
+    "explanationIncorrect": [
+      "Strict equality never returns true for NaN.",
+      "Comparisons don’t throw here.",
+      "Strict equality returns a boolean, not undefined."
+    ],
+    "source": "ECMAScript: Abstract Equality Comparison; MDN: Number.isNaN",
+    "category": "JavaScript Quirks & Coercion"
+  },
+  {
+    "id": "basic-090",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Which statements about isNaN and Number.isNaN are correct? (Select all that apply)",
+    "options": [
+      { "id": "A", "text": "isNaN('hello') returns true because it coerces to NaN" },
+      { "id": "B", "text": "Number.isNaN('hello') returns false because it doesn’t coerce" },
+      { "id": "C", "text": "Number.isNaN(NaN) returns true" },
+      { "id": "D", "text": "isNaN(123) returns true" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": [
+      "Legacy isNaN coerces non-number inputs, so non-numeric strings become NaN.",
+      "Number.isNaN is strict and only returns true for the NaN value without coercion.",
+      "Passing NaN to Number.isNaN yields true."
+    ],
+    "explanationIncorrect": [
+      "isNaN(123) is false because 123 is a valid number."
+    ],
+    "source": "MDN: Number.isNaN(); isNaN()",
+    "category": "JavaScript Quirks & Coercion"
+  },
+  {
+    "id": "basic-091",
+    "version": 1,
+    "type": "single",
+    "prompt": "What does console.log(0.1 + 0.2 === 0.3) print?",
+    "options": [
+      { "id": "A", "text": "false, due to binary floating-point rounding; compare with an epsilon if needed" },
+      { "id": "B", "text": "true" },
+      { "id": "C", "text": "Throws a TypeError" },
+      { "id": "D", "text": "It’s engine-dependent" }
+    ],
+    "correct": ["A"],
+    "explanation": ["IEEE-754 cannot represent 0.1 and 0.2 exactly; their sum slightly exceeds 0.3."],
+    "explanationIncorrect": [
+      "It is not exactly equal.",
+      "No exception is thrown.",
+      "All compliant engines show the same behavior."
+    ],
+    "source": "MDN: Floating-point arithmetic; IEEE-754 notes",
+    "category": "JavaScript Quirks & Coercion"
+  },
+  {
+    "id": "basic-092",
+    "version": 1,
+    "type": "single",
+    "prompt": "In an arrow function used as an object “method”, what is the value of this?",
+    "options": [
+      { "id": "A", "text": "It captures this from the surrounding (lexical) scope; it’s not the object and can’t be rebound with call/apply/bind" },
+      { "id": "B", "text": "It is always the object to the left of the dot" },
+      { "id": "C", "text": "It is always the global object" },
+      { "id": "D", "text": "It can be changed with call, apply, or bind" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Arrow functions have lexical this and ignore dynamic rebinding."],
+    "explanationIncorrect": [
+      "The left-of-dot rule applies to normal functions, not arrows.",
+      "this is not guaranteed global.",
+      "call/apply/bind do not affect arrow function this."
+    ],
+    "source": "MDN: Arrow functions — this; ECMAScript: ArrowFunction",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-093",
+    "version": 1,
+    "type": "single",
+    "prompt": "What does typeof NaN return?",
+    "options": [
+      { "id": "A", "text": "\"number\"" },
+      { "id": "B", "text": "\"NaN\"" },
+      { "id": "C", "text": "\"undefined\"" },
+      { "id": "D", "text": "\"object\"" }
+    ],
+    "correct": ["A"],
+    "explanation": ["NaN is a special value of the Number type; typeof NaN is \"number\"."],
+    "explanationIncorrect": [
+      "typeof never returns \"NaN\".",
+      "NaN is not undefined.",
+      "NaN is not an object."
+    ],
+    "source": "MDN: NaN; typeof",
+    "category": "JavaScript Quirks & Coercion"
+  },
+  {
+    "id": "basic-094",
+    "version": 1,
+    "type": "single",
+    "prompt": "What are the results of '5' - 2 and '5' + 2?",
+    "options": [
+      { "id": "A", "text": "'5' - 2 → 3; '5' + 2 → '52'" },
+      { "id": "B", "text": "'5' - 2 → '3'; '5' + 2 → 7" },
+      { "id": "C", "text": "Both evaluate to 7" },
+      { "id": "D", "text": "Both evaluate to '52'" }
+    ],
+    "correct": ["A"],
+    "explanation": ["The - operator coerces to numbers; + with a string performs concatenation."],
+    "explanationIncorrect": [
+      "Subtraction does not produce a string.",
+      "The operations differ: subtraction is numeric; + concatenates with a string.",
+      "Concatenation does not apply to the subtraction case."
+    ],
+    "source": "ECMAScript: Abstract Operations (ToNumber, Add); MDN: Type coercion",
+    "category": "JavaScript Quirks & Coercion"
+  },
+  {
+    "id": "basic-095",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the value of true + true?",
+    "options": [
+      { "id": "A", "text": "2" },
+      { "id": "B", "text": "1" },
+      { "id": "C", "text": "true" },
+      { "id": "D", "text": "Throws a TypeError" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Booleans coerce to numbers in arithmetic: true → 1, false → 0."],
+    "explanationIncorrect": [
+      "Adding two trues yields 2, not 1.",
+      "Arithmetic returns numbers, not booleans.",
+      "The operation does not throw."
+    ],
+    "source": "MDN: Type coercion; ECMAScript: ToNumber",
+    "category": "JavaScript Quirks & Coercion"
+  },
+  {
+    "id": "basic-096",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the result of [] == ![]?",
+    "options": [
+      { "id": "A", "text": "true" },
+      { "id": "B", "text": "false" },
+      { "id": "C", "text": "Throws a TypeError" },
+      { "id": "D", "text": "undefined" }
+    ],
+    "correct": ["A"],
+    "explanation": ["![] → false → 0; [] → \"\" → 0 under ==, so 0 == 0 is true."],
+    "explanationIncorrect": [
+      "The loose comparison evaluates to true after coercions.",
+      "No exception is thrown.",
+      "Equality returns a boolean, not undefined."
+    ],
+    "source": "ECMAScript: Abstract Equality Comparison; MDN: Equality comparisons and sameness",
+    "category": "JavaScript Quirks & Coercion"
+  },
+  {
+    "id": "basic-097",
+    "version": 1,
+    "type": "single",
+    "prompt": "Given `var a = {}; var b = {};` what does `console.log(a == b, a === b)` print?",
+    "options": [
+      { "id": "A", "text": "false false (both comparisons are false)" },
+      { "id": "B", "text": "true true" },
+      { "id": "C", "text": "true false" },
+      { "id": "D", "text": "false true" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Objects compare by reference; distinct references are unequal for both == and ===."],
+    "explanationIncorrect": [
+      "There is no implicit deep comparison producing equality.",
+      "Mixed true/false outcomes don’t apply here."
+    ],
+    "source": "MDN: Equality comparisons and sameness",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-098",
+    "version": 1,
+    "type": "single",
+    "prompt": "What are the results of +true and +false?",
+    "options": [
+      { "id": "A", "text": "1 and 0" },
+      { "id": "B", "text": "true and false" },
+      { "id": "C", "text": "NaN and NaN" },
+      { "id": "D", "text": "0 and 1" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Unary plus coerces booleans to numbers: true → 1, false → 0."],
+    "explanationIncorrect": [
+      "The operator returns numbers, not booleans.",
+      "Coercion is well-defined and not NaN for booleans.",
+      "The mapping is not reversed."
+    ],
+    "source": "ECMAScript: ToNumber; MDN: Unary plus (+)",
+    "category": "JavaScript Quirks & Coercion"
+  },
+  {
+    "id": "basic-099",
+    "version": 1,
+    "type": "single",
+    "prompt": "What are the results of [] == [] and [1] == [1]?",
+    "options": [
+      { "id": "A", "text": "Both are false (different references)" },
+      { "id": "B", "text": "Both are true (same contents)" },
+      { "id": "C", "text": "[] == [] is false, [1] == [1] is true" },
+      { "id": "D", "text": "Both throw a TypeError" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Arrays are objects and compare by identity; different instances are not equal with ==."],
+    "explanationIncorrect": [
+      "JavaScript does not perform deep equality for object/array comparisons.",
+      "Mixed outcomes don’t occur here; both are false.",
+      "Equality comparisons do not throw."
+    ],
+    "source": "MDN: Equality comparisons and sameness",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-100",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the result of 'b' + 'a' + +'a' + 'a'?",
+    "options": [
+      { "id": "A", "text": "'baNaNa'" },
+      { "id": "B", "text": "'banana'" },
+      { "id": "C", "text": "'baundefineda'" },
+      { "id": "D", "text": "Throws a TypeError" }
+    ],
+    "correct": ["A"],
+    "explanation": ["+'a' is NaN; string concatenation yields 'b' + 'a' + 'NaN' + 'a' → 'baNaNa'."],
+    "explanationIncorrect": [
+      "The lowercase word is not produced.",
+      "undefined is not involved in this coercion.",
+      "Unary plus on a non-numeric string yields NaN, not an error."
+    ],
+    "source": "MDN: Unary plus (+); Type coercion examples",
+    "category": "JavaScript Quirks & Coercion"
+  },
+  {
+    "id": "basic-101",
+    "version": 1,
+    "type": "single",
+    "prompt": "What does typeof function() {} return?",
+    "options": [
+      { "id": "A", "text": "\"function\"" },
+      { "id": "B", "text": "\"object\"" },
+      { "id": "C", "text": "\"callable\"" },
+      { "id": "D", "text": "\"method\"" }
+    ],
+    "correct": ["A"],
+    "explanation": ["typeof has a special case for functions and returns \"function\"."],
+    "explanationIncorrect": [
+      "While functions are objects, typeof does not return \"object\" for them.",
+      "typeof never returns \"callable\" or \"method\"."
+    ],
+    "source": "MDN: typeof",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-102",
+    "version": 1,
+    "type": "single",
+    "prompt": "What are the results of Object.is(+0, -0) and Object.is(NaN, NaN)?",
+    "options": [
+      { "id": "A", "text": "false and true" },
+      { "id": "B", "text": "true and false" },
+      { "id": "C", "text": "true and true" },
+      { "id": "D", "text": "false and false" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Object.is distinguishes +0 from -0 (false) and treats NaN as equal to itself (true)."],
+    "explanationIncorrect": [
+      "It does not conflate zero signs.",
+      "It does not consider NaN unequal to itself.",
+      "Both results are not false."
+    ],
+    "source": "MDN: Object.is",
+    "category": "JavaScript Quirks & Coercion"
+  },
+  {
+    "id": "basic-103",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the result of Infinity / Infinity?",
+    "options": [
+      { "id": "A", "text": "NaN" },
+      { "id": "B", "text": "Infinity" },
+      { "id": "C", "text": "0" },
+      { "id": "D", "text": "Throws a TypeError" }
+    ],
+    "correct": ["A"],
+    "explanation": ["Division of infinities is indeterminate and yields NaN in JavaScript."],
+    "explanationIncorrect": [
+      "The result is not Infinity.",
+      "The result is not zero.",
+      "No exception is thrown."
+    ],
+    "source": "MDN: Number; IEEE-754 behaviors in JavaScript",
+    "category": "JavaScript Quirks & Coercion"
+  },
+  {
+    "id": "basic-104",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Which statements about Math.max() and Math.min() with no arguments are true? (Select all that apply)",
+    "options": [
+      { "id": "A", "text": "Math.max() returns -Infinity" },
+      { "id": "B", "text": "Math.min() returns Infinity" },
+      { "id": "C", "text": "Math.max() returns undefined" },
+      { "id": "D", "text": "Math.min() throws a TypeError" }
+    ],
+    "correct": ["A", "B"],
+    "explanation": [
+      "Math.max() with no args returns -Infinity (identity for max).",
+      "Math.min() with no args returns Infinity (identity for min)."
+    ],
+    "explanationIncorrect": [
+      "Neither method returns undefined when called with no arguments.",
+      "Neither method throws when called with no arguments."
+    ],
+    "source": "MDN: Math.max(); Math.min()",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-105",
+    "version": 1,
+    "type": "single",
+    "prompt": "What happens when you execute delete obj.prop?",
+    "options": [
+      { "id": "A", "text": "It deletes an own configurable property and returns true; deleting a non-existent property also returns true. Variables declared with var/let/const cannot be deleted (and global var properties are typically non-configurable)." },
+      { "id": "B", "text": "It always throws a TypeError." },
+      { "id": "C", "text": "It removes variables declared with var from the global object." },
+      { "id": "D", "text": "It returns false when the property doesn’t exist." }
+    ],
+    "correct": ["A"],
+    "explanation": ["delete operates on object properties respecting the configurable attribute; deleting a missing property is a no-op that returns true."],
+    "explanationIncorrect": [
+      "The delete operator does not throw by default.",
+      "Declared variables are not removed by delete.",
+      "Deleting a non-existent property returns true, not false."
+    ],
+    "source": "MDN: delete operator; ECMAScript: DeletePropertyOrThrow",
+    "category": "JavaScript Fundamentals"
+  },
+  {
+    "id": "basic-106",
+    "version": 1,
+    "type": "single",
+    "prompt": "Which statement best contrasts Array.prototype.map and Array.prototype.reduce?",
+    "options": [
+      { "id": "A", "text": "reduce combines elements to produce a single accumulated value (of any type), while map returns a new array of the same length with transformed elements; both are non-mutating." },
+      { "id": "B", "text": "map mutates the original array but reduce never does." },
+      { "id": "C", "text": "Both map and reduce always return arrays." },
+      { "id": "D", "text": "reduce only works on numeric arrays." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Return shape and purity: reduce yields one accumulated value; map yields an equal-length transformed array; neither mutates the source."],
+    "explanationIncorrect": [
+      "Mutation claim: map does not mutate; reduce can return any type.",
+      "Array-only claim: reduce can return non-array values.",
+      "Numeric-only claim: reduce works with any types."
+    ],
+    "source": "MDN: Array.prototype.map; MDN: Array.prototype.reduce",
+    "category": "Arrays & Iteration"
+  },
+  {
+    "id": "basic-107",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the difference between a function’s .prototype property and an object’s [[Prototype]] (via __proto__ or Object.getPrototypeOf)?",
+    "options": [
+      { "id": "A", "text": "A function’s .prototype is the object used as the [[Prototype]] for instances created with new; an object’s [[Prototype]] is the actual internal link used for property lookup along the prototype chain." },
+      { "id": "B", "text": "They are identical and interchangeable names for the same thing." },
+      { "id": "C", "text": ".prototype controls lexical scope, while [[Prototype]] controls this." },
+      { "id": "D", "text": ".prototype is only for classes; [[Prototype]] is only for plain objects." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Constructor template vs. delegation link: .prototype is used when constructing; [[Prototype]] is the runtime link for property lookup."],
+    "explanationIncorrect": [
+      "Equivalence claim: they are distinct mechanisms.",
+      "Invented roles: prototypes do not control lexical scope or this binding.",
+      "Restriction claim: both apply beyond “classes” or “plain objects”."
+    ],
+    "source": "MDN: Prototypes, inheritance; MDN: Object.getPrototypeOf; ECMAScript [[Prototype]]",
+    "category": "JavaScript Objects & Prototypes"
+  },
+  {
+    "id": "basic-108",
+    "version": 1,
+    "type": "single",
+    "prompt": "What does the new operator do in JavaScript?",
+    "options": [
+      { "id": "A", "text": "It creates a new object whose [[Prototype]] is set to the constructor’s .prototype, calls the constructor with this bound to that object, and returns it unless the constructor returns an object explicitly." },
+      { "id": "B", "text": "It copies all methods from the constructor into this and ignores prototypes." },
+      { "id": "C", "text": "It creates a class in memory and compiles methods to bytecode." },
+      { "id": "D", "text": "It only allocates memory; method wiring happens later." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Specified construction flow: prototype linkage → constructor call with bound this → return new object unless an object is explicitly returned."],
+    "explanationIncorrect": [
+      "Method-copying claim: JavaScript uses delegation via prototypes, not copying.",
+      "Class-compilation claim: no class compilation step is performed by new.",
+      "Allocation-only claim: prototype linkage and constructor invocation happen immediately."
+    ],
+    "source": "ECMAScript: OrdinaryCreateFromConstructor; MDN: new operator",
+    "category": "JavaScript Objects & Prototypes"
+  },
+  {
+    "id": "basic-109",
+    "version": 1,
+    "type": "single",
+    "prompt": "How do you create a new object with a specific prototype without invoking a constructor?",
+    "options": [
+      { "id": "A", "text": "Use Object.create(proto) (optionally with property descriptors) to set the object’s [[Prototype]] to proto." },
+      { "id": "B", "text": "Call new proto() directly." },
+      { "id": "C", "text": "Use { __proto__: proto } in all modern code." },
+      { "id": "D", "text": "Use Object.assign(proto, {})."}
+    ],
+    "correct": ["A"],
+    "explanation": ["Constructor-free prototype selection: Object.create establishes [[Prototype]] directly and can define properties."],
+    "explanationIncorrect": [
+      "Using new: invokes constructor code rather than only setting [[Prototype]].",
+      "Literal __proto__: legacy/non-standard in some contexts; Object.create is preferred.",
+      "Object.assign: copies properties; does not change [[Prototype]]."
+    ],
+    "source": "MDN: Object.create; MDN: Object.assign",
+    "category": "JavaScript Objects & Prototypes"
+  },
+  {
+    "id": "basic-110",
+    "version": 1,
+    "type": "single",
+    "prompt": "Which method should you prefer for a single-pass computation like “sum of squares of even numbers” while keeping the original array unchanged?",
+    "options": [
+      { "id": "A", "text": "Use reduce with a conditional to accumulate only even numbers’ squares in one pass." },
+      { "id": "B", "text": "Chain filter().map().reduce() for clarity even if it means three passes." },
+      { "id": "C", "text": "Use forEach and mutate an external accumulator." },
+      { "id": "D", "text": "Use map to compute squares and rely on the engine to optimize away extra passes." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Single traversal: reduce can filter and transform during accumulation without mutating the source."],
+    "explanationIncorrect": [
+      "Multi-pass trade-off: filter→map→reduce is readable but performs multiple passes.",
+      "Side effects: forEach with external mutation is less functional and can be error-prone.",
+      "Wishful optimization: engines won’t generally fuse separate passes automatically."
+    ],
+    "source": "MDN: Array.prototype.reduce; Array method patterns",
+    "category": "Arrays & Iteration"
+  },
+  {
+    "id": "basic-111",
+    "version": 1,
+    "type": "single",
+    "prompt": "Which statement accurately describes microtasks vs macrotasks (and their ordering in the browser event loop)?",
+    "options": [
+      { "id": "A", "text": "Microtasks (e.g., Promise reactions, queueMicrotask, MutationObserver) run after the current call stack and before rendering and the next macrotask; macrotasks include timers (setTimeout, setInterval), I/O, postMessage, and UI events." },
+      { "id": "B", "text": "Macrotasks always run before microtasks to keep the UI responsive." },
+      { "id": "C", "text": "requestAnimationFrame callbacks are microtasks that run between macrotasks." },
+      { "id": "D", "text": "setTimeout callbacks are microtasks scheduled to run immediately after the current stack." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Ordering: after a task finishes, the microtask queue is drained; then the browser may render; then it takes the next macrotask. Promises/queueMicrotask/MutationObserver are microtasks; timers and many events are macrotasks."],
+    "explanationIncorrect": [
+      "Inverted order: macrotasks do not run before microtasks; microtasks are drained first.",
+      "Misclassification: requestAnimationFrame is a rendering-phase callback, not a microtask.",
+      "Misclassification: setTimeout enqueues a macrotask, not a microtask."
+    ],
+    "source": "MDN: Concurrency model and the event loop; HTML Standard: tasks, microtasks, and the event loop",
+    "category": "Event Loop & Concurrency"
+  },
+  {
+    "id": "basic-112",
+    "version": 1,
+    "type": "multi",
+    "prompt": "Which tasks are queued as microtasks in browsers? (Select all that apply)",
+    "options": [
+      { "id": "A", "text": "Promise reactions (then/catch/finally)" },
+      { "id": "B", "text": "queueMicrotask" },
+      { "id": "C", "text": "MutationObserver callbacks" },
+      { "id": "D", "text": "setTimeout" },
+      { "id": "E", "text": "setInterval" },
+      { "id": "F", "text": "requestAnimationFrame" }
+    ],
+    "correct": ["A", "B", "C"],
+    "explanation": ["Microtask sources: Promise reactions, queueMicrotask, and MutationObserver enqueue work on the microtask queue, which is drained after the current call stack and before the next macrotask and paint."],
+    "explanationIncorrect": [
+      "Timers: setTimeout enqueues a macrotask, not a microtask.",
+      "Timers: setInterval enqueues macrotasks at intervals, not microtasks.",
+      "Rendering phase: requestAnimationFrame runs before paint in the render step, not as a microtask."
+    ],
+    "source": "MDN: Microtasks and the event loop; HTML Standard: microtask queue",
+    "category": "Event Loop & Concurrency"
+  },
+  {
+    "id": "basic-113",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is the difference between setTimeout(fn, 0) and Promise.then(...)?",
+    "options": [
+      { "id": "A", "text": "Promise reactions are queued as microtasks and run before timers (macrotasks) like setTimeout(0); nested timers may be clamped to ≥4 ms." },
+      { "id": "B", "text": "They are identical and run at the same time." },
+      { "id": "C", "text": "setTimeout(0) runs before all microtasks." },
+      { "id": "D", "text": "Promise.then is a macrotask while timers are microtasks." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Scheduling: microtasks (Promise then/catch/finally) run before the next macrotask such as a setTimeout(0); repeated timers are also subject to minimum delay clamping."],
+    "explanationIncorrect": [
+      "Equivalence claim: they use different queues and do not run at the same time.",
+      "Inverted ordering: macrotask timers do not preempt microtasks.",
+      "Misclassification: Promise.then queues a microtask; timers are macrotasks."
+    ],
+    "source": "MDN: setTimeout; MDN: Using promises; HTML Standard: event loop and task queues",
+    "category": "Event Loop & Concurrency"
   }
 ]
