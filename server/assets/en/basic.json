@@ -2227,5 +2227,257 @@
     ],
     "source": "MDN: setTimeout; MDN: Using promises; HTML Standard: event loop and task queues",
     "category": "Event Loop & Concurrency"
+  },
+  {
+    "id": "basic-114",
+    "version": 1,
+    "type": "single",
+    "prompt": "How does a classic <script src=\"app.js\"> without attributes behave when placed in the <head>?",
+    "options": [
+      { "id": "A", "text": "The HTML parser stops until the file is fetched and executed; use near the end of <body> if you must run immediately." },
+      { "id": "B", "text": "It fetches in parallel and executes after parsing completes (order preserved)." },
+      { "id": "C", "text": "It fetches in parallel and executes as soon as it’s ready, even mid-parse (order not guaranteed)." },
+      { "id": "D", "text": "It is skipped unless defer or async is present." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Classic scripts are parser-blocking: the HTML parser pauses until the script is fetched and executed."],
+    "explanationIncorrect": [
+      "Defer behavior: 'executes after parsing completes (order preserved)' describes defer, not classic blocking scripts.",
+      "Async behavior: 'executes as soon as it’s ready, even mid-parse' describes async.",
+      "Execution: classic scripts run; they are not skipped for lacking async/defer."
+    ],
+    "source": "HTML Standard: Scripting; MDN: Script loading strategies (async vs defer vs classic)",
+    "category": "Scripts & Module Loading"
+  },
+  {
+    "id": "basic-115",
+    "version": 1,
+    "type": "single",
+    "prompt": "What does the defer attribute do on a classic script?",
+    "options": [
+      { "id": "A", "text": "Fetches in parallel and executes after HTML parsing is complete (before DOMContentLoaded), preserving order across deferred scripts." },
+      { "id": "B", "text": "Executes immediately when downloaded, possibly mid-parse, and does not preserve order." },
+      { "id": "C", "text": "Only works for inline scripts." },
+      { "id": "D", "text": "Guarantees execution after load rather than DOMContentLoaded." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Defer scripts download without blocking parsing and execute after parsing completes, before DOMContentLoaded, in document order."],
+    "explanationIncorrect": [
+      "Async behavior: 'executes immediately when downloaded, mid-parse, unordered' describes async, not defer.",
+      "Applicability: defer is for external scripts, not inline-only.",
+      "Timing: defer runs before the load event (just before DOMContentLoaded), not strictly after load."
+    ],
+    "source": "HTML Standard: The defer attribute; MDN: defer attribute",
+    "category": "Scripts & Module Loading"
+  },
+  {
+    "id": "basic-116",
+    "version": 1,
+    "type": "single",
+    "prompt": "What does the async attribute do on a classic script?",
+    "options": [
+      { "id": "A", "text": "Fetches in parallel and executes as soon as it’s ready, even during parsing; order is not guaranteed. Best for independent scripts (analytics/ads)." },
+      { "id": "B", "text": "Fetches in parallel and executes only after parsing; order is preserved." },
+      { "id": "C", "text": "Blocks the parser until execution completes." },
+      { "id": "D", "text": "Only applies to module scripts." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Async prioritizes earliest execution and does not coordinate with parsing or other scripts; execution order among async scripts is not preserved."],
+    "explanationIncorrect": [
+      "Defer behavior: 'executes after parsing with preserved order' describes defer, not async.",
+      "Blocking: async does not block the parser; classic unadorned scripts do.",
+      "Applicability: async is valid on classic external scripts, not module-only."
+    ],
+    "source": "HTML Standard: The async attribute; MDN: async attribute",
+    "category": "Scripts & Module Loading"
+  },
+  {
+    "id": "basic-117",
+    "version": 1,
+    "type": "single",
+    "prompt": "Which rule of thumb is best for typical app code that manipulates the DOM?",
+    "options": [
+      { "id": "A", "text": "Use defer." },
+      { "id": "B", "text": "Use async to maximize speed even if scripts depend on each other." },
+      { "id": "C", "text": "Always use blocking scripts in the <head>." },
+      { "id": "D", "text": "Inline everything for maximum cacheability." }
+    ],
+    "correct": ["A"],
+    "explanation": ["DOM-dependent app bundles benefit from post-parse execution and stable ordering; defer fits that pattern."],
+    "explanationIncorrect": [
+      "Dependencies: async breaks inter-script order, risking runtime errors.",
+      "Performance: blocking scripts in <head> hurt parsing and rendering.",
+      "Caching: inlining impairs caching and reuse; critical-only inline is preferable."
+    ],
+    "source": "MDN: Defer vs async; web.dev: Optimize loading third-party JavaScript",
+    "category": "Scripts & Module Loading"
+  },
+  {
+    "id": "basic-118",
+    "version": 1,
+    "type": "single",
+    "prompt": "You have multiple interdependent scripts that must run in a specific order. What should you choose?",
+    "options": [
+      { "id": "A", "text": "Use defer on each script (order preserved)." },
+      { "id": "B", "text": "Use async on each script (order not preserved)." },
+      { "id": "C", "text": "Use blocking scripts at the very top of <head>." },
+      { "id": "D", "text": "Inline all scripts in random order." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Defer preserves document order across multiple deferred scripts and runs them after parsing."],
+    "explanationIncorrect": [
+      "Ordering: async explicitly does not guarantee execution order.",
+      "Performance: early blocking scripts stall parsing and rendering.",
+      "Reliability: random inline order is brittle and error-prone."
+    ],
+    "source": "HTML Standard: Script execution order; MDN: defer vs async ordering",
+    "category": "Scripts & Module Loading"
+  },
+  {
+    "id": "basic-119",
+    "version": 1,
+    "type": "single",
+    "prompt": "You need an independent analytics tag that must not block the page. What should you choose?",
+    "options": [
+      { "id": "A", "text": "Use async." },
+      { "id": "B", "text": "Use defer." },
+      { "id": "C", "text": "Use a blocking <script> in <head>." },
+      { "id": "D", "text": "Use type=\"module\" with imports." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Independent third-party tags should use async so they can execute as soon as ready without blocking parsing or other scripts."],
+    "explanationIncorrect": [
+      "Timing: defer waits for full parse; analytics often want earliest safe execution.",
+      "Blocking: head-blocking scripts degrade page loading.",
+      "Complexity: modules add overhead and are unnecessary for a single independent tag."
+    ],
+    "source": "web.dev: Load third-party JavaScript; MDN: async scripts",
+    "category": "Scripts & Module Loading"
+  },
+  {
+    "id": "basic-120",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is true about <script type=\"module\" src=\"main.js\">?",
+    "options": [
+      { "id": "A", "text": "ES modules load deferred by default, have module scope (not global), and support import inside the file." },
+      { "id": "B", "text": "Modules are blocking unless you add defer." },
+      { "id": "C", "text": "Modules cannot use import inside the file." },
+      { "id": "D", "text": "Modules always execute before HTML parsing starts." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Module scripts are deferred by default, do not create globals, and can import dependencies via import statements."],
+    "explanationIncorrect": [
+      "Blocking claim: module scripts are not parser-blocking by default.",
+      "Import capability: import is a core feature of modules.",
+      "Timing: modules run after parsing, similar to defer, not before parsing."
+    ],
+    "source": "HTML Standard: Module scripts; MDN: JavaScript modules",
+    "category": "Scripts & Module Loading"
+  },
+  {
+    "id": "basic-121",
+    "version": 1,
+    "type": "single",
+    "prompt": "What is a good use (and limitation) of inline <script> code?",
+    "options": [
+      { "id": "A", "text": "It runs exactly where it appears (good for tiny handlers), but it’s hard to cache/reuse." },
+      { "id": "B", "text": "It automatically defers to after parsing and is fully cacheable." },
+      { "id": "C", "text": "It always executes before external scripts." },
+      { "id": "D", "text": "It is required for using import." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Inline scripts execute at their position in the document and cannot be cached as separate resources."],
+    "explanationIncorrect": [
+      "Deferral/caching: inline code does not auto-defer and cannot be cached like external files.",
+      "Ordering: execution depends on placement; inlines don’t universally precede externals.",
+      "Modules: import requires type=\"module\" with external or inline module code, not classic inline requirements."
+    ],
+    "source": "MDN: Script element; web.dev: Optimize JavaScript execution",
+    "category": "Scripts & Module Loading"
+  },
+  {
+    "id": "basic-122",
+    "version": 1,
+    "type": "single",
+    "prompt": "With defer or type=\"module\", when does your script run relative to DOM parsing, and do you usually need DOMContentLoaded?",
+    "options": [
+      { "id": "A", "text": "It runs after the DOM is fully parsed (before DOMContentLoaded), so you usually don’t need to wait for DOMContentLoaded." },
+      { "id": "B", "text": "It runs mid-parse and you must listen for DOMContentLoaded." },
+      { "id": "C", "text": "It runs only after the load event." },
+      { "id": "D", "text": "Timing is undefined and varies randomly per browser." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Deferred/module scripts execute after parsing completes but before DOMContentLoaded, making extra DOM-ready listeners typically unnecessary."],
+    "explanationIncorrect": [
+      "Mid-parse: this describes async, not defer/modules.",
+      "Load-event timing: load is later than defer/module execution.",
+      "Determinism: timing is well-defined by the spec."
+    ],
+    "source": "HTML Standard: Script processing; MDN: defer and module scripts",
+    "category": "Scripts & Module Loading"
+  },
+  {
+    "id": "basic-123",
+    "version": 1,
+    "type": "single",
+    "prompt": "You placed a classic blocking script near the top of the document and it touches the DOM. What event should you wait for?",
+    "options": [
+      { "id": "A", "text": "Wait for DOMContentLoaded (or load) before touching the DOM." },
+      { "id": "B", "text": "No need to wait; the DOM is already parsed." },
+      { "id": "C", "text": "Use requestAnimationFrame instead." },
+      { "id": "D", "text": "Add async to fix ordering." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Early blocking scripts run before the DOM is fully parsed; waiting for DOMContentLoaded (or later) ensures elements exist."],
+    "explanationIncorrect": [
+      "Parsing state: near-top scripts execute before the DOM is built.",
+      "Rendering hook: requestAnimationFrame is about painting, not DOM readiness.",
+      "Async attribute: async changes timing unpredictably and won’t ensure DOM readiness."
+    ],
+    "source": "MDN: DOMContentLoaded; MDN: Script placement",
+    "category": "Scripts & Module Loading"
+  },
+  {
+    "id": "basic-124",
+    "version": 1,
+    "type": "single",
+    "prompt": "Which statement about ordering is correct?",
+    "options": [
+      { "id": "A", "text": "Multiple defer scripts execute in document order; multiple async scripts execute as each finishes (order not guaranteed)." },
+      { "id": "B", "text": "Both defer and async preserve order." },
+      { "id": "C", "text": "Neither preserves order; only blocking preserves order." },
+      { "id": "D", "text": "Only inline scripts preserve order." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Defer preserves document order; async executes as soon as each script is ready, without order guarantees."],
+    "explanationIncorrect": [
+      "Ordering claim: async does not preserve order.",
+      "Ordering claim: defer does preserve order after parsing.",
+      "Inline-only: order can be preserved via defer without blocking."
+    ],
+    "source": "HTML Standard: Script ordering; MDN: async and defer differences",
+    "category": "Scripts & Module Loading"
+  },
+  {
+    "id": "basic-125",
+    "version": 1,
+    "type": "single",
+    "prompt": "You have a tiny critical script that must run right before </body> and doesn’t need imports or other files. What is a pragmatic choice?",
+    "options": [
+      { "id": "A", "text": "A classic <script> without attributes placed just before </body>." },
+      { "id": "B", "text": "async in the <head>." },
+      { "id": "C", "text": "defer in the <head>." },
+      { "id": "D", "text": "type=\"module\" with imports." }
+    ],
+    "correct": ["A"],
+    "explanation": ["Placing a small inline/external classic script just before </body> runs it immediately after parsing without complicating loading behavior."],
+    "explanationIncorrect": [
+      "Head async: execution timing is earlier and unordered relative to other scripts; unnecessary here.",
+      "Head defer: adds indirection; end-of-body placement already ensures DOM readiness.",
+      "Modules: extra overhead when no imports or module features are needed."
+    ],
+    "source": "MDN: Script loading strategies; web.dev: Efficiently load third-party JavaScript",
+    "category": "Scripts & Module Loading"
   }
 ]
